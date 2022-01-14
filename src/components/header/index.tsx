@@ -1,7 +1,14 @@
-import { Flex, HStack, Text } from '@chakra-ui/react'
+import {
+    Flex,
+    HStack,
+    Text
+} from '@chakra-ui/react'
+
 import { GiAbstract027 } from 'react-icons/gi'
+
 import AddMenu from './add'
 import EditMenu from './edit'
+import EffectMenu from './effect'
 import FilesMenu from './files'
 
 const Header = () => (
@@ -32,6 +39,7 @@ const Header = () => (
             <FilesMenu />
             <EditMenu />
             <AddMenu />
+            <EffectMenu />
         </HStack>
     </Flex>
 )

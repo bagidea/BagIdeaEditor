@@ -8,6 +8,7 @@ import {
 } from '@chakra-ui/react'
 
 import {
+    AiFillDelete,
     AiFillEdit,
     AiOutlineClear
 } from 'react-icons/ai'
@@ -41,7 +42,7 @@ const EditMenu = () => {
                     >Redo</MenuItem>
                     <MenuItem icon={ <AiOutlineClear /> }>Clear history</MenuItem>
                 </MenuGroup>
-                <MenuGroup title="- Clipboard -">
+                <MenuGroup title="- Manage -">
                     <MenuItem
                         icon={ <FaCopy /> }
                         command="Ctrl + C"
@@ -50,6 +51,10 @@ const EditMenu = () => {
                         icon={ <FaPaste /> }
                         command="Ctrl + V"
                     >Paste</MenuItem>
+                    <MenuItem
+                        icon={ <AiFillDelete /> }
+                        command="Del"
+                    >Delete</MenuItem>
                 </MenuGroup>
             </MenuList>
         </Menu>

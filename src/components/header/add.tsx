@@ -7,11 +7,9 @@ import {
     MenuList
 } from '@chakra-ui/react'
 
-import { AiOutlineAppstoreAdd } from 'react-icons/ai'
-import { GiAmethyst } from 'react-icons/gi'
-
 import {
     BsDot,
+    BsFillCameraReelsFill,
     BsFillLightbulbFill
 } from 'react-icons/bs'
 
@@ -20,9 +18,14 @@ import {
     useSelector
 } from 'react-redux'
 
+import {
+    Engine,
+    SceneChild
+} from '../../engine'
+
+import { AiOutlineAppstoreAdd } from 'react-icons/ai'
 import { RootState } from '../../redux/reducers'
 import { GeometryTypes } from '../../engine/geometry/geometryTypes'
-import { Engine, SceneChild } from '../../engine'
 import { Mesh } from 'three'
 
 const AddMenu = () => {
@@ -71,11 +74,9 @@ const AddMenu = () => {
                     <MenuItem icon={ <BsFillLightbulbFill /> }>Point</MenuItem>
                     <MenuItem icon={ <BsFillLightbulbFill /> }>Spot</MenuItem>
                 </MenuGroup>
-                <MenuGroup title="- Compositors -">
-                    <MenuItem icon={ <GiAmethyst /> }>Depth of Field</MenuItem>
-                    <MenuItem icon={ <GiAmethyst /> }>FXAA</MenuItem>
-                    <MenuItem icon={ <GiAmethyst /> }>Unreal bloom</MenuItem>
-                    <MenuItem icon={ <GiAmethyst /> }>SSAO</MenuItem>
+                <MenuGroup title="- Camera -">
+                    <MenuItem icon={ <BsFillCameraReelsFill /> }>Perspective</MenuItem>
+                    <MenuItem icon={ <BsFillCameraReelsFill /> }>Orthographic</MenuItem>
                 </MenuGroup>
             </MenuList>
         </Menu>
