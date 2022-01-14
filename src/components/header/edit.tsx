@@ -20,7 +20,14 @@ import {
     FaUndoAlt
 } from 'react-icons/fa'
 
+import { useSelector } from 'react-redux'
+import { RootState } from '../../redux/reducers'
+import { SceneCanvas } from '../display/scene/canvas'
+
 const EditMenu = () => {
+    const { sceneContext } = useSelector((state: RootState) => state.context3DSlice)
+    const scene: SceneCanvas = sceneContext?.context
+
     return (
         <Menu>
             <MenuButton
@@ -54,6 +61,7 @@ const EditMenu = () => {
                     <MenuItem
                         icon={ <AiFillDelete /> }
                         command="Del"
+                        onClick={ () => scene.delObject() }
                     >Delete</MenuItem>
                 </MenuGroup>
             </MenuList>

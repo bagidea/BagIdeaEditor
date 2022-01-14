@@ -18,18 +18,21 @@ export class SceneCanvas {
     setMode: Dispatch<SetStateAction<string>>
     setSpace: Dispatch<SetStateAction<string>>
     setSelect: (object: any) => void
+    delObject: () => void
 
     constructor(
         windowContext: MutableRefObject<HTMLDivElement>,
         canvas: MutableRefObject<HTMLCanvasElement>,
         setMode: Dispatch<SetStateAction<string>>,
         setSpace: Dispatch<SetStateAction<string>>,
-        setSelect: (object: any) => void
+        setSelect: (object: any) => void,
+        delObject: () => void
     ) {
         this.engine = new Engine(windowContext.current, canvas.current)
         this.setMode = setMode
         this.setSpace = setSpace
         this.setSelect = setSelect
+        this.delObject = delObject
     }
 
     init() {
@@ -43,7 +46,7 @@ export class SceneCanvas {
         this.engine.start()
         this.engine.canvas.addEventListener('pointerdown', this.pointerDown)
         this.engine.canvas.addEventListener('pointerup', this.pointerUp)
-        window.addEventListener('keypress', this.keyPress)
+        window.addEventListener('keydown', this.keyDown)
     }
 
     pointerDown = () => {
@@ -73,7 +76,8 @@ export class SceneCanvas {
         this.setSpace(space)
     }
 
-    keyPress = (e: KeyboardEvent) => {
+    keyDown = (e: KeyboardEvent) => {
+        //console.log("press key: "+e.code)
         switch(e.code) {
             case "KeyQ":
                 this.setTransformMode("translate")
@@ -86,6 +90,9 @@ export class SceneCanvas {
                 break
             case "Space":
                 this.setTransformSpace((this.engine.transformControl.space == "world") ? "local" : "world")
+                break
+            case "Delete":
+                if(this.lastSelected != -1) this.delObject()
                 break
         }
     }

@@ -19,8 +19,8 @@ function* context3DAddSceneChild(object: any) {
     yield put(addSceneChild(object))
 }
 
-function* context3DRemoveSceneChild(object: any) {
-    yield put(removeSceneChild(object))
+function* context3DRemoveSceneChild(action: any) {
+    yield put(removeSceneChild(action))
 }
 
 function* context3DSetSceneSelectChild(index: any) {

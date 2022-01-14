@@ -22,8 +22,8 @@ const context3DSlice = createSlice({
         addSceneChild: (state, object) => {
             state.sceneChildren.push(object.payload)
         },
-        removeSceneChild: (state, object) => {
-            state.sceneChildren.splice(state.sceneChildren.findIndex(object.payload), 1)
+        removeSceneChild: (state, action) => {
+            state.sceneChildren.splice(action.payload.index, 1)
         },
         setSceneSelectChild: (state, action) => {
             state.sceneChildren[action.payload.values.index].isSelect = action.payload.values.isSelect
