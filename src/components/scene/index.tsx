@@ -1,7 +1,22 @@
-import { Flex, HStack, Text, VStack } from '@chakra-ui/react'
-import { MutableRefObject, useEffect, useRef } from 'react'
-import { GiCargoShip } from 'react-icons/gi'
-import { useDispatch, useSelector } from 'react-redux'
+import {
+    Flex,
+    HStack,
+    Text,
+    VStack
+} from '@chakra-ui/react'
+
+import {
+    useDispatch,
+    useSelector
+} from 'react-redux'
+
+import {
+    MutableRefObject,
+    useEffect,
+    useRef
+} from 'react'
+
+import { GiCoalWagon } from 'react-icons/gi'
 import { RootState } from '../../redux/reducers'
 import { SceneChild } from '../../engine'
 import Child from './child'
@@ -58,7 +73,7 @@ const Scene = () => {
                 pl="10px"
             >
                 <HStack>
-                    <GiCargoShip size="20px" />
+                    <GiCoalWagon size="20px" />
 
                     <Text
                         fontSize="20px"

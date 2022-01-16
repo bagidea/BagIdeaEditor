@@ -7,7 +7,7 @@ import {
 import Assets from '../src/components/assets'
 import Display from '../src/components/display'
 import Header from '../src/components/header'
-import Properties from '../src/components/properties'
+import Properties from '../src/components/inspector'
 import Scene from '../src/components/scene'
 
 const Index = () => (
