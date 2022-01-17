@@ -81,6 +81,7 @@ const Scene = () => {
     useEffect(() => {
         if(!!scene) scene.sceneChildren = children
         //console.log(children)
+        //if(!!scene) console.log(scene.lastSelected)
     }, [children])
 
     useEffect(() => {

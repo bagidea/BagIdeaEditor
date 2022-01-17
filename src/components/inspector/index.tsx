@@ -4,11 +4,31 @@ import {
     Text,
     VStack
 } from "@chakra-ui/react"
+import { useEffect, useState } from "react"
 
 import { ImEqualizer } from "react-icons/im"
+import { useSelector } from "react-redux"
+import { SceneChild } from "../../engine"
+import { RootState } from "../../redux/reducers"
+import { SceneCanvas } from "../display/scene/canvas"
 import Transform from "./transform"
 
 const Inspector = () => {
+    const { sceneContext } = useSelector((state: RootState) => state.context3DSlice)
+    const scene: SceneCanvas = sceneContext?.context
+    const children: SceneChild[] = useSelector((state: RootState) => state.context3DSlice.sceneChildren)
+
+    const [isTransform, setTransform] = useState(false)
+
+    useEffect(() => {
+        let is_trans: boolean = false
+
+        if(!!scene) is_trans = scene.lastSelected != -1 ? true : false
+        else is_trans = false
+
+        setTransform(is_trans)
+    }, [children])
+
     return (
         <Flex
             minW="350px"
@@ -36,7 +56,10 @@ const Inspector = () => {
                     </HStack>
                 </Flex>
 
-                <Transform />
+                <Transform
+                    isSelect={ isTransform }
+                    object={ (!!scene) ? scene.sceneChildren[scene.lastSelected] : null }
+                />
             </VStack>
         </Flex>
     )

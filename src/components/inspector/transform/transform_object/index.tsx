@@ -5,7 +5,13 @@ import {
 } from "@chakra-ui/react"
 import TransformInput from "./transform_input"
 
-const TransformObject: React.FC<{ text: string }> = ({ text }) => {
+export interface TransformValues {
+    x: number,
+    y: number,
+    z: number
+}
+
+const TransformObject: React.FC<{ text: string, values: TransformValues }> = ({ text, values }) => {
     return (
         <HStack
             w="full"
@@ -23,9 +29,9 @@ const TransformObject: React.FC<{ text: string }> = ({ text }) => {
             </Flex>
 
             <HStack>
-                <TransformInput text="x" />
-                <TransformInput text="y" />
-                <TransformInput text="z" />
+                <TransformInput text="x" value={ values.x } />
+                <TransformInput text="y" value={ values.y } />
+                <TransformInput text="z" value={ values.z } />
             </HStack>
         </HStack>
     )

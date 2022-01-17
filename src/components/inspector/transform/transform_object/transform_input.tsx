@@ -4,7 +4,7 @@ import {
     Text
 } from "@chakra-ui/react"
 
-const TransformInput: React.FC<{ text: string }> = ({ text }) => {
+const TransformInput: React.FC<{ text: string, value: number }> = ({ text, value }) => {
     return (
         <HStack
             alignItems="center"
@@ -19,6 +19,7 @@ const TransformInput: React.FC<{ text: string }> = ({ text }) => {
                 h="30px"
                 type="number"
                 padding="5px"
+                defaultValue={ value }
             />
         </HStack>
     )
