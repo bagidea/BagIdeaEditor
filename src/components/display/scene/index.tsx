@@ -20,6 +20,8 @@ import { MdCropRotate, MdPivotTableChart } from 'react-icons/md'
 import { RiDragMoveFill } from 'react-icons/ri'
 import { RootState } from '../../../redux/reducers'
 import { SceneChild } from '../../../engine'
+import { SelectTransform } from '../../../redux/slices/context_3d'
+import { Object3D } from 'three'
 
 let scene: SceneCanvas
 
@@ -52,11 +54,21 @@ const Scene = () => {
 
             scene.lastSelected = scene.sceneChildren.findIndex((v: SceneChild) => v.object.object.id == object.id)
             onSelectChild(scene.lastSelected, true)
+
+            dispatch({
+                type: "context_3d@setSelectObject",
+                object: scene.sceneChildren[scene.lastSelected]
+            })
         } else {
             if(scene.lastSelected != -1) {
                 onSelectChild(scene.lastSelected, false)
                 scene.lastSelected = -1
             }
+
+            dispatch({
+                type: "context_3d@setSelectObject",
+                object: null
+            })
         }
     }
 
@@ -75,6 +87,40 @@ const Scene = () => {
             scene.engine.objects.splice(index, 1)
 
             scene.lastSelected = -1
+
+            dispatch({
+                type: "context_3d@setSelectObject",
+                object: null
+            })
+        }
+    }
+
+    const objectChangeDetect = () => {
+        const obj: Object3D = scene.sceneChildren[scene.lastSelected].object.object
+
+        const transform: SelectTransform = {
+            position: {
+                x: obj.position.x,
+                y: obj.position.y,
+                z: obj.position.z
+            },
+            rotation: {
+                x: obj.rotation.x,
+                y: obj.rotation.y,
+                z: obj.rotation.z
+            },
+            scale: {
+                x: obj.scale.x,
+                y: obj.scale.y,
+                z: obj.scale.z
+            }
+        }
+
+        if(!!obj) {
+            dispatch({
+                type: "context_3d@setSelectTransform",
+                transform
+            })
         }
     }
 
@@ -93,7 +139,8 @@ const Scene = () => {
             setMode,
             setSpace,
             setSelect,
-            delObject
+            delObject,
+            objectChangeDetect
         )
         scene.init()
         scene.start()

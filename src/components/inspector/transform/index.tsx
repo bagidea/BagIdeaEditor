@@ -6,34 +6,53 @@ import {
 } from "@chakra-ui/react"
 
 import TransformObject, { TransformValues } from "./transform_object"
-import React, { useState } from "react"
+import React , { useEffect } from "react"
 import { BsDot } from "react-icons/bs"
-import { MathUtils, Object3D } from "three"
+import { MathUtils } from "three"
+import { useDispatch, useSelector } from "react-redux"
+import { RootState } from "../../../redux/reducers"
+import { SelectTransform } from "../../../redux/slices/context_3d"
 
-const Transform: React.FC<{ isSelect: boolean, object: any }> = ({ isSelect, object }) => {
-    /*const [position, setPositon] = useState({ x: 0, y: 0, z: 0 })
-    const [rotation, setRotation] = useState({ x: 0, y: 0, z: 0 })
-    const [scale, setScale] = useState({ x: 1, y: 1, z: 1 })*/
-
-    /*if(!!object) {
-        const obj: any = object
-        if(obj.isSelect && isSelect) {
-            const _obj: Object3D = obj.object.object
-
-            //console.log(_obj.position)
-            //console.log(_obj.rotation)
-            //console.log(_obj.scale)
-
-            //setPositon({
-            //    x: _obj.position.x,
-            //    y: _obj.position.y,
-            //    z: _obj.position.z
-            //})
-        }
-    }*/
-
-    const obj: any = (!!object) ? object.object.object : null
+const Transform: React.FC<{ isSelect: boolean }> = ({ isSelect }) => {
+    const object: any = useSelector((state: RootState) => state.context3DSlice.selectObject)
+    const obj: any = object?.object?.object?.object
     const objNull: TransformValues = { x: 0, y: 0, z: 0 }
+    const trans: any = useSelector((state: RootState) => state.context3DSlice.selectTransforms)
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        //console.log(obj)
+        if(!!obj) {
+            const transform: SelectTransform = {
+                position: {
+                    x: obj.position.x,
+                    y: obj.position.y,
+                    z: obj.position.z
+                },
+                rotation: {
+                    x: obj.rotation.x,
+                    y: obj.rotation.y,
+                    z: obj.rotation.z
+                },
+                scale: {
+                    x: obj.scale.x,
+                    y: obj.scale.y,
+                    z: obj.scale.z
+                }
+            }
+
+            if(!!obj) {
+                dispatch({
+                    type: "context_3d@setSelectTransform",
+                    transform
+                })
+            }
+        }
+    }, [object])
+
+    /*useEffect(() => {
+        console.log(trans)
+    }, [trans])*/
 
     return (
         <Flex
@@ -69,24 +88,24 @@ const Transform: React.FC<{ isSelect: boolean, object: any }> = ({ isSelect, obj
                     bgColor="gray.800"
                 >
                     <TransformObject text="position" values={
-                        !!obj ? {
-                            x: obj.position.x,
-                            y: obj.position.y,
-                            z: obj.position.z
+                        !!trans ? {
+                            x: trans.transform.position.x,
+                            y: trans.transform.position.y,
+                            z: trans.transform.position.z
                         } : objNull
                     } />
                     <TransformObject text="rotation" values={
-                        !!obj ? {
-                            x: MathUtils.radToDeg(obj.rotation.x),
-                            y: MathUtils.radToDeg(obj.rotation.y),
-                            z: MathUtils.radToDeg(obj.rotation.z)
+                        !!trans ? {
+                            x: MathUtils.radToDeg(trans.transform.rotation.x),
+                            y: MathUtils.radToDeg(trans.transform.rotation.y),
+                            z: MathUtils.radToDeg(trans.transform.rotation.z)
                         } : objNull }
                     />
                     <TransformObject text="scale" values={
-                        !!obj ? {
-                            x: obj.scale.x,
-                            y: obj.scale.y,
-                            z: obj.scale.z
+                        !!trans ? {
+                            x: trans.transform.scale.x,
+                            y: trans.transform.scale.y,
+                            z: trans.transform.scale.z
                         } : objNull }
                     />
                 </VStack>

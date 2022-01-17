@@ -7,7 +7,7 @@ import {
 import { useEffect, useState } from "react"
 
 import { ImEqualizer } from "react-icons/im"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { SceneChild } from "../../engine"
 import { RootState } from "../../redux/reducers"
 import { SceneCanvas } from "../display/scene/canvas"
@@ -56,10 +56,7 @@ const Inspector = () => {
                     </HStack>
                 </Flex>
 
-                <Transform
-                    isSelect={ isTransform }
-                    object={ (!!scene) ? scene.sceneChildren[scene.lastSelected] : null }
-                />
+                <Transform isSelect={ isTransform }/>
             </VStack>
         </Flex>
     )

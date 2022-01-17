@@ -19,6 +19,7 @@ export class SceneCanvas {
     setSpace: Dispatch<SetStateAction<string>>
     setSelect: (object: any) => void
     delObject: () => void
+    //objectChangeDetect: () => void
 
     constructor(
         windowContext: MutableRefObject<HTMLDivElement>,
@@ -26,13 +27,15 @@ export class SceneCanvas {
         setMode: Dispatch<SetStateAction<string>>,
         setSpace: Dispatch<SetStateAction<string>>,
         setSelect: (object: any) => void,
-        delObject: () => void
+        delObject: () => void,
+        objectChangeDetect: () => void
     ) {
         this.engine = new Engine(windowContext.current, canvas.current)
         this.setMode = setMode
         this.setSpace = setSpace
         this.setSelect = setSelect
         this.delObject = delObject
+        this.objectChangeDetect = objectChangeDetect
     }
 
     init() {
@@ -47,6 +50,7 @@ export class SceneCanvas {
         this.engine.canvas.addEventListener('pointerdown', this.pointerDown)
         this.engine.canvas.addEventListener('pointerup', this.pointerUp)
         window.addEventListener('keydown', this.keyDown)
+        this.engine.transformControl.addEventListener('objectChange', this.objectChange)
     }
 
     pointerDown = () => {
@@ -95,5 +99,9 @@ export class SceneCanvas {
                 if(this.lastSelected != -1) this.delObject()
                 break
         }
+    }
+
+    objectChange = () => {
+        this.objectChangeDetect()
     }
 }
