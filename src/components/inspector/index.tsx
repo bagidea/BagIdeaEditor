@@ -15,6 +15,7 @@ import { useSelector } from 'react-redux'
 import { SceneChild } from '../../engine'
 import { RootState } from '../../redux/reducers'
 import { SceneCanvas } from '../display/scene/canvas'
+import NameInput from './name_input'
 import Transform from './transform'
 
 const Inspector = () => {
@@ -22,7 +23,8 @@ const Inspector = () => {
     const scene: SceneCanvas = sceneContext?.context
     const children: SceneChild[] = useSelector((state: RootState) => state.context3DSlice.sceneChildren)
 
-    const [isTransform, setTransform] = useState(false)
+    const [isSelect, setSelect] = useState(false)
+    const [isName, setName] = useState("")
 
     useEffect(() => {
         let is_trans: boolean = false
@@ -30,7 +32,15 @@ const Inspector = () => {
         if(!!scene) is_trans = scene.lastSelected != -1 ? true : false
         else is_trans = false
 
-        setTransform(is_trans)
+        setSelect(is_trans)
+
+        //if(!!scene && scene.lastSelected != -1) console.log(scene.sceneChildren[scene.lastSelected].object.name)
+        //console.log(scene)
+        setName(
+            !!scene && scene.lastSelected != -1 ?
+            !!scene.sceneChildren[scene.lastSelected] ?
+            scene.sceneChildren[scene.lastSelected].object.name : "" : ""
+        )
     }, [children])
 
     return (
@@ -60,7 +70,11 @@ const Inspector = () => {
                     </HStack>
                 </Flex>
 
-                <Transform isSelect={ isTransform }/>
+                <NameInput
+                    isSelect={ isSelect }
+                    text={ isName }
+                />
+                <Transform isSelect={ isSelect } />
             </VStack>
         </Flex>
     )

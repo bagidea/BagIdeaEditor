@@ -60,6 +60,7 @@ const Transform: React.FC<{ isSelect: boolean }> = ({ isSelect }) => {
             w="full"
             h="50px"
             padding="3px"
+            pt="0px"
         >
             <VStack
                 w="full"

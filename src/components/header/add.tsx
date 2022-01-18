@@ -61,6 +61,16 @@ const AddMenu = () => {
         }
     }
 
+    const onSelectChild = (index: number, value: boolean) => {
+        dispatch({
+            type: "context_3d@setSceneSelectChild",
+            values: {
+                index: index,
+                isSelect: value
+            }
+        })
+    }
+
     const addChild = (type: GeometryTypes) => {
         const mesh: Mesh = engine.addObject(type)
 
@@ -70,28 +80,31 @@ const AddMenu = () => {
             object: mesh
         }
 
+        if(sceneContext.context.lastSelected != -1) {
+            engine.transformControl.detach()
+
+            onSelectChild(sceneContext.context.lastSelected, false)
+
+            dispatch({
+                type: "context_3d@setSelectObject",
+                object: null
+            })
+        }
+        engine.transformControl.attach(mesh)
+        sceneContext.context.lastSelected = sceneContext.context.sceneChildren.length
+        sendToStore(mesh)
+
         dispatch({
             type: "context_3d@addSceneChild",
             object: object
         })
 
-        dispatch({
-            type: "context_3d@setSceneSelectChild",
-            values: {
-                index: sceneContext.context.sceneChildren.length,
-                isSelect: true
-            }
-        })
+        onSelectChild(sceneContext.context.sceneChildren.length, true)
 
         dispatch({
             type: "context_3d@setSelectObject",
             object: mesh
         })
-
-        if(sceneContext.context.lastSelected != -1) engine.transformControl.detach()
-        engine.transformControl.attach(mesh)
-        sceneContext.context.lastSelected = sceneContext.context.sceneChildren.length
-        sendToStore(mesh)
     }
 
     return (
