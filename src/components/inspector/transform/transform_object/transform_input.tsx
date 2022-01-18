@@ -3,9 +3,20 @@ import {
     Input,
     Text
 } from '@chakra-ui/react'
-import { BaseSyntheticEvent, MutableRefObject, useEffect, useRef, useState } from 'react'
 
-import { useDispatch, useSelector } from 'react-redux'
+import {
+    BaseSyntheticEvent,
+    MutableRefObject,
+    useEffect,
+    useRef,
+    useState
+} from 'react'
+
+import {
+    useDispatch,
+    useSelector
+} from 'react-redux'
+
 import { MathUtils } from 'three'
 import { RootState } from '../../../../redux/reducers'
 import { SelectTransform } from '../../../../redux/slices/context_3d'

@@ -105,7 +105,7 @@ export class SceneCanvas {
 
     objectChange = () => {
         const time: number = new Date().getTime()
-        if(time-this.tmr >= 100) {
+        if(time-this.tmr >= 200) {
             this.objectChangeDetect()
             this.tmr = time
         }
