@@ -21,6 +21,8 @@ export class SceneCanvas {
     delObject: () => void
     //objectChangeDetect: () => void
 
+    tmr: number = new Date().getTime()
+
     constructor(
         windowContext: MutableRefObject<HTMLDivElement>,
         canvas: MutableRefObject<HTMLCanvasElement>,
@@ -102,6 +104,10 @@ export class SceneCanvas {
     }
 
     objectChange = () => {
-        this.objectChangeDetect()
+        const time: number = new Date().getTime()
+        if(time-this.tmr >= 100) {
+            this.objectChangeDetect()
+            this.tmr = time
+        }
     }
 }

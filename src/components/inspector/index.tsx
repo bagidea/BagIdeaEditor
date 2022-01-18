@@ -3,15 +3,19 @@ import {
     HStack,
     Text,
     VStack
-} from "@chakra-ui/react"
-import { useEffect, useState } from "react"
+} from '@chakra-ui/react'
 
-import { ImEqualizer } from "react-icons/im"
-import { useDispatch, useSelector } from "react-redux"
-import { SceneChild } from "../../engine"
-import { RootState } from "../../redux/reducers"
-import { SceneCanvas } from "../display/scene/canvas"
-import Transform from "./transform"
+import {
+    useEffect,
+    useState
+} from 'react'
+
+import { ImEqualizer } from 'react-icons/im'
+import { useSelector } from 'react-redux'
+import { SceneChild } from '../../engine'
+import { RootState } from '../../redux/reducers'
+import { SceneCanvas } from '../display/scene/canvas'
+import Transform from './transform'
 
 const Inspector = () => {
     const { sceneContext } = useSelector((state: RootState) => state.context3DSlice)

@@ -26,12 +26,40 @@ import {
 import { AiOutlineAppstoreAdd } from 'react-icons/ai'
 import { RootState } from '../../redux/reducers'
 import { GeometryTypes } from '../../engine/geometry/geometryTypes'
+import { SelectTransform } from '../../redux/slices/context_3d'
 import { Mesh } from 'three'
 
 const AddMenu = () => {
     const { sceneContext } = useSelector((state: RootState) => state.context3DSlice)
     const engine: Engine = sceneContext?.context.engine
     const dispatch = useDispatch()
+
+    const sendToStore = (obj: any) => {
+        const transform: SelectTransform = {
+            position: {
+                x: obj.position.x,
+                y: obj.position.y,
+                z: obj.position.z
+            },
+            rotation: {
+                x: obj.rotation.x,
+                y: obj.rotation.y,
+                z: obj.rotation.z
+            },
+            scale: {
+                x: obj.scale.x,
+                y: obj.scale.y,
+                z: obj.scale.z
+            }
+        }
+
+        if(!!obj) {
+            dispatch({
+                type: "context_3d@setSelectTransform",
+                transform
+            })
+        }
+    }
 
     const addChild = (type: GeometryTypes) => {
         const mesh: Mesh = engine.addObject(type)
@@ -46,6 +74,11 @@ const AddMenu = () => {
             type: "context_3d@addSceneChild",
             object: object
         })
+
+        if(sceneContext.context.lastSelected != -1) engine.transformControl.detach()
+        engine.transformControl.attach(mesh)
+        sceneContext.context.lastSelected = sceneContext.context.sceneChildren.length
+        sendToStore(mesh)
     }
 
     return (

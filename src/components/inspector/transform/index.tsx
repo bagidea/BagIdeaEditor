@@ -3,15 +3,15 @@ import {
     HStack,
     Text,
     VStack
-} from "@chakra-ui/react"
+} from '@chakra-ui/react'
 
-import TransformObject, { TransformValues } from "./transform_object"
-import React , { useEffect } from "react"
-import { BsDot } from "react-icons/bs"
-import { MathUtils } from "three"
-import { useDispatch, useSelector } from "react-redux"
-import { RootState } from "../../../redux/reducers"
-import { SelectTransform } from "../../../redux/slices/context_3d"
+import TransformObject, { TransformValues } from './transform_object'
+import React , { useEffect } from 'react'
+import { BsDot } from 'react-icons/bs'
+import { MathUtils } from 'three'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from '../../../redux/reducers'
+import { SelectTransform } from '../../../redux/slices/context_3d'
 
 const Transform: React.FC<{ isSelect: boolean }> = ({ isSelect }) => {
     const object: any = useSelector((state: RootState) => state.context3DSlice.selectObject)
