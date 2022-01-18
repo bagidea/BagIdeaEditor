@@ -18,26 +18,26 @@ const TransformInput: React.FC<{ text: string, type_input: string, value: number
     const [_value, setValue] = useState(value)
     const value_input: MutableRefObject<HTMLInputElement> = useRef<HTMLInputElement>(null)
 
-    const sendToStore = () => {
+    const sendToStore = (_obj: any) => {
         const transform: SelectTransform = {
             position: {
-                x: obj.position.x,
-                y: obj.position.y,
-                z: obj.position.z
+                x: _obj.position.x,
+                y: _obj.position.y,
+                z: _obj.position.z
             },
             rotation: {
-                x: obj.rotation.x,
-                y: obj.rotation.y,
-                z: obj.rotation.z
+                x: _obj.rotation.x,
+                y: _obj.rotation.y,
+                z: _obj.rotation.z
             },
             scale: {
-                x: obj.scale.x,
-                y: obj.scale.y,
-                z: obj.scale.z
+                x: _obj.scale.x,
+                y: _obj.scale.y,
+                z: _obj.scale.z
             }
         }
 
-        if(!!obj) {
+        if(!!_obj) {
             dispatch({
                 type: "context_3d@setSelectTransform",
                 transform
@@ -47,40 +47,41 @@ const TransformInput: React.FC<{ text: string, type_input: string, value: number
 
     const updateTransform = (e: BaseSyntheticEvent) => {
         //console.log(type_input)
+        const _obj: any = !!obj ? obj : object.object
         const pos: number = e.target.value
         setValue(pos)
 
         switch(type_input) {
             case "position_x":
-                obj.position.x = pos
+                _obj.position.x = pos
                 break
             case "position_y":
-                obj.position.y = pos
+                _obj.position.y = pos
                 break
             case "position_z":
-                obj.position.z = pos
+                _obj.position.z = pos
                 break
             case "rotation_x":
-                obj.rotation.x = MathUtils.degToRad(pos)
+                _obj.rotation.x = MathUtils.degToRad(pos)
                 break
             case "rotation_y":
-                obj.rotation.y = MathUtils.degToRad(pos)
+                _obj.rotation.y = MathUtils.degToRad(pos)
                 break
             case "rotation_z":
-                obj.rotation.z = MathUtils.degToRad(pos)
+                _obj.rotation.z = MathUtils.degToRad(pos)
                 break
             case "scale_x":
-                obj.scale.x = pos
+                _obj.scale.x = pos
                 break
             case "scale_y":
-                obj.scale.y = pos
+                _obj.scale.y = pos
                 break
             case "scale_z":
-                obj.scale.z = pos
+                _obj.scale.z = pos
                 break
         }
 
-        sendToStore()
+        sendToStore(_obj)
     }
 
     useEffect(() => {

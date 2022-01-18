@@ -75,6 +75,19 @@ const AddMenu = () => {
             object: object
         })
 
+        dispatch({
+            type: "context_3d@setSceneSelectChild",
+            values: {
+                index: sceneContext.context.sceneChildren.length,
+                isSelect: true
+            }
+        })
+
+        dispatch({
+            type: "context_3d@setSelectObject",
+            object: mesh
+        })
+
         if(sceneContext.context.lastSelected != -1) engine.transformControl.detach()
         engine.transformControl.attach(mesh)
         sceneContext.context.lastSelected = sceneContext.context.sceneChildren.length
