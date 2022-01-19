@@ -76,7 +76,7 @@ const Transform: React.FC<{ isSelect: boolean }> = ({ isSelect }) => {
                         <BsDot />
 
                         <Text
-                            fontSize="16px"
+                            fontSize="15px"
                             color="gray.200"
                         >Transform</Text>
                     </HStack>
