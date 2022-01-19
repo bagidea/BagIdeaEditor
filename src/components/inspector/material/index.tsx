@@ -39,37 +39,51 @@ const Material = () => {
                 <VStack
                     py="10px"
                     w="full"
-                    spacing="5px"
+                    spacing="15px"
                     bgColor="gray.800"
                 >
-                    <Text
-                        fontSize="16px"
-                        fontWeight="600"
-                    >Basic</Text>
-                    <MaterialAndMap text="Albedo" hasColor={ true } />
-                    <MaterialAndMap text="Normal" />
-                    <MaterialAndMap text="Bump" />
-                    <MaterialAndMap text="Alpha" />
-                    <MaterialAndMap text="Ambient Occusion" />
-                    <MaterialAndMap text="Metalness" />
-                    <MaterialAndMap text="Roughness" />
-                    <MaterialAndMap text="Emissive" hasColor={ true } />
-                    <MaterialAndMap text="Displacement" />
-                    <MaterialAndMap text="Environment" />
-                    <MaterialAndMap text="Light" />
+                    <VStack
+                        w="full"
+                        spacing="5px"
+                    >
+                        <Text
+                            fontSize="16px"
+                            fontWeight="600"
+                        >Standard</Text>
+                        <MaterialAndMap text="Albedo" hasColor={ true } />
+                        <MaterialAndMap text="Normal" />
+                        <MaterialAndMap text="Bump" />
+                        <MaterialAndMap text="Alpha" />
+                        <MaterialAndMap text="Ambient Occusion" />
+                        <MaterialAndMap text="Metalness" />
+                        <MaterialAndMap text="Roughness" />
+                        <MaterialAndMap text="Emissive" hasColor={ true } />
+                        <MaterialAndMap text="Displacement" />
+                        <MaterialAndMap text="Environment" />
+                        <MaterialAndMap text="Light" />
+                    </VStack>
+
                     <Box
                         w="90%"
                         h="2px"
-                        mb="10px"
                         bgColor="gray.700"
                     />
-                    <Text
-                        fontSize="16px"
-                        fontWeight="600"
-                    >Clearoat</Text>
-                    <MaterialAndMap text="Clearcoat" />
-                    <MaterialAndMap text="Clearcoat Normal" />
-                    <MaterialAndMap text="Clearcoat Roughness" />
+
+                    <VStack
+                        w="full"
+                        spacing="5px"
+                    >
+                        <Text
+                            fontSize="16px"
+                            fontWeight="600"
+                        >Advance</Text>
+                        <MaterialAndMap text="Clearcoat" />
+                        <MaterialAndMap text="Clearcoat Normal" />
+                        <MaterialAndMap text="Clearcoat Roughness" />
+                        <MaterialAndMap text="SheenColor" hasColor={ true } />
+                        <MaterialAndMap text="SheenRoughness" />
+                        <MaterialAndMap text="Transmission" />
+                    </VStack>
                 </VStack>
             </VStack>
         </Flex>
