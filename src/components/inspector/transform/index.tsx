@@ -58,7 +58,6 @@ const Transform: React.FC<{ isSelect: boolean }> = ({ isSelect }) => {
         <Flex
             display={ isSelect ? "flex" : "none" }
             w="full"
-            h="50px"
             padding="3px"
             pt="0px"
         >

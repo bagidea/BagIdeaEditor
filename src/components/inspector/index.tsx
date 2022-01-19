@@ -15,6 +15,7 @@ import { useSelector } from 'react-redux'
 import { SceneChild } from '../../engine'
 import { RootState } from '../../redux/reducers'
 import { SceneCanvas } from '../display/scene/canvas'
+import Material from './material'
 import NameInput from './name_input'
 import Transform from './transform'
 
@@ -74,7 +75,10 @@ const Inspector = () => {
                     isSelect={ isSelect }
                     text={ isName }
                 />
+
                 <Transform isSelect={ isSelect } />
+
+                <Material />
             </VStack>
         </Flex>
     )

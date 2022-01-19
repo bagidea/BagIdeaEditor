@@ -100,6 +100,10 @@ export class SceneCanvas {
             case "Delete":
                 if(this.lastSelected != -1) this.delObject()
                 break
+            /*case "KeyP":
+                this.engine.renderer.render(this.engine.scene, this.engine.camera)
+                console.log(this.engine.renderer.domElement.toDataURL())
+                break*/
         }
     }
 

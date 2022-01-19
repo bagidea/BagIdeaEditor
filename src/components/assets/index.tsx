@@ -39,7 +39,16 @@ const Assets = () => (
             >
             </Flex>
 
-            <Text>Material</Text>
+            <Flex
+                w="100px"
+                justifyContent="center"
+            >
+                <Text
+                    whiteSpace="nowrap"
+                    overflow="hidden"
+                    textOverflow="ellipsis"
+                >Default</Text>
+            </Flex>
         </VStack>
     </Flex>
 )

@@ -32,7 +32,6 @@ const NameInput: React.FC<{ isSelect: boolean, text: string }> = ({ isSelect, te
         <Flex
             display={ isSelect ? "flex" : "none" }
             w="full"
-            h="50px"
             padding="3px"
         >
             <Flex
@@ -45,12 +44,14 @@ const NameInput: React.FC<{ isSelect: boolean, text: string }> = ({ isSelect, te
                 <HStack
                     w="full"
                 >
-                    <BsDot />
+                    <HStack>
+                        <BsDot />
 
-                    <Text
-                        fontSize="16px"
-                        color="gray.200"
-                    >Name:</Text>
+                        <Text
+                            fontSize="16px"
+                            color="gray.200"
+                        >Name:</Text>
+                    </HStack>
 
                     <Input
                         w="full"

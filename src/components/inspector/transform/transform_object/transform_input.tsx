@@ -58,8 +58,11 @@ const TransformInput: React.FC<{ text: string, type_input: string, value: number
 
     const updateTransform = (e: BaseSyntheticEvent) => {
         //console.log(type_input)
+
         const _obj: any = !!obj ? obj : object.object
-        const pos: number = e.target.value
+        const pos: number = e.target.value*1
+
+        value_input.current.value = pos.toString()
         setValue(pos)
 
         switch(type_input) {
