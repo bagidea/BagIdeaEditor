@@ -2,14 +2,25 @@ import {
     Box,
     Flex,
     HStack,
+    Input,
+    Slider,
+    SliderFilledTrack,
+    SliderMark,
+    SliderThumb,
+    SliderTrack,
     Text,
+    Tooltip,
     VStack
 } from '@chakra-ui/react'
+import { useState } from 'react'
 
 import { BsDot } from 'react-icons/bs'
 import MaterialAndMap from './material_and_map'
 
 const Material = () => {
+    const [sliderValue, setSliderValue] = useState(50)
+    const [showTooltip, setShowTooltip] = useState(false)
+
     return (
         <Flex
             w="full"
@@ -52,7 +63,59 @@ const Material = () => {
                         >Standard</Text>
                         <MaterialAndMap text="Albedo" hasColor={ true } />
                         <MaterialAndMap text="Normal" />
+
                         <MaterialAndMap text="Bump" />
+                        <VStack
+                            w="full"
+                            pl="67px"
+                            pr="15px"
+                            alignItems="left"
+                            spacing="0px"
+                        >
+                            <Text>BumpScale</Text>
+
+                            <HStack
+                                w="full"
+                                pb="15px"
+                            >
+                                <Slider
+                                    aria-label="slider-ex-1"
+                                    defaultValue={ 50 }
+                                    onChange={(v) => setSliderValue(v)}
+                                    onMouseEnter={() => setShowTooltip(true)}
+                                    onMouseLeave={() => setShowTooltip(false)}
+                                >
+                                    <SliderMark value={ 0 } mt='1' ml='2px' fontSize='sm'>0.0</SliderMark>
+                                    <SliderMark value={ 100 } mt='1' ml='-20px' fontSize='sm'>1.0</SliderMark>
+                                    <SliderTrack>
+                                        <SliderFilledTrack />
+                                    </SliderTrack>
+                                    <Tooltip
+                                        hasArrow
+                                        bg='teal.500'
+                                        color='white'
+                                        placement='top'
+                                        isOpen={showTooltip}
+                                        label={ (sliderValue/100).toFixed(2) }
+                                    >
+                                        <SliderThumb
+                                            boxSize="10px"
+                                            _focus={ { boxShadow: "0px" } }
+                                        />
+                                    </Tooltip>
+                                </Slider>
+
+                                <Input
+                                    w="50px"
+                                    h="30px"
+                                    px="0px"
+                                    focusBorderColor="gray.400"
+                                    textAlign="center"
+                                    value={ (sliderValue/100).toFixed(2) } 
+                                />
+                            </HStack>
+                        </VStack>
+
                         <MaterialAndMap text="Alpha" />
                         <MaterialAndMap text="Ambient Occusion" />
                         <MaterialAndMap text="Metalness" />

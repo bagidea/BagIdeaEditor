@@ -58,6 +58,7 @@ const NameInput: React.FC<{ isSelect: boolean, text: string }> = ({ isSelect, te
                         h="30px"
                         padding="5px"
                         bgColor="gray.800"
+                        focusBorderColor="gray.400"
                         value={ _value }
                         onChange={ updateTransform }
                         ref={ value_input }

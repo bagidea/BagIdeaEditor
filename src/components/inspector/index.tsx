@@ -46,12 +46,14 @@ const Inspector = () => {
 
     return (
         <Flex
+            w="350px"
             minW="350px"
             h="full"
             bgColor="gray.900"
         >
             <VStack
                 w="full"
+                h="full"
                 spacing="3px"
             >
                 <Flex
@@ -71,14 +73,33 @@ const Inspector = () => {
                     </HStack>
                 </Flex>
 
-                <NameInput
-                    isSelect={ isSelect }
-                    text={ isName }
-                />
+                <Flex
+                    w="full"
+                    h="full"
+                    overflowY="scroll"
+                    css={
+                        {
+                            '&::-webkit-scrollbar': { background: "#1D4044", width: '10px' },
+                            '&::-webkit-scrollbar-track': { width: '10px' },
+                            '&::-webkit-scrollbar-thumb': { background: "#000000" }
+                        }
+                    }
+                >
+                    <VStack
+                        w="full"
+                        h="full"
+                        spacing="3px"
+                    >
+                        <NameInput
+                            isSelect={ isSelect }
+                            text={ isName }
+                        />
 
-                <Transform isSelect={ isSelect } />
+                        <Transform isSelect={ isSelect } />
 
-                <Material />
+                        <Material />
+                    </VStack>
+                </Flex>
             </VStack>
         </Flex>
     )

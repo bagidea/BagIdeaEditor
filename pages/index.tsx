@@ -7,13 +7,14 @@ import {
 import Assets from '../src/components/assets'
 import Display from '../src/components/display'
 import Header from '../src/components/header'
-import Properties from '../src/components/inspector'
+import Inspector from '../src/components/inspector'
 import Scene from '../src/components/scene'
 
 const Index = () => (
     <Flex
         w="100vw"
         h="100vh"
+        overflow="hidden"
     >
         <VStack spacing="5px">
             <Header />
@@ -21,6 +22,7 @@ const Index = () => (
             <HStack
                 w="100vw"
                 h="full"
+                overflow="hidden"
             >
                 <VStack
                     w="full"
@@ -35,7 +37,7 @@ const Index = () => (
                     </HStack>
                     <Assets />
                 </VStack>
-                <Properties />
+                <Inspector />
             </HStack>
         </VStack>
     </Flex>
