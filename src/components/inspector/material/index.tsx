@@ -8,6 +8,7 @@ import {
     SliderMark,
     SliderThumb,
     SliderTrack,
+    Spacer,
     Text,
     Tooltip,
     VStack
@@ -16,11 +17,9 @@ import { useState } from 'react'
 
 import { BsDot } from 'react-icons/bs'
 import MaterialAndMap from './material_and_map'
+import MaterialSlider from './material_slider.tsx'
 
 const Material = () => {
-    const [sliderValue, setSliderValue] = useState(50)
-    const [showTooltip, setShowTooltip] = useState(false)
-
     return (
         <Flex
             w="full"
@@ -55,75 +54,208 @@ const Material = () => {
                 >
                     <VStack
                         w="full"
-                        spacing="5px"
+                        spacing="10px"
                     >
                         <Text
                             fontSize="16px"
                             fontWeight="600"
                         >Standard</Text>
-                        <MaterialAndMap text="Albedo" hasColor={ true } />
-                        <MaterialAndMap text="Normal" />
 
-                        <MaterialAndMap text="Bump" />
+                        <MaterialAndMap text="Albedo" hasColor={ true } />
+
                         <VStack
                             w="full"
-                            pl="67px"
-                            pr="15px"
-                            alignItems="left"
-                            spacing="0px"
+                            spacing="2px"
                         >
-                            <Text>BumpScale</Text>
-
+                            <MaterialAndMap text="Normal" />
                             <HStack
                                 w="full"
-                                pb="15px"
+                                pl="67px"
+                                pr="15px"
                             >
-                                <Slider
-                                    aria-label="slider-ex-1"
-                                    defaultValue={ 50 }
-                                    onChange={(v) => setSliderValue(v)}
-                                    onMouseEnter={() => setShowTooltip(true)}
-                                    onMouseLeave={() => setShowTooltip(false)}
-                                >
-                                    <SliderMark value={ 0 } mt='1' ml='2px' fontSize='sm'>0.0</SliderMark>
-                                    <SliderMark value={ 100 } mt='1' ml='-20px' fontSize='sm'>1.0</SliderMark>
-                                    <SliderTrack>
-                                        <SliderFilledTrack />
-                                    </SliderTrack>
-                                    <Tooltip
-                                        hasArrow
-                                        bg='teal.500'
-                                        color='white'
-                                        placement='top'
-                                        isOpen={showTooltip}
-                                        label={ (sliderValue/100).toFixed(2) }
-                                    >
-                                        <SliderThumb
-                                            boxSize="10px"
-                                            _focus={ { boxShadow: "0px" } }
-                                        />
-                                    </Tooltip>
-                                </Slider>
+                                <Text>Normal Scale:</Text>
+                                <Spacer />
+                                <HStack>
+                                    <Text>x</Text>
+                                    <Input
+                                        w="50px"
+                                        h="30px"
+                                        px="2px"
+                                        focusBorderColor="gray.400"
+                                        textAlign="center"
+                                        defaultValue={ (1).toFixed(2) }
+                                    />
+                                </HStack>
+                                <HStack>
+                                    <Text>y</Text>
+                                    <Input
+                                        w="50px"
+                                        h="30px"
+                                        px="2px"
+                                        focusBorderColor="gray.400"
+                                        textAlign="center"
+                                        defaultValue={ (1).toFixed(2) }
+                                    />
+                                </HStack>
+                            </HStack>
+                        </VStack>
 
+                        <VStack
+                            w="full"
+                            spacing="2px"
+                        >
+                            <MaterialAndMap text="Bump" />
+                            <MaterialSlider text="Bump Scale" value={ 50 } />
+                        </VStack>
+
+                        <MaterialAndMap text="Alpha" />
+
+                        <VStack
+                            w="full"
+                            spacing="2px"
+                        >
+                            <MaterialAndMap text="Ambient Occusion" />
+                            <HStack
+                                w="full"
+                                pl="67px"
+                                pr="15px"
+                            >
+                                <Text>aoMap Intensity</Text>
+                                <Spacer />
                                 <Input
                                     w="50px"
                                     h="30px"
-                                    px="0px"
+                                    px="2px"
                                     focusBorderColor="gray.400"
                                     textAlign="center"
-                                    value={ (sliderValue/100).toFixed(2) } 
+                                    defaultValue={ (1).toFixed(2) }
                                 />
                             </HStack>
                         </VStack>
 
-                        <MaterialAndMap text="Alpha" />
-                        <MaterialAndMap text="Ambient Occusion" />
-                        <MaterialAndMap text="Metalness" />
-                        <MaterialAndMap text="Roughness" />
-                        <MaterialAndMap text="Emissive" hasColor={ true } />
-                        <MaterialAndMap text="Displacement" />
-                        <MaterialAndMap text="Environment" />
-                        <MaterialAndMap text="Light" />
+                        <VStack
+                            w="full"
+                            spacing="2px"
+                        >
+                            <MaterialAndMap text="Metalness" />
+                            <MaterialSlider text="" value={ 50 } />
+                        </VStack>
+
+                        <VStack
+                            w="full"
+                            spacing="2px"
+                        >
+                            <MaterialAndMap text="Roughness" />
+                            <MaterialSlider text="" value={ 50 } />
+                        </VStack>
+
+                        <VStack
+                            w="full"
+                            spacing="2px"
+                        >
+                            <MaterialAndMap text="Emissive" hasColor={ true } />
+                            <HStack
+                                w="full"
+                                pl="67px"
+                                pr="15px"
+                            >
+                                <Text>Emissive Intensity</Text>
+                                <Spacer />
+                                <Input
+                                    w="50px"
+                                    h="30px"
+                                    px="2px"
+                                    focusBorderColor="gray.400"
+                                    textAlign="center"
+                                    defaultValue={ (1).toFixed(2) }
+                                />
+                            </HStack>
+                        </VStack>
+
+                        <VStack
+                            w="full"
+                            spacing="2px"
+                        >
+                            <MaterialAndMap text="Displacement" />
+                            <HStack
+                                w="full"
+                                pl="67px"
+                                pr="15px"
+                            >
+                                <Text>Displacement Scale</Text>
+                                <Spacer />
+                                <Input
+                                    w="50px"
+                                    h="30px"
+                                    px="2px"
+                                    focusBorderColor="gray.400"
+                                    textAlign="center"
+                                    defaultValue={ (1).toFixed(2) }
+                                />
+                            </HStack>
+                            <HStack
+                                w="full"
+                                pl="67px"
+                                pr="15px"
+                            >
+                                <Text>Displacement Bias</Text>
+                                <Spacer />
+                                <Input
+                                    w="50px"
+                                    h="30px"
+                                    px="2px"
+                                    focusBorderColor="gray.400"
+                                    textAlign="center"
+                                    defaultValue={ (0).toFixed(2) }
+                                />
+                            </HStack>
+                        </VStack>
+
+                        <VStack
+                            w="full"
+                            spacing="2px"
+                        >
+                            <MaterialAndMap text="Environment" />
+                            <HStack
+                                w="full"
+                                pl="67px"
+                                pr="15px"
+                            >
+                                <Text>Environment Intensity</Text>
+                                <Spacer />
+                                <Input
+                                    w="50px"
+                                    h="30px"
+                                    px="2px"
+                                    focusBorderColor="gray.400"
+                                    textAlign="center"
+                                    defaultValue={ (1).toFixed(2) }
+                                />
+                            </HStack>
+                        </VStack>
+
+                        <VStack
+                            w="full"
+                            spacing="2px"
+                        >
+                            <MaterialAndMap text="Light" />
+                            <HStack
+                                w="full"
+                                pl="67px"
+                                pr="15px"
+                            >
+                                <Text>Light Intensity</Text>
+                                <Spacer />
+                                <Input
+                                    w="50px"
+                                    h="30px"
+                                    px="2px"
+                                    focusBorderColor="gray.400"
+                                    textAlign="center"
+                                    defaultValue={ (1).toFixed(2) }
+                                />
+                            </HStack>
+                        </VStack>
                     </VStack>
 
                     <Box
@@ -134,18 +266,70 @@ const Material = () => {
 
                     <VStack
                         w="full"
-                        spacing="5px"
+                        spacing="10px"
                     >
                         <Text
                             fontSize="16px"
                             fontWeight="600"
                         >Advance</Text>
-                        <MaterialAndMap text="Clearcoat" />
-                        <MaterialAndMap text="Clearcoat Normal" />
-                        <MaterialAndMap text="Clearcoat Roughness" />
-                        <MaterialAndMap text="SheenColor" hasColor={ true } />
-                        <MaterialAndMap text="SheenRoughness" />
-                        <MaterialAndMap text="Transmission" />
+
+                        <VStack
+                            w="full"
+                            spacing="2px"
+                        >
+                            <MaterialAndMap text="Clearcoat" />
+                            <MaterialSlider text="" value={ 50 } />
+                            <MaterialAndMap text="Clearcoat Normal" />
+                            <HStack
+                                w="full"
+                                pl="67px"
+                                pr="15px"
+                            >
+                                <Text>Normal Scale:</Text>
+                                <Spacer />
+                                <HStack>
+                                    <Text>x</Text>
+                                    <Input
+                                        w="50px"
+                                        h="30px"
+                                        px="2px"
+                                        focusBorderColor="gray.400"
+                                        textAlign="center"
+                                        defaultValue={ (1).toFixed(2) }
+                                    />
+                                </HStack>
+                                <HStack>
+                                    <Text>y</Text>
+                                    <Input
+                                        w="50px"
+                                        h="30px"
+                                        px="2px"
+                                        focusBorderColor="gray.400"
+                                        textAlign="center"
+                                        defaultValue={ (1).toFixed(2) }
+                                    />
+                                </HStack>
+                            </HStack>
+                            <MaterialAndMap text="Clearcoat Roughness" />
+                            <MaterialSlider text="" value={ 50 } />
+                        </VStack>
+
+                        <VStack
+                            w="full"
+                            spacing="2px"
+                        >
+                            <MaterialAndMap text="SheenColor" hasColor={ true } />
+                            <MaterialAndMap text="SheenRoughness" />
+                            <MaterialSlider text="" value={ 50 } />
+                        </VStack>
+
+                        <VStack
+                            w="full"
+                            spacing="2px"
+                        >
+                            <MaterialAndMap text="Transmission" />
+                            <MaterialSlider text="" value={ 50 } />
+                        </VStack>
                     </VStack>
                 </VStack>
             </VStack>
