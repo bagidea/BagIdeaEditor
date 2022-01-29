@@ -19,9 +19,10 @@ export class SceneCanvas {
     setSpace: Dispatch<SetStateAction<string>>
     setSelect: (object: any) => void
     delObject: () => void
-    //objectChangeDetect: () => void
+    objectChangeDetect: () => void
 
-    tmr: number = new Date().getTime()
+    transformChanged: boolean = false
+    //tmr: number = new Date().getTime()
 
     constructor(
         windowContext: MutableRefObject<HTMLDivElement>,
@@ -70,6 +71,11 @@ export class SceneCanvas {
             const object = this.engine.intersectObjects(mX, mY)
             this.setSelect(object)
         }
+
+        if(this.transformChanged) {
+            this.objectChangeDetect()
+            this.transformChanged = false
+        }
     }
 
     setTransformMode(transformation_mode: "translate" | "rotate" | "scale" = "translate") {
@@ -108,10 +114,13 @@ export class SceneCanvas {
     }
 
     objectChange = () => {
-        const time: number = new Date().getTime()
+        /*const time: number = new Date().getTime()
         if(time-this.tmr >= 300) {
             this.objectChangeDetect()
             this.tmr = time
-        }
+        }*/
+
+        //this.objectChangeDetect()
+        this.transformChanged = true
     }
 }

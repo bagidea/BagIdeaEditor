@@ -25,6 +25,7 @@ const Inspector = () => {
     const children: SceneChild[] = useSelector((state: RootState) => state.context3DSlice.sceneChildren)
 
     const [isSelect, setSelect] = useState(false)
+    const [isMaterial, setMaterial] = useState(false)
     const [isName, setName] = useState("")
 
     useEffect(() => {
@@ -97,7 +98,7 @@ const Inspector = () => {
 
                         <Transform isSelect={ isSelect } />
 
-                        <Material />
+                        <Material isSelect={ isMaterial } />
                     </VStack>
                 </Flex>
             </VStack>

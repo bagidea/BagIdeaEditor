@@ -12,11 +12,19 @@ import {
     VStack
 } from '@chakra-ui/react'
 
-import { useDispatch, useSelector } from 'react-redux'
+import {
+    useDispatch,
+    useSelector
+} from 'react-redux'
+
+import {
+    MdCropRotate,
+    MdPivotTableChart
+} from 'react-icons/md'
+
 import { SceneCanvas } from './canvas'
 import { BsArrowsMove } from 'react-icons/bs'
 import { BiWorld } from 'react-icons/bi'
-import { MdCropRotate, MdPivotTableChart } from 'react-icons/md'
 import { RiDragMoveFill } from 'react-icons/ri'
 import { RootState } from '../../../redux/reducers'
 import { SceneChild } from '../../../engine'

@@ -3,25 +3,19 @@ import {
     Flex,
     HStack,
     Input,
-    Slider,
-    SliderFilledTrack,
-    SliderMark,
-    SliderThumb,
-    SliderTrack,
     Spacer,
     Text,
-    Tooltip,
     VStack
 } from '@chakra-ui/react'
-import { useState } from 'react'
 
 import { BsDot } from 'react-icons/bs'
 import MaterialAndMap from './material_and_map'
 import MaterialSlider from './material_slider.tsx'
 
-const Material = () => {
+const Material: React.FC<{ isSelect: boolean }> = ({ isSelect }) => {
     return (
         <Flex
+            display={ isSelect ? "flex" : "none" }
             w="full"
             padding="3px"
         >

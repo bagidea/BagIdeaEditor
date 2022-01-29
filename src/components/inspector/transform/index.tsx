@@ -5,11 +5,17 @@ import {
     VStack
 } from '@chakra-ui/react'
 
-import TransformObject, { TransformValues } from './transform_object'
-import React , { useEffect } from 'react'
+import { 
+    useDispatch,
+    useSelector
+} from 'react-redux'
+
+import TransformObject from './transform_object'
+import { TransformValues } from './transform_object'
+import React from 'react'
+import { useEffect } from 'react'
 import { BsDot } from 'react-icons/bs'
 import { MathUtils } from 'three'
-import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../redux/reducers'
 import { SelectTransform } from '../../../redux/slices/context_3d'
 
