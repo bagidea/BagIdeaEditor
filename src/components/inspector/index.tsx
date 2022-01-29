@@ -95,9 +95,7 @@ const Inspector = () => {
                             isSelect={ isSelect }
                             text={ isName }
                         />
-
                         <Transform isSelect={ isSelect } />
-
                         <Material isSelect={ isMaterial } />
                     </VStack>
                 </Flex>
