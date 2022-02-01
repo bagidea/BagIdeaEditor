@@ -15,6 +15,7 @@ import {
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { TransformControls } from 'three/examples/jsm/controls/TransformControls'
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader'
+import { ScreenRender } from './screen_render'
 import { CreateMesh } from './geometry'
 import { GeometryTypes } from './geometry/geometryTypes'
 
@@ -43,6 +44,8 @@ export class Engine {
     materials: Material[] = []
 
     rgbeLoader: RGBELoader
+
+    screenRender: ScreenRender
 
     constructor(windowContext: HTMLElement, canvas: HTMLElement) {
         this.windowContext = windowContext
@@ -81,17 +84,23 @@ export class Engine {
         basicMaterial.name = "basic_material"
         this.materials.push(basicMaterial)
 
+        this.screenRender = new ScreenRender(100, 100)
+
         this.rgbeLoader = new RGBELoader()
         let pmrem: PMREMGenerator = new PMREMGenerator(this.renderer)
         pmrem.compileEquirectangularShader()
         //this.rgbeLoader.load("/assets/environments/env_night.hdr", i => {
         this.rgbeLoader.load("/assets/environments/env_default.hdr", i => {
             const envMap: WebGLRenderTarget = pmrem.fromEquirectangular(i)
-            i.dispose()
+            //i.dispose()
             pmrem.dispose()
             this.scene.environment = envMap.texture
             //this.scene.background = envMap.texture
+
+            this.screenRender.init(i)
+            this.screenRender.render(basicMaterial)
         })
+
     }
 
     addGridHelper() {

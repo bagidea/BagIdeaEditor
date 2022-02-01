@@ -2,11 +2,8 @@ import {
     Mesh,
     MeshPhysicalMaterial as Material
 } from "three";
-import { Engine } from "..";
 
-import {
-    CreateGeometry
-} from './create_geometry'
+import { CreateGeometry } from './create_geometry'
 import { GeometryTypes } from './geometryTypes'
 
 export class CreateMesh {

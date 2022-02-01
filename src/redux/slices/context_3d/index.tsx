@@ -9,18 +9,27 @@ export interface SelectTransform {
     scale: TransformValues
 }
 
+export interface Assets {
+    name: string,
+    pic: string,
+    type: "texture" | "material" | "model"
+    index: number
+}
+
 interface IContext3D {
     sceneContext: SceneCanvas,
     sceneChildren: SceneChild[],
     selectObject: any,
-    selectTransforms: SelectTransform
+    selectTransforms: SelectTransform,
+    assets: Assets[]
 }
 
 const initialState: IContext3D = {
     sceneContext: null,
     sceneChildren: [],
     selectObject: null,
-    selectTransforms: null
+    selectTransforms: null,
+    assets: []
 }
 
 const context3DSlice = createSlice({
@@ -44,6 +53,12 @@ const context3DSlice = createSlice({
         },
         setSelectTransform: (state, transform) => {
             state.selectTransforms = transform.payload
+        },
+        addAsset: (state, asset) => {
+            state.assets.push(asset.payload)
+        },
+        removeAsset: (state, action) => {
+            state.assets.splice(action.payload.index, 1)
         }
     }
 })
@@ -54,6 +69,8 @@ export const {
     removeSceneChild,
     setSceneSelectChild,
     setSelectObject,
-    setSelectTransform
+    setSelectTransform,
+    addAsset,
+    removeAsset
 } = context3DSlice.actions
 export default context3DSlice.reducer
