@@ -73,10 +73,11 @@ export class ScreenRender {
         this.scene.environment = envMap.texture
     }
 
-    render(material: MeshPhysicalMaterial) {
+    render(material: MeshPhysicalMaterial): string {
         this.ball.material = material
         this.renderer.setClearColor(0x000000, 0)
         this.renderer.render(this.scene, this.camera)
-        console.log(this.renderer.domElement.toDataURL())
+        //console.log(this.renderer.domElement.toDataURL())
+        return this.renderer.domElement.toDataURL()
     }
 }

@@ -9,6 +9,8 @@ import {
     SceneChild,
 } from '../../../engine'
 
+import { Asset } from '../../../redux/slices/context_3d'
+
 export class SceneCanvas {
     [x: string]: any
     engine: Engine
@@ -20,6 +22,7 @@ export class SceneCanvas {
     setSelect: (object: any) => void
     delObject: () => void
     objectChangeDetect: () => void
+    addAsset: (asset: Asset) => void
 
     transformChanged: boolean = false
     //tmr: number = new Date().getTime()
@@ -31,7 +34,8 @@ export class SceneCanvas {
         setSpace: Dispatch<SetStateAction<string>>,
         setSelect: (object: any) => void,
         delObject: () => void,
-        objectChangeDetect: () => void
+        objectChangeDetect: () => void,
+        addAsset: (asset: Asset) => void
     ) {
         this.engine = new Engine(windowContext.current, canvas.current)
         this.setMode = setMode
@@ -39,9 +43,11 @@ export class SceneCanvas {
         this.setSelect = setSelect
         this.delObject = delObject
         this.objectChangeDetect = objectChangeDetect
+        this.addAsset = addAsset
     }
 
     init() {
+        this.engine.setAddAssetFunction(this.addAsset)
         this.engine.init()
         this.engine.addGridHelper()
         this.engine.addControls()

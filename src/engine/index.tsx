@@ -18,6 +18,7 @@ import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader'
 import { ScreenRender } from './screen_render'
 import { CreateMesh } from './geometry'
 import { GeometryTypes } from './geometry/geometryTypes'
+import { Asset } from '../redux/slices/context_3d'
 
 export interface SceneChild {
     name: string,
@@ -46,6 +47,8 @@ export class Engine {
     rgbeLoader: RGBELoader
 
     screenRender: ScreenRender
+
+    addAsset: (asset: Asset) => void
 
     constructor(windowContext: HTMLElement, canvas: HTMLElement) {
         this.windowContext = windowContext
@@ -78,12 +81,12 @@ export class Engine {
         this.raycast = new Raycaster()
 
         const basicMaterial: Material = new Material({
+            name: "Default",
             color: 0xffffff,
             roughness: 0.25
         })
-        basicMaterial.name = "basic_material"
-        this.materials.push(basicMaterial)
 
+        this.materials.push(basicMaterial)
         this.screenRender = new ScreenRender(100, 100)
 
         this.rgbeLoader = new RGBELoader()
@@ -98,9 +101,23 @@ export class Engine {
             //this.scene.background = envMap.texture
 
             this.screenRender.init(i)
-            this.screenRender.render(basicMaterial)
+
+            const asset: Asset = {
+                name: basicMaterial.name,
+                pic: this.screenRender.render(basicMaterial),
+                type: "material",
+                index: 0
+            }
+
+            this.addAsset(asset)
         })
 
+    }
+
+    setAddAssetFunction(
+        addAsset: (asset: Asset) => void
+    ) {
+        this.addAsset = addAsset
     }
 
     addGridHelper() {

@@ -9,7 +9,7 @@ export interface SelectTransform {
     scale: TransformValues
 }
 
-export interface Assets {
+export interface Asset {
     name: string,
     pic: string,
     type: "texture" | "material" | "model"
@@ -21,7 +21,7 @@ interface IContext3D {
     sceneChildren: SceneChild[],
     selectObject: any,
     selectTransforms: SelectTransform,
-    assets: Assets[]
+    assets: Asset[]
 }
 
 const initialState: IContext3D = {

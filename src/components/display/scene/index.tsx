@@ -22,13 +22,17 @@ import {
     MdPivotTableChart
 } from 'react-icons/md'
 
+import {
+    Asset,
+    SelectTransform
+} from '../../../redux/slices/context_3d'
+
 import { SceneCanvas } from './canvas'
 import { BsArrowsMove } from 'react-icons/bs'
 import { BiWorld } from 'react-icons/bi'
 import { RiDragMoveFill } from 'react-icons/ri'
 import { RootState } from '../../../redux/reducers'
 import { SceneChild } from '../../../engine'
-import { SelectTransform } from '../../../redux/slices/context_3d'
 import { Object3D } from 'three'
 
 let scene: SceneCanvas
@@ -132,6 +136,21 @@ const Scene = () => {
         }
     }
 
+    const AddAsset = (asset: Asset) => {
+        /*console.log("add asset.")
+        console.log("name: "+asset.name)
+        console.log("pic: "+asset.pic)
+        console.log("type: "+asset.type)
+        console.log("index: "+asset.index)*/
+
+        if(!!asset) {
+            dispatch({
+                type: "context_3d@addAsset",
+                asset
+            })
+        }
+    }
+
     useEffect(() => {
         if(!!scene) scene.sceneChildren = children
         //console.log(children)
@@ -148,7 +167,8 @@ const Scene = () => {
             setSpace,
             setSelect,
             delObject,
-            objectChangeDetect
+            objectChangeDetect,
+            AddAsset
         )
         scene.init()
         scene.start()

@@ -1,12 +1,38 @@
 import {
     Flex,
+    Image,
     Text,
     VStack
 } from '@chakra-ui/react'
 
+import {
+    useEffect,
+    useState
+} from 'react'
+
 import { RiAddCircleLine } from 'react-icons/ri'
+import { useSelector } from 'react-redux'
+import { RootState } from '../../redux/reducers'
+import { Asset } from '../../redux/slices/context_3d'
 
 const Assets = () => {
+    const assets: Asset[] = useSelector((state: RootState) => state.context3DSlice.assets)
+    const [asset_objects, set_asset_objects] = useState([])
+
+    useEffect(() => {
+        //console.log(assets)
+
+        const packs: Asset[] = []
+
+        assets.forEach((v: any) => {
+            const asset: Asset = v.asset
+            //console.log(asset)
+            packs.push(asset)
+        })
+
+        set_asset_objects(packs)
+    }, [assets])
+
     return (
         <Flex
             w="100%"
@@ -22,35 +48,54 @@ const Assets = () => {
                 borderColor="blue.900"
                 alignItems="center"
                 justifyContent="center"
+                cursor="pointer"
+                color="#2c5282"
+                _hover={
+                    {
+                        color: "#5f85b5",
+                        borderColor: "blue.700"
+                    }
+                }
             >
                 <RiAddCircleLine
                     size="50px"
-                    color="#2c5282"
                 />
             </Flex>
 
-            <VStack
-                margin="5px"
-                spacing="5px"
-            >
-                <Flex
-                    w="100px"
-                    h="100px"
-                    bgColor="gray.800"
-                >
-                </Flex>
+            {
+                asset_objects.map((v: Asset, i: number) => (
+                        <VStack
+                            key={ i }
+                            margin="5px"
+                            spacing="5px"
+                        >
+                            <Flex
+                                w="100px"
+                                h="100px"
+                                bgColor="gray.800"
+                            >
+                                <Image
+                                    src={ v.pic }
+                                    w="100px"
+                                    h="100px"
+                                />
+                            </Flex>
 
-                <Flex
-                    w="100px"
-                    justifyContent="center"
-                >
-                    <Text
-                        whiteSpace="nowrap"
-                        overflow="hidden"
-                        textOverflow="ellipsis"
-                    >Default</Text>
-                </Flex>
-            </VStack>
+                                    <Flex
+                                        w="100px"
+                                        justifyContent="center"
+                                    >
+                                        <Text
+                                            whiteSpace="nowrap"
+                                            overflow="hidden"
+                                            textOverflow="ellipsis"
+                                        >{ v.name }</Text>
+                                    </Flex>
+                                ))
+                        </VStack>
+                    )
+                )
+            }
         </Flex>
     )
 }
