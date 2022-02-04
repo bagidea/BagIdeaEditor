@@ -108,31 +108,33 @@ const Scene = () => {
     }
 
     const objectChangeDetect = () => {
-        const obj: Object3D = scene.sceneChildren[scene.lastSelected].object.object
-
-        const transform: SelectTransform = {
-            position: {
-                x: obj.position.x,
-                y: obj.position.y,
-                z: obj.position.z
-            },
-            rotation: {
-                x: obj.rotation.x,
-                y: obj.rotation.y,
-                z: obj.rotation.z
-            },
-            scale: {
-                x: obj.scale.x,
-                y: obj.scale.y,
-                z: obj.scale.z
-            }
-        }
+        const obj: Object3D = scene.sceneChildren[scene.lastSelected]?.object?.object
 
         if(!!obj) {
-            dispatch({
-                type: "context_3d@setSelectTransform",
-                transform
-            })
+            const transform: SelectTransform = {
+                position: {
+                    x: obj.position.x,
+                    y: obj.position.y,
+                    z: obj.position.z
+                },
+                rotation: {
+                    x: obj.rotation.x,
+                    y: obj.rotation.y,
+                    z: obj.rotation.z
+                },
+                scale: {
+                    x: obj.scale.x,
+                    y: obj.scale.y,
+                    z: obj.scale.z
+                }
+            }
+
+            if(!!obj) {
+                dispatch({
+                    type: "context_3d@setSelectTransform",
+                    transform
+                })
+            }
         }
     }
 

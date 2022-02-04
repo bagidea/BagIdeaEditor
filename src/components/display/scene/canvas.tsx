@@ -3,6 +3,7 @@ import {
     MutableRefObject,
     SetStateAction
 } from 'react'
+import { MathUtils, Object3D } from 'three'
 
 import {
     Engine,
@@ -27,6 +28,18 @@ export class SceneCanvas {
     transformChanged: boolean = false
     //tmr: number = new Date().getTime()
 
+    positionXInput: HTMLInputElement
+    positionYInput: HTMLInputElement
+    positionZInput: HTMLInputElement
+
+    rotationXInput: HTMLInputElement
+    rotationYInput: HTMLInputElement
+    rotationZInput: HTMLInputElement
+
+    scaleXInput: HTMLInputElement
+    scaleYInput: HTMLInputElement
+    scaleZInput: HTMLInputElement
+
     constructor(
         windowContext: MutableRefObject<HTMLDivElement>,
         canvas: MutableRefObject<HTMLCanvasElement>,
@@ -44,6 +57,18 @@ export class SceneCanvas {
         this.delObject = delObject
         this.objectChangeDetect = objectChangeDetect
         this.addAsset = addAsset
+
+        this.positionXInput = document.getElementById('position_x') as HTMLInputElement
+        this.positionYInput = document.getElementById('position_y') as HTMLInputElement
+        this.positionZInput = document.getElementById('position_z') as HTMLInputElement
+
+        this.rotationXInput = document.getElementById('rotation_x') as HTMLInputElement
+        this.rotationYInput = document.getElementById('rotation_y') as HTMLInputElement
+        this.rotationZInput = document.getElementById('rotation_z') as HTMLInputElement
+
+        this.scaleXInput = document.getElementById('scale_x') as HTMLInputElement
+        this.scaleYInput = document.getElementById('scale_y') as HTMLInputElement
+        this.scaleZInput = document.getElementById('scale_z') as HTMLInputElement
     }
 
     init() {
@@ -120,6 +145,22 @@ export class SceneCanvas {
     }
 
     objectChange = () => {
+        const obj_selected: Object3D = this.sceneChildren[this.lastSelected]?.object?.object
+
+        if(!!obj_selected) {
+            this.positionXInput.value =  obj_selected.position.x.toString()
+            this.positionYInput.value =  obj_selected.position.y.toString()
+            this.positionZInput.value =  obj_selected.position.z.toString()
+
+            this.rotationXInput.value =  MathUtils.radToDeg(obj_selected.rotation.x).toString()
+            this.rotationYInput.value =  MathUtils.radToDeg(obj_selected.rotation.y).toString()
+            this.rotationZInput.value =  MathUtils.radToDeg(obj_selected.rotation.z).toString()
+
+            this.scaleXInput.value =  obj_selected.scale.x.toString()
+            this.scaleYInput.value =  obj_selected.scale.y.toString()
+            this.scaleZInput.value =  obj_selected.scale.z.toString()
+        }
+
         /*const time: number = new Date().getTime()
         if(time-this.tmr >= 300) {
             this.objectChangeDetect()

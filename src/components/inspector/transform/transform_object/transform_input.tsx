@@ -112,6 +112,7 @@ const TransformInput: React.FC<{ text: string, type_input: string, value: number
                 color="gray.200"
             >{ text }</Text>
             <Input
+                id={ type_input }
                 w="60px"
                 h="30px"
                 type="number"
