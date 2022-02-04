@@ -161,6 +161,7 @@ const Scene = () => {
 
     useEffect(() => {
         canvas.current.style.position = "absolute"
+
         scene = new SceneCanvas(
         //const scene: SceneCanvas = new SceneCanvas(
             windowContext,
@@ -172,6 +173,7 @@ const Scene = () => {
             objectChangeDetect,
             AddAsset
         )
+
         scene.init()
         scene.start()
 
