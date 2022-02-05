@@ -68,11 +68,13 @@ const Assets = () => {
                             key={ i }
                             margin="5px"
                             spacing="5px"
+                            cursor="pointer"
                         >
                             <Flex
                                 w="100px"
                                 h="100px"
                                 bgColor="gray.800"
+                                _hover={ { bgColor: "gray.700" } }
                             >
                                 <Image
                                     src={ v.pic }
