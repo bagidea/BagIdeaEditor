@@ -1,9 +1,4 @@
-import {
-    Flex,
-    Image,
-    Text,
-    VStack
-} from '@chakra-ui/react'
+import { Flex } from '@chakra-ui/react'
 
 import {
     useEffect,
@@ -14,6 +9,7 @@ import { RiAddCircleLine } from 'react-icons/ri'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../redux/reducers'
 import { Asset } from '../../redux/slices/context_3d'
+import AssetItem from './asset_item'
 
 const Assets = () => {
     const assets: Asset[] = useSelector((state: RootState) => state.context3DSlice.assets)
@@ -64,37 +60,11 @@ const Assets = () => {
 
             {
                 asset_objects.map((v: Asset, i: number) => (
-                        <VStack
+                        <AssetItem
                             key={ i }
-                            margin="5px"
-                            spacing="5px"
-                            cursor="pointer"
-                        >
-                            <Flex
-                                w="100px"
-                                h="100px"
-                                bgColor="gray.800"
-                                _hover={ { bgColor: "gray.700" } }
-                            >
-                                <Image
-                                    src={ v.pic }
-                                    w="100px"
-                                    h="100px"
-                                />
-                            </Flex>
-
-                                    <Flex
-                                        w="100px"
-                                        justifyContent="center"
-                                    >
-                                        <Text
-                                            whiteSpace="nowrap"
-                                            overflow="hidden"
-                                            textOverflow="ellipsis"
-                                        >{ v.name }</Text>
-                                    </Flex>
-                                ))
-                        </VStack>
+                            name={ v.name }
+                            pic={ v.pic }
+                        />
                     )
                 )
             }
