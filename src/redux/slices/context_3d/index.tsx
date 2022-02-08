@@ -12,8 +12,9 @@ export interface SelectTransform {
 export interface Asset {
     name: string,
     pic: string,
-    type: "texture" | "material" | "model"
-    index: number
+    type: "texture" | "material" | "model",
+    index: number,
+    isSelect: boolean
 }
 
 interface IContext3D {
@@ -46,7 +47,8 @@ const context3DSlice = createSlice({
             state.sceneChildren.splice(action.payload.index, 1)
         },
         setSceneSelectChild: (state, action) => {
-            state.sceneChildren[action.payload.values.index].isSelect = action.payload.values.isSelect
+            state.sceneChildren.at(action.payload.values.index).isSelect = action.payload.values.isSelect
+            //state.sceneChildren[action.payload.values.index].isSelect = action.payload.values.isSelect
         },
         setSelectObject: (state, object) => {
             state.selectObject = object.payload
@@ -59,6 +61,10 @@ const context3DSlice = createSlice({
         },
         removeAsset: (state, action) => {
             state.assets.splice(action.payload.index, 1)
+        },
+        setSelectAsset: (state, action) => {
+            state.assets.at(action.payload.values.index).isSelect = action.payload.values.isSelect
+            //state.assets[action.payload.values.index].isSelect = action.payload.values.isSelect
         }
     }
 })
@@ -71,6 +77,7 @@ export const {
     setSelectObject,
     setSelectTransform,
     addAsset,
-    removeAsset
+    removeAsset,
+    setSelectAsset
 } = context3DSlice.actions
 export default context3DSlice.reducer

@@ -3,7 +3,11 @@ import {
     MutableRefObject,
     SetStateAction
 } from 'react'
-import { MathUtils, Object3D } from 'three'
+
+import {
+    MathUtils,
+    Object3D
+} from 'three'
 
 import {
     Engine,
@@ -24,6 +28,7 @@ export class SceneCanvas {
     delObject: () => void
     objectChangeDetect: () => void
     addAsset: (asset: Asset) => void
+    setSelectAsset: (asset: Asset) => void
 
     transformChanged: boolean = false
     //tmr: number = new Date().getTime()
@@ -48,7 +53,8 @@ export class SceneCanvas {
         setSelect: (object: any) => void,
         delObject: () => void,
         objectChangeDetect: () => void,
-        addAsset: (asset: Asset) => void
+        addAsset: (asset: Asset) => void,
+        setSelectAsset: (asset: Asset) => void
     ) {
         this.engine = new Engine(windowContext.current, canvas.current)
         this.setMode = setMode
@@ -57,6 +63,7 @@ export class SceneCanvas {
         this.delObject = delObject
         this.objectChangeDetect = objectChangeDetect
         this.addAsset = addAsset
+        this.setSelectAsset = setSelectAsset
 
         this.positionXInput = document.getElementById('position_x') as HTMLInputElement
         this.positionYInput = document.getElementById('position_y') as HTMLInputElement
@@ -169,5 +176,9 @@ export class SceneCanvas {
 
         //this.objectChangeDetect()
         this.transformChanged = true
+    }
+
+    selectAsset = (asset: Asset) => {
+        this.setSelectAsset(asset)
     }
 }

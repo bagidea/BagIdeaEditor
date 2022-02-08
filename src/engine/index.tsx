@@ -106,7 +106,8 @@ export class Engine {
                 name: basicMaterial.name,
                 pic: this.screenRender.render(basicMaterial),
                 type: "material",
-                index: 0
+                index: 0,
+                isSelect: false
             }
 
             this.addAsset(asset)

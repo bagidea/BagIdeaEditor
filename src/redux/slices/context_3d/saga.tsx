@@ -13,6 +13,7 @@ import {
     setSelectTransform,
     addAsset,
     removeAsset,
+    setSelectAsset,
 } from '.'
 
 // Actions
@@ -29,8 +30,8 @@ function* context3DRemoveSceneChild(action: any) {
     yield put(removeSceneChild(action))
 }
 
-function* context3DSetSceneSelectChild(index: any) {
-    yield put(setSceneSelectChild(index))
+function* context3DSetSceneSelectChild(action: any) {
+    yield put(setSceneSelectChild(action))
 }
 
 function* context3DSetSelectObject(object: any) {
@@ -47,6 +48,10 @@ function* context3DAddAsset(asset: any) {
 
 function* context3DRemoveAsset(action: any) {
     yield put(removeAsset(action))
+}
+
+function* context3DSetSelectAsset(action: any) {
+    yield put(setSelectAsset(action))
 }
 
 // Watch
@@ -83,6 +88,10 @@ function* watchRemoveAsset() {
     yield takeEvery('context_3d@removeAsset', context3DRemoveAsset)
 }
 
+function* watchSetSelectAsset() {
+    yield takeEvery('context_3d@setSelectAsset', context3DSetSelectAsset)
+}
+
 export default function* rootContext3D() {
     yield all([
         watchSetSceneContext(),
@@ -92,6 +101,7 @@ export default function* rootContext3D() {
         watchSetSelectObject(),
         watchSetSelectTransform(),
         watchAddAsset(),
-        watchRemoveAsset()
+        watchRemoveAsset(),
+        watchSetSelectAsset()
     ])
 }

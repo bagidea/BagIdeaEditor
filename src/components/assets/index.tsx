@@ -9,14 +9,17 @@ import { RiAddCircleLine } from 'react-icons/ri'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../redux/reducers'
 import { Asset } from '../../redux/slices/context_3d'
+import { SceneCanvas } from '../display/scene/canvas'
 import AssetItem from './asset_item'
 
 const Assets = () => {
+    const { sceneContext } = useSelector((state: RootState) => state.context3DSlice)
+    const scene: SceneCanvas = sceneContext?.context
     const assets: Asset[] = useSelector((state: RootState) => state.context3DSlice.assets)
     const [asset_objects, set_asset_objects] = useState([])
 
     useEffect(() => {
-        //console.log(assets)
+        console.log(assets)
 
         const packs: Asset[] = []
 
@@ -62,8 +65,8 @@ const Assets = () => {
                 asset_objects.map((v: Asset, i: number) => (
                         <AssetItem
                             key={ i }
-                            name={ v.name }
-                            pic={ v.pic }
+                            asset={ v }
+                            scene={ scene }
                         />
                     )
                 )

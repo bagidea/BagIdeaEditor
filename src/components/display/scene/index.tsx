@@ -92,12 +92,13 @@ const Scene = () => {
             })
 
             scene.engine.transformControl.detach()
+
             const index: number = scene.engine.objects.findIndex((v: any) =>
                     v.id == scene.sceneChildren[scene.lastSelected].object.object.id
                 )
+
             scene.engine.scene.remove(scene.engine.objects[index])
             scene.engine.objects.splice(index, 1)
-
             scene.lastSelected = -1
 
             dispatch({
@@ -138,7 +139,7 @@ const Scene = () => {
         }
     }
 
-    const AddAsset = (asset: Asset) => {
+    const addAsset = (asset: Asset) => {
         /*console.log("add asset.")
         console.log("name: "+asset.name)
         console.log("pic: "+asset.pic)
@@ -151,6 +152,18 @@ const Scene = () => {
                 asset
             })
         }
+    }
+
+    const setSelectAsset = (asset: Asset) => {
+        //console.log(asset)
+        //console.log(asset.isSelect)
+        dispatch({
+            type: "context_3d@setSelectAsset",
+            values: {
+                index: asset.index,
+                isSelect: true
+            }
+        })
     }
 
     useEffect(() => {
@@ -171,7 +184,8 @@ const Scene = () => {
             setSelect,
             delObject,
             objectChangeDetect,
-            AddAsset
+            addAsset,
+            setSelectAsset
         )
 
         scene.init()
