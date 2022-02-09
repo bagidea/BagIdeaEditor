@@ -63,7 +63,7 @@ const context3DSlice = createSlice({
             state.assets.splice(action.payload.index, 1)
         },
         setSelectAsset: (state, action) => {
-            state.assets.at(action.payload.values.index).isSelect = action.payload.values.isSelect
+            (state.assets.at(action.payload.values.index) as any).asset.isSelect = action.payload.values.isSelect
             //state.assets[action.payload.values.index].isSelect = action.payload.values.isSelect
         }
     }

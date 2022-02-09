@@ -1,36 +1,50 @@
-import { Flex } from '@chakra-ui/react'
-
 import {
     useEffect,
     useState
 } from 'react'
 
+import {
+    useDispatch,
+    useSelector
+} from 'react-redux'
+
+import { Flex } from '@chakra-ui/react'
 import { RiAddCircleLine } from 'react-icons/ri'
-import { useSelector } from 'react-redux'
 import { RootState } from '../../redux/reducers'
 import { Asset } from '../../redux/slices/context_3d'
 import { SceneCanvas } from '../display/scene/canvas'
 import AssetItem from './asset_item'
 
 const Assets = () => {
-    const { sceneContext } = useSelector((state: RootState) => state.context3DSlice)
+    const { sceneContext, assets } = useSelector((state: RootState) => state.context3DSlice)
     const scene: SceneCanvas = sceneContext?.context
-    const assets: Asset[] = useSelector((state: RootState) => state.context3DSlice.assets)
     const [asset_objects, set_asset_objects] = useState([])
+    const [lastSelected, setSelected] = useState(-1)
+    const dispatch = useDispatch()
 
     useEffect(() => {
-        console.log(assets)
-
         const packs: Asset[] = []
 
         assets.forEach((v: any) => {
             const asset: Asset = v.asset
-            //console.log(asset)
             packs.push(asset)
         })
 
         set_asset_objects(packs)
     }, [assets])
+
+    const checkSelect = () => {
+        if(lastSelected != -1) {
+            dispatch({
+                type: "context_3d@setSelectAsset",
+                values: {
+                    index: lastSelected,
+                    isSelect: false
+                }
+            })
+            setSelected(-1)
+        }
+    }
 
     return (
         <Flex
@@ -38,6 +52,7 @@ const Assets = () => {
             minH="250px"
             padding="10px"
             bgColor="gray.900"
+            onClick={ checkSelect }
         >
             <Flex
                 margin="5px"
@@ -67,6 +82,8 @@ const Assets = () => {
                             key={ i }
                             asset={ v }
                             scene={ scene }
+                            lastSelected={ lastSelected }
+                            setSelected={ setSelected }
                         />
                     )
                 )
