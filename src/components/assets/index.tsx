@@ -82,7 +82,6 @@ const Assets = () => {
                             key={ i }
                             asset={ v }
                             scene={ scene }
-                            lastSelected={ lastSelected }
                             setSelected={ setSelected }
                         />
                     )
