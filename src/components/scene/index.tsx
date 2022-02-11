@@ -48,6 +48,17 @@ const Scene = () => {
             })
             scene.lastSelected = -1
         }
+
+        if(scene.lastSelectedAsset != -1) {
+            dispatch({
+                type: "context_3d@setSelectAsset",
+                values: {
+                    index: scene.lastSelectedAsset,
+                    isSelect: false
+                }
+            })
+            scene.lastSelectedAsset = -1
+        }
     }
 
     const setSelect = (e: MouseEvent, object: any) => {

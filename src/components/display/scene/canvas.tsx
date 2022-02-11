@@ -28,6 +28,8 @@ export class SceneCanvas {
     delObject: () => void
     objectChangeDetect: () => void
     addAsset: (asset: Asset) => void
+    lastSelectedAsset: number = -1
+    projectAssets: Asset[]
     setSelectAsset: (asset: Asset) => void
 
     transformChanged: boolean = false

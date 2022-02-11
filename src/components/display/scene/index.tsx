@@ -42,6 +42,7 @@ const Scene = () => {
     const canvas: MutableRefObject<HTMLCanvasElement> = useRef<HTMLCanvasElement>(null)
     const _scene: SceneCanvas = useSelector((state: RootState) => state.context3DSlice.sceneContext)
     const children: SceneChild[] = useSelector((state: RootState) => state.context3DSlice.sceneChildren)
+    const assets: Asset[] = useSelector((state: RootState) => state.context3DSlice.assets)
     const dispatch = useDispatch()
 
     const [isMode, setMode] = useState("translate")
@@ -59,6 +60,17 @@ const Scene = () => {
 
     const setSelect = (object: any) => {
         if(!!object) {
+            if(scene.lastSelectedAsset != -1) {
+                dispatch({
+                    type: "context_3d@setSelectAsset",
+                    values: {
+                        index: scene.lastSelectedAsset,
+                        isSelect: false
+                    }
+                })
+                scene.lastSelectedAsset = -1
+            }
+
             if(scene.lastSelected != -1) {
                 onSelectChild(scene.lastSelected, false)
                 scene.lastSelected = -1
@@ -157,20 +169,34 @@ const Scene = () => {
     const setSelectAsset = (asset: Asset) => {
         //console.log(asset)
         //console.log(asset.isSelect)
+
+        if(scene.lastSelected != -1) {
+            onSelectChild(scene.lastSelected, false)
+            scene.lastSelected = -1
+            scene.engine.transformControl.detach()
+        }
+
+        scene.lastSelectedAsset = scene.projectAssets.findIndex((v: any) => (v.asset as Asset).index == asset.index)
+        //console.log(scene.lastSelectedAsset)
+
         dispatch({
             type: "context_3d@setSelectAsset",
             values: {
-                index: asset.index,
+                index: scene.lastSelectedAsset,
                 isSelect: true
             }
         })
     }
 
     useEffect(() => {
-        if(!!scene) scene.sceneChildren = children
+        if(!!scene) {
+            scene.sceneChildren = children
+            scene.projectAssets = assets
+            //console.log(scene.projectAssets)
+        }
         //console.log(children)
         //if(!!scene) console.log(scene.lastSelected)
-    }, [children])
+    }, [children, assets])
 
     useEffect(() => {
         canvas.current.style.position = "absolute"

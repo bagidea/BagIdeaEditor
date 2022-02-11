@@ -5,10 +5,10 @@ import {
     VStack
 } from "@chakra-ui/react"
 
-import {
+/*import {
     Dispatch,
     SetStateAction
-} from "react"
+} from "react"*/
 
 import { Asset } from "../../../redux/slices/context_3d"
 import { SceneCanvas } from "../../display/scene/canvas"
@@ -17,12 +17,12 @@ const AssetItem: React.FC<{
         asset: Asset,
         scene: SceneCanvas,
         //lastSelected: number,
-        setSelected: Dispatch<SetStateAction<number>>
-    }> = ({ asset, scene, /*lastSelected,*/ setSelected }) =>
+        //setSelected: Dispatch<SetStateAction<number>>
+    }> = ({ asset, scene, /*lastSelected, setSelected*/ }) =>
 {
     const selectAsset = (e: MouseEvent) => {
         e.stopPropagation()
-        setSelected(asset.index)
+        //setSelected(asset.index)
         scene.selectAsset(asset)
     }
 

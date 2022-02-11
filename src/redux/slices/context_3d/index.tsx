@@ -23,6 +23,7 @@ interface IContext3D {
     selectObject: any,
     selectTransforms: SelectTransform,
     assets: Asset[]
+    selectAsset: any
 }
 
 const initialState: IContext3D = {
@@ -30,7 +31,8 @@ const initialState: IContext3D = {
     sceneChildren: [],
     selectObject: null,
     selectTransforms: null,
-    assets: []
+    assets: [],
+    selectAsset: null
 }
 
 const context3DSlice = createSlice({

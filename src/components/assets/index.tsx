@@ -19,7 +19,6 @@ const Assets = () => {
     const { sceneContext, assets } = useSelector((state: RootState) => state.context3DSlice)
     const scene: SceneCanvas = sceneContext?.context
     const [asset_objects, set_asset_objects] = useState([])
-    const [lastSelected, setSelected] = useState(-1)
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -34,15 +33,27 @@ const Assets = () => {
     }, [assets])
 
     const checkSelect = () => {
-        if(lastSelected != -1) {
+        if(scene.lastSelectedAsset != -1) {
             dispatch({
                 type: "context_3d@setSelectAsset",
                 values: {
-                    index: lastSelected,
+                    index: scene.lastSelectedAsset,
                     isSelect: false
                 }
             })
-            setSelected(-1)
+            scene.lastSelectedAsset = -1
+        }
+
+        if(scene.lastSelected != -1) {
+            scene.engine.transformControl.detach()
+            dispatch({
+                type: "context_3d@setSceneSelectChild",
+                values: {
+                    index: scene.lastSelected,
+                    isSelect: false
+                }
+            })
+            scene.lastSelected = -1
         }
     }
 
@@ -82,7 +93,6 @@ const Assets = () => {
                             key={ i }
                             asset={ v }
                             scene={ scene }
-                            setSelected={ setSelected }
                         />
                     )
                 )

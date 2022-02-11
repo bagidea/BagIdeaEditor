@@ -85,7 +85,7 @@ export class Engine {
             color: 0xffffff,
             roughness: 0.25
         })
-
+        
         this.materials.push(basicMaterial)
         this.screenRender = new ScreenRender(100, 100)
 
@@ -106,7 +106,7 @@ export class Engine {
                 name: basicMaterial.name,
                 pic: this.screenRender.render(basicMaterial),
                 type: "material",
-                index: 0,
+                index: basicMaterial.id,
                 isSelect: false
             }
 
