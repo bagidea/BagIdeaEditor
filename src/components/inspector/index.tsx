@@ -127,6 +127,7 @@ const Inspector = () => {
                         <NameInput
                             isSelect={ isSelect || isMaterial }
                             text={ isName }
+                            scene={ scene }
                             updateNameToStore={ updateName }
                         />
                         <Transform isSelect={ isSelect } />

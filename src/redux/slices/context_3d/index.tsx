@@ -73,7 +73,9 @@ const context3DSlice = createSlice({
             switch(action.payload.values.type)
             {
                 case "object":
-                    state.sceneChildren.at(action.payload.values.index).name = state.sceneChildren.at(action.payload.values.index).object.name = action.payload.values.name
+                    state.sceneChildren.at(action.payload.values.index).name =
+                    state.sceneChildren.at(action.payload.values.index).object.name =
+                    action.payload.values.name
                     break
                 case "asset":
                     (state.assets.at(action.payload.values.index) as any).asset.name = action.payload.values.name

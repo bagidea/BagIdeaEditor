@@ -31,6 +31,7 @@ export class SceneCanvas {
     lastSelectedAsset: number = -1
     projectAssets: Asset[]
     setSelectAsset: (asset: Asset) => void
+    input_focus: boolean = false
 
     transformChanged: boolean = false
     //tmr: number = new Date().getTime()
@@ -129,6 +130,7 @@ export class SceneCanvas {
     }
 
     keyDown = (e: KeyboardEvent) => {
+        if(this.input_focus) return
         //console.log("press key: "+e.code)
         switch(e.code) {
             case "KeyQ":

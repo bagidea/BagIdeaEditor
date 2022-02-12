@@ -14,14 +14,14 @@ import {
 } from 'react'
 
 import { BsDot } from 'react-icons/bs'
-//import { SceneCanvas } from '../../display/scene/canvas'
+import { SceneCanvas } from '../../display/scene/canvas'
 
 const NameInput: React.FC<{
         isSelect: boolean,
         text: string,
-        //scene: SceneCanvas,
+        scene: SceneCanvas,
         updateNameToStore: (string) => void
-    }> = ({ isSelect, text, /*scene,*/ updateNameToStore }) =>
+    }> = ({ isSelect, text, scene, updateNameToStore }) =>
 {
     const [_value, setValue] = useState(text)
     const value_input: MutableRefObject<HTMLInputElement> = useRef<HTMLInputElement>(null)
@@ -75,7 +75,12 @@ const NameInput: React.FC<{
                         focusBorderColor="gray.400"
                         value={ _value }
                         onChange={ updateName }
-                        onBlur={ _updateToStore }
+                        onFocus={ () => scene.input_focus = true }
+                        onBlur={ () => {
+                                scene.input_focus = false
+                                _updateToStore()
+                            }
+                        }
                         onKeyPress={ (e) => { if(e.key == "Enter") _updateToStore() } }
                         ref={ value_input }
                     />
