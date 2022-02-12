@@ -9,10 +9,40 @@ import {
 } from '@chakra-ui/react'
 
 import { BsDot } from 'react-icons/bs'
+import { Asset } from '../../../redux/slices/context_3d'
+import { MeshPhysicalMaterial } from 'three'
+import { SceneCanvas } from '../../display/scene/canvas'
 import MaterialAndMap from './material_and_map'
 import MaterialSlider from './material_slider.tsx'
 
-const Material: React.FC<{ isSelect: boolean }> = ({ isSelect }) => {
+const combindHex = (str: string): string => {
+    while(str.length < 6) str = "0"+str
+    return str
+}
+
+const Material: React.FC<{
+        isSelect: boolean,
+        scene: SceneCanvas
+    }> = ({ isSelect, scene }) =>
+{
+    let diffuse_color: string = ""
+
+    if(!!scene) {
+        if(scene.lastSelectedAsset != -1) {
+            const asset: Asset = (scene.projectAssets[scene.lastSelectedAsset] as any).asset as Asset
+
+            if(!!asset) {
+                if(asset.isSelect && asset.type == "material") {
+                    const material: MeshPhysicalMaterial = scene.engine.materials.find((v: MeshPhysicalMaterial) => v.id == asset.index)
+
+                    if(!!material) {
+                        diffuse_color = "#"+combindHex(material.color.getHex().toString(16))
+                    }
+                }
+            }
+        }
+    }
+
     return (
         <Flex
             display={ isSelect ? "flex" : "none" }
@@ -55,7 +85,11 @@ const Material: React.FC<{ isSelect: boolean }> = ({ isSelect }) => {
                             fontWeight="600"
                         >Standard</Text>
 
-                        <MaterialAndMap text="Albedo" hasColor={ true } />
+                        <MaterialAndMap
+                            text="Albedo"
+                            hasColor={ true }
+                            color_txt={ diffuse_color }
+                        />
 
                         <VStack
                             w="full"

@@ -9,7 +9,12 @@ import { BsDot } from 'react-icons/bs'
 import { MdTexture } from 'react-icons/md'
 import { CgColorBucket } from 'react-icons/cg'
 
-const MaterialAndMap: React.FC<{ text: string, hasColor?: boolean }> = ({ text, hasColor }) => {
+const MaterialAndMap: React.FC<{
+        text: string,
+        hasColor?: boolean,
+        color_txt?: string
+    }> = ({ text, hasColor, color_txt }) =>
+{
     return (
         <HStack
             w="full"
@@ -42,7 +47,7 @@ const MaterialAndMap: React.FC<{ text: string, hasColor?: boolean }> = ({ text, 
                 <CgColorBucket />
                 <Box
                     boxSize="15px"
-                    bgColor="white"
+                    bgColor={ color_txt }
                     border="1px solid"
                     borderColor="white"
                     cursor="pointer"
@@ -51,7 +56,7 @@ const MaterialAndMap: React.FC<{ text: string, hasColor?: boolean }> = ({ text, 
                 <Text
                     fontSize="15px"
                     color="gray.200"
-                >#ff0000</Text>
+                >{ color_txt }</Text>
             </HStack>
         </HStack>
     )

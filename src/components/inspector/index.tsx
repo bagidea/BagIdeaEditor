@@ -131,7 +131,10 @@ const Inspector = () => {
                             updateNameToStore={ updateName }
                         />
                         <Transform isSelect={ isSelect } />
-                        <Material isSelect={ isMaterial } />
+                        <Material
+                            isSelect={ isMaterial }
+                            scene={ scene }
+                        />
                     </VStack>
                 </Flex>
             </VStack>
