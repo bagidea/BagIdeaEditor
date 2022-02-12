@@ -69,7 +69,18 @@ const context3DSlice = createSlice({
             //state.assets[action.payload.values.index].isSelect = action.payload.values.isSelect
         },
         setName: (state, action) => {
-            console.log(action.payload)
+            //console.log(action.payload)
+            switch(action.payload.values.type)
+            {
+                case "object":
+                    state.sceneChildren.at(action.payload.values.index).name = state.sceneChildren.at(action.payload.values.index).object.name = action.payload.values.name
+                    break
+                case "asset":
+                    (state.assets.at(action.payload.values.index) as any).asset.name = action.payload.values.name
+                    break
+                default:
+                    console.log("no type to update name.")
+            }
         }
     }
 })
