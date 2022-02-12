@@ -67,6 +67,9 @@ const context3DSlice = createSlice({
         setSelectAsset: (state, action) => {
             (state.assets.at(action.payload.values.index) as any).asset.isSelect = action.payload.values.isSelect
             //state.assets[action.payload.values.index].isSelect = action.payload.values.isSelect
+        },
+        setName: (state, action) => {
+            console.log(action.payload)
         }
     }
 })
@@ -80,6 +83,7 @@ export const {
     setSelectTransform,
     addAsset,
     removeAsset,
-    setSelectAsset
+    setSelectAsset,
+    setName
 } = context3DSlice.actions
 export default context3DSlice.reducer

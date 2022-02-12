@@ -11,7 +11,7 @@ import {
 } from 'react'
 
 import { ImEqualizer } from 'react-icons/im'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { SceneChild } from '../../engine'
 import { RootState } from '../../redux/reducers'
 import { Asset } from '../../redux/slices/context_3d'
@@ -25,6 +25,7 @@ const Inspector = () => {
     const scene: SceneCanvas = sceneContext?.context
     const children: SceneChild[] = useSelector((state: RootState) => state.context3DSlice.sceneChildren)
     const assets: Asset[] = useSelector((state: RootState) => state.context3DSlice.assets)
+    const dispatch = useDispatch()
 
     const [isSelect, setSelect] = useState(false)
     const [isMaterial, setMaterial] = useState(false)
@@ -56,6 +57,26 @@ const Inspector = () => {
             (scene.projectAssets[scene.lastSelectedAsset] as any).asset.name : ""
         )
     }, [children, assets])
+
+    const updateName = (name: string) => {
+        //console.log(name)
+
+        const index: number =   scene.lastSelected != -1 ? scene.lastSelected :
+                                scene.lastSelectedAsset != -1 ? scene.lastSelectedAsset : -1
+
+        if(index != -1) {
+            const type: string = scene.lastSelected != -1 ? "object" : "asset"
+
+            dispatch({
+                type: "context_3d@setName",
+                values: {
+                    index,
+                    type,
+                    name
+                }
+            })
+        }
+    }
 
     return (
         <Flex
@@ -106,6 +127,7 @@ const Inspector = () => {
                         <NameInput
                             isSelect={ isSelect || isMaterial }
                             text={ isName }
+                            updateNameToStore={ updateName }
                         />
                         <Transform isSelect={ isSelect } />
                         <Material isSelect={ isMaterial } />

@@ -14,14 +14,28 @@ import {
 } from 'react'
 
 import { BsDot } from 'react-icons/bs'
+//import { SceneCanvas } from '../../display/scene/canvas'
 
-const NameInput: React.FC<{ isSelect: boolean, text: string }> = ({ isSelect, text }) => {
+const NameInput: React.FC<{
+        isSelect: boolean,
+        text: string,
+        //scene: SceneCanvas,
+        updateNameToStore: (string) => void
+    }> = ({ isSelect, text, /*scene,*/ updateNameToStore }) =>
+{
     const [_value, setValue] = useState(text)
     const value_input: MutableRefObject<HTMLInputElement> = useRef<HTMLInputElement>(null)
 
-    const updateTransform = (e: BaseSyntheticEvent) => {
+    const updateName = (e: BaseSyntheticEvent) => {
         const value: string = e.target.value
         setValue(value)
+    }
+
+    const _updateToStore = () => {
+        //console.log("Name: "+value_input.current.value)
+        //console.log(scene.lastSelected)
+        //console.log(scene.lastSelectedAsset)
+        updateNameToStore(value_input.current.value)
     }
 
     useEffect(() => {
@@ -60,7 +74,9 @@ const NameInput: React.FC<{ isSelect: boolean, text: string }> = ({ isSelect, te
                         bgColor="gray.800"
                         focusBorderColor="gray.400"
                         value={ _value }
-                        onChange={ updateTransform }
+                        onChange={ updateName }
+                        onBlur={ _updateToStore }
+                        onKeyPress={ (e) => { if(e.key == "Enter") _updateToStore() } }
                         ref={ value_input }
                     />
                 </HStack>

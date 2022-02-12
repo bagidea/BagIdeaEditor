@@ -14,6 +14,7 @@ import {
     addAsset,
     removeAsset,
     setSelectAsset,
+    setName,
 } from '.'
 
 // Actions
@@ -54,6 +55,10 @@ function* context3DSetSelectAsset(action: any) {
     yield put(setSelectAsset(action))
 }
 
+function* context3DSetName(action: any) {
+    yield put(setName(action))
+}
+
 // Watch
 
 function* watchSetSceneContext() {
@@ -92,6 +97,10 @@ function* watchSetSelectAsset() {
     yield takeEvery('context_3d@setSelectAsset', context3DSetSelectAsset)
 }
 
+function* watchSetName() {
+    yield takeEvery('context_3d@setName', context3DSetName)
+}
+
 export default function* rootContext3D() {
     yield all([
         watchSetSceneContext(),
@@ -102,6 +111,7 @@ export default function* rootContext3D() {
         watchSetSelectTransform(),
         watchAddAsset(),
         watchRemoveAsset(),
-        watchSetSelectAsset()
+        watchSetSelectAsset(),
+        watchSetName()
     ])
 }

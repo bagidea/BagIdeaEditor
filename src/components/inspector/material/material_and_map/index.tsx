@@ -22,9 +22,9 @@ const MaterialAndMap: React.FC<{ text: string, hasColor?: boolean }> = ({ text, 
                 <MdTexture />
                 <Box
                     boxSize="15px"
-                    bgColor="gray.900"
                     border="1px solid"
-                    borderColor="white"
+                    borderColor="gray.700"
+                    cursor="pointer"
                 />
                 <BsDot />
                 <Text
@@ -42,9 +42,10 @@ const MaterialAndMap: React.FC<{ text: string, hasColor?: boolean }> = ({ text, 
                 <CgColorBucket />
                 <Box
                     boxSize="15px"
-                    bgColor="red"
+                    bgColor="white"
                     border="1px solid"
                     borderColor="white"
+                    cursor="pointer"
                 />
                 <BsDot />
                 <Text
