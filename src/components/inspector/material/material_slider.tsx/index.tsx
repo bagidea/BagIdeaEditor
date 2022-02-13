@@ -43,6 +43,10 @@ const MaterialSlider: React.FC<{
                 material.metalness = value = e/100
                 if(!!setBack) setBack(material.metalness)
                 break
+            case "roughness":
+                material.roughness = value = e/100
+                if(!!setBack) setBack(material.roughness)
+                break
         }
     }
 

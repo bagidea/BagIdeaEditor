@@ -42,6 +42,8 @@ const Material: React.FC<{
 
     const [metalness, setMetalness] = useState(0)
 
+    const [roughness, setRoughness] = useState(0)
+
     let emissive_color: string = ""
     let sheen_color: string = ""
 
@@ -65,6 +67,8 @@ const Material: React.FC<{
                         ao_intensity = material.aoMapIntensity
 
                         if(metalness != material.metalness) setMetalness(material.metalness)
+
+                        if(roughness != material.roughness) setRoughness(material.roughness)
 
                         emissive_color = "#"+combindHex(material.emissive.getHex().toString(16))
                         sheen_color = "#"+combindHex(material.sheenColor.getHex().toString(16))
@@ -219,7 +223,8 @@ const Material: React.FC<{
                             <MaterialAndMap text="Roughness" />
                             <MaterialSlider
                                 text=""
-                                value={ 50 }
+                                value={ roughness }
+                                setBack={ setRoughness }
                                 material={ buffer_material }
                                 type="roughness"
                             />

@@ -80,6 +80,17 @@ const AddMenu = () => {
             object: mesh
         }
 
+        if(sceneContext.context.lastSelectedAsset != -1) {
+            dispatch({
+                type: "context_3d@setSelectAsset",
+                values: {
+                    index: sceneContext.context.lastSelectedAsset,
+                    isSelect: false
+                }
+            })
+            sceneContext.context.lastSelectedAsset = -1
+        }
+
         if(sceneContext.context.lastSelected != -1) {
             engine.transformControl.detach()
 

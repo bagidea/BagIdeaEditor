@@ -59,6 +59,18 @@ const Scene = () => {
     }
 
     const setSelect = (object: any) => {
+        if(scene.lastSelectedAsset != -1) {
+            console.log(true)
+            dispatch({
+                type: "context_3d@setSelectAsset",
+                values: {
+                    index: scene.lastSelectedAsset,
+                    isSelect: false
+                }
+            })
+            scene.lastSelectedAsset = -1
+        }
+
         if(!!object) {
             if(scene.lastSelectedAsset != -1) {
                 dispatch({
