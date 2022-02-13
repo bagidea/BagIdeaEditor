@@ -17,7 +17,7 @@ import { MeshPhysicalMaterial } from 'three'
 const MaterialSlider: React.FC<{
         text: string,
         value: number,
-        setBack?: Dispatch<SetStateAction<number>>
+        setBack: Dispatch<SetStateAction<number>>
         material: MeshPhysicalMaterial,
         type: string
     }> = ({ text, value, setBack, material, type }) =>
@@ -37,16 +37,34 @@ const MaterialSlider: React.FC<{
         {
             case "bump_map_scale":
                 material.bumpScale = value = e/100
-                if(!!setBack) setBack(material.bumpScale)
+                setBack(material.bumpScale)
                 break
             case "metalness":
                 material.metalness = value = e/100
-                if(!!setBack) setBack(material.metalness)
+                setBack(material.metalness)
                 break
             case "roughness":
                 material.roughness = value = e/100
-                if(!!setBack) setBack(material.roughness)
+                setBack(material.roughness)
                 break
+            case "clearcoat":
+                material.clearcoat = value = e/100
+                setBack(material.clearcoat)
+                break
+            case "clearcoat_roughness":
+                material.clearcoatRoughness = value = e/100
+                setBack(material.clearcoatRoughness)
+                break
+            case "sheen_roughness":
+                material.sheenRoughness = value = e/100
+                setBack(material.sheenRoughness)
+                break
+            case "transmission":
+                material.transmission = value = e/100
+                setBack(material.transmission)
+                break
+            default:
+                console.log("invalid material type")
         }
     }
 

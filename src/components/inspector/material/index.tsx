@@ -45,7 +45,15 @@ const Material: React.FC<{
     const [roughness, setRoughness] = useState(0)
 
     let emissive_color: string = ""
+
+    const [clearcoat, setClearcoat] = useState(0)
+
+    const [clearcoat_roughness, setClearcoatRoughness] = useState(0)
+
     let sheen_color: string = ""
+    const [sheen_roughness, setSheenRoughness] = useState(0)
+
+    const [transmission, setTransmission] = useState(0)
 
     if(!!scene) {
         if(scene.lastSelectedAsset != -1) {
@@ -71,7 +79,14 @@ const Material: React.FC<{
                         if(roughness != material.roughness) setRoughness(material.roughness)
 
                         emissive_color = "#"+combindHex(material.emissive.getHex().toString(16))
+
+                        if(clearcoat != material.clearcoat) setClearcoat(material.clearcoat)
+                        if(clearcoat_roughness != material.clearcoatRoughness) setClearcoatRoughness(material.clearcoatRoughness)
+
                         sheen_color = "#"+combindHex(material.sheenColor.getHex().toString(16))
+                        if(sheen_roughness != material.sheenRoughness) setSheenRoughness(material.sheenRoughness)
+
+                        if(transmission != material.transmission) setTransmission(material.transmission)
                     }
                 }
             }
@@ -365,7 +380,8 @@ const Material: React.FC<{
                             <MaterialAndMap text="Clearcoat" />
                             <MaterialSlider
                                 text=""
-                                value={ 50 }
+                                value={ clearcoat }
+                                setBack={ setClearcoat }
                                 material={ buffer_material }
                                 type="clearcoat"
                             />
@@ -403,7 +419,8 @@ const Material: React.FC<{
                             <MaterialAndMap text="Clearcoat Roughness" />
                             <MaterialSlider
                                 text=""
-                                value={ 50 }
+                                value={ clearcoat_roughness }
+                                setBack={ setClearcoatRoughness }
                                 material={ buffer_material }
                                 type="clearcoat_roughness"
                             />
@@ -421,7 +438,8 @@ const Material: React.FC<{
                             <MaterialAndMap text="SheenRoughness" />
                             <MaterialSlider
                                 text=""
-                                value={ 50 }
+                                value={ sheen_roughness }
+                                setBack={ setSheenRoughness }
                                 material={ buffer_material }
                                 type="sheen_roughness"
                             />
@@ -434,7 +452,8 @@ const Material: React.FC<{
                             <MaterialAndMap text="Transmission" />
                             <MaterialSlider
                                 text=""
-                                value={ 50 }
+                                value={ transmission }
+                                setBack={ setTransmission }
                                 material={ buffer_material }
                                 type="transmission"
                             />
