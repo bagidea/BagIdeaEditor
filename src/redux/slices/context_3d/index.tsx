@@ -83,6 +83,9 @@ const context3DSlice = createSlice({
                 default:
                     console.log("no type to update name.")
             }
+        },
+        updatePic: (state, action) => {
+            (state.assets.at(action.payload.values.index) as any).asset.pic = action.payload.values.pic
         }
     }
 })
@@ -97,6 +100,7 @@ export const {
     addAsset,
     removeAsset,
     setSelectAsset,
-    setName
+    setName,
+    updatePic
 } = context3DSlice.actions
 export default context3DSlice.reducer

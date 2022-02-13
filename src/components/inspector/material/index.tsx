@@ -189,6 +189,7 @@ const Material: React.FC<{
                                 setBack={ setBumpMapScale }
                                 material={ buffer_material }
                                 type="bump_map_scale"
+                                scene={ scene }
                             />
                         </VStack>
 
@@ -228,6 +229,7 @@ const Material: React.FC<{
                                 setBack={ setMetalness }
                                 material={ buffer_material }
                                 type="metalness"
+                                scene={ scene }
                             />
                         </VStack>
 
@@ -242,6 +244,7 @@ const Material: React.FC<{
                                 setBack={ setRoughness }
                                 material={ buffer_material }
                                 type="roughness"
+                                scene={ scene }
                             />
                         </VStack>
 
@@ -384,6 +387,7 @@ const Material: React.FC<{
                                 setBack={ setClearcoat }
                                 material={ buffer_material }
                                 type="clearcoat"
+                                scene={ scene }
                             />
                             <MaterialAndMap text="Clearcoat Normal" />
                             <HStack
@@ -423,6 +427,7 @@ const Material: React.FC<{
                                 setBack={ setClearcoatRoughness }
                                 material={ buffer_material }
                                 type="clearcoat_roughness"
+                                scene={ scene }
                             />
                         </VStack>
 
@@ -442,6 +447,7 @@ const Material: React.FC<{
                                 setBack={ setSheenRoughness }
                                 material={ buffer_material }
                                 type="sheen_roughness"
+                                scene={ scene }
                             />
                         </VStack>
 
@@ -456,6 +462,7 @@ const Material: React.FC<{
                                 setBack={ setTransmission }
                                 material={ buffer_material }
                                 type="transmission"
+                                scene={ scene }
                             />
                         </VStack>
                     </VStack>

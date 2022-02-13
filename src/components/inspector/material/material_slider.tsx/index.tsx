@@ -11,16 +11,25 @@ import {
     VStack
 } from '@chakra-ui/react'
 
-import { Dispatch, MutableRefObject, SetStateAction, useRef, useState } from 'react'
+import {
+    Dispatch,
+    MutableRefObject,
+    SetStateAction,
+    useRef,
+    useState
+} from 'react'
+
 import { MeshPhysicalMaterial } from 'three'
+import { SceneCanvas } from '../../../display/scene/canvas'
 
 const MaterialSlider: React.FC<{
         text: string,
         value: number,
         setBack: Dispatch<SetStateAction<number>>
         material: MeshPhysicalMaterial,
-        type: string
-    }> = ({ text, value, setBack, material, type }) =>
+        type: string,
+        scene: SceneCanvas
+    }> = ({ text, value, setBack, material, type, scene }) =>
 {
     const input: MutableRefObject<HTMLInputElement> = useRef<HTMLInputElement>(null)
 
@@ -65,6 +74,10 @@ const MaterialSlider: React.FC<{
         }
     }
 
+    const picRender = () => {
+        //console.log(scene.engine.screenRender.render(material))
+    }
+
     const sliderChange = (e) => {
         setSliderValue(e)
         input.current.value = (e / 100).toFixed(2)
@@ -75,6 +88,7 @@ const MaterialSlider: React.FC<{
         //console.log(input.current.value)
         setSliderValue(100 * parseFloat(input.current.value))
         updateAll(parseFloat(input.current.value))
+        picRender()
     }
 
     return (
@@ -98,6 +112,7 @@ const MaterialSlider: React.FC<{
                     onChange={ sliderChange }
                     onMouseEnter={() => setShowTooltip(true)}
                     onMouseLeave={() => setShowTooltip(false)}
+                    onChangeEnd={ () => picRender() }
                 >
                     <SliderMark value={ 0 } mt='1' ml='2px' fontSize='sm'>0.0</SliderMark>
                     <SliderMark value={ 100 } mt='1' ml='-20px' fontSize='sm'>1.0</SliderMark>

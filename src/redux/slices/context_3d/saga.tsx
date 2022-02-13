@@ -15,6 +15,7 @@ import {
     removeAsset,
     setSelectAsset,
     setName,
+    updatePic,
 } from '.'
 
 // Actions
@@ -59,6 +60,10 @@ function* context3DSetName(action: any) {
     yield put(setName(action))
 }
 
+function* context3DUpdatePic(action: any) {
+    yield put(updatePic(action))
+}
+
 // Watch
 
 function* watchSetSceneContext() {
@@ -101,6 +106,10 @@ function* watchSetName() {
     yield takeEvery('context_3d@setName', context3DSetName)
 }
 
+function* watchUpdatePic() {
+    yield takeEvery('context_3d@updatePic', context3DUpdatePic)
+}
+
 export default function* rootContext3D() {
     yield all([
         watchSetSceneContext(),
@@ -112,6 +121,7 @@ export default function* rootContext3D() {
         watchAddAsset(),
         watchRemoveAsset(),
         watchSetSelectAsset(),
-        watchSetName()
+        watchSetName(),
+        watchUpdatePic()
     ])
 }
