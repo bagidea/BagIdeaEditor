@@ -14,11 +14,11 @@ import {
 } from 'three'
 
 import { BsDot } from 'react-icons/bs'
-import { Asset } from '../../../redux/slices/context_3d'
+import { Asset, updatePic } from '../../../redux/slices/context_3d'
 import { SceneCanvas } from '../../display/scene/canvas'
 import MaterialAndMap from './material_and_map'
 import MaterialSlider from './material_slider.tsx'
-import { useState } from 'react'
+import { MutableRefObject, useRef, useState } from 'react'
 
 const combindHex = (str: string): string => {
     while(str.length < 6) str = "0"+str
@@ -34,7 +34,10 @@ const Material: React.FC<{
 
     let diffuse_color: string = ""
 
-    let normal_map_scale: Vector2 = new Vector2();
+    const normal_map_scale_x_input: MutableRefObject<HTMLInputElement> = useRef<HTMLInputElement>(null)
+    const normal_map_scale_y_input: MutableRefObject<HTMLInputElement> = useRef<HTMLInputElement>(null)
+    const [normal_map_scale_x, setNormalMapScaleX] = useState(0)
+    const [normal_map_scale_y, setNormalMapScaleY] = useState(0)
 
     const [bump_map_scale, setBumpMapScale] = useState(0)
 
@@ -68,7 +71,8 @@ const Material: React.FC<{
 
                         diffuse_color = "#"+combindHex(material.color.getHex().toString(16))
 
-                        normal_map_scale = new Vector2(material.normalScale.x, material.normalScale.y)
+                        if(normal_map_scale_x != material.normalScale.x) setNormalMapScaleX(material.normalScale.x)
+                        if(normal_map_scale_y != material.normalScale.y) setNormalMapScaleY(material.normalScale.y)
 
                         if(bump_map_scale != material.bumpScale) setBumpMapScale(material.bumpScale)
 
@@ -91,6 +95,10 @@ const Material: React.FC<{
                 }
             }
         }
+    }
+
+    const picRender = () => {
+        if(!!buffer_material) scene.updatePic(scene.engine.screenRender.render(buffer_material))
     }
 
     return (
@@ -161,7 +169,21 @@ const Material: React.FC<{
                                         px="2px"
                                         focusBorderColor="gray.400"
                                         textAlign="center"
-                                        defaultValue={ (normal_map_scale.x).toFixed(2) }
+                                        defaultValue={ (normal_map_scale_x).toFixed(2) }
+                                        type="number"
+                                        ref={ normal_map_scale_x_input }
+                                        onBlur={ () => {
+                                                setNormalMapScaleX(parseFloat(normal_map_scale_x_input.current.value))
+                                                picRender()
+                                            }
+                                        }
+                                        onKeyPress={ (e) => {
+                                                if(e.key == "Enter") {
+                                                    setNormalMapScaleX(parseFloat(normal_map_scale_x_input.current.value))
+                                                    picRender()
+                                                }
+                                            }
+                                        }
                                     />
                                 </HStack>
                                 <HStack>
@@ -172,7 +194,21 @@ const Material: React.FC<{
                                         px="2px"
                                         focusBorderColor="gray.400"
                                         textAlign="center"
-                                        defaultValue={ (normal_map_scale.y).toFixed(2) }
+                                        defaultValue={ (normal_map_scale_y).toFixed(2) }
+                                        type="number"
+                                        ref={ normal_map_scale_y_input }
+                                        onBlur={ () => {
+                                                setNormalMapScaleY(parseFloat(normal_map_scale_y_input.current.value))
+                                                picRender()
+                                            }
+                                        }
+                                        onKeyPress={ (e) => {
+                                                if(e.key == "Enter") {
+                                                    setNormalMapScaleY(parseFloat(normal_map_scale_y_input.current.value))
+                                                    picRender()
+                                                }
+                                            }
+                                        }
                                     />
                                 </HStack>
                             </HStack>
