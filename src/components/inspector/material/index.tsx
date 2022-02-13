@@ -58,6 +58,12 @@ const Material: React.FC<{
     const [displacement_scale, setDisplacementScale] = useState(0)
     const [displacement_bias, setDisplacementBias] = useState(0)
 
+    const environment_map_intensity_input: MutableRefObject<HTMLInputElement> = useRef<HTMLInputElement>(null)
+    const [environment_map_intensity, setEnvironmentMapIntensity] = useState(0)
+
+    const light_map_intensity_input: MutableRefObject<HTMLInputElement> = useRef<HTMLInputElement>(null)
+    const [light_map_intensity, setLightMapIntensity] = useState(0)
+
     const [clearcoat, setClearcoat] = useState(0)
 
     const [clearcoat_roughness, setClearcoatRoughness] = useState(0)
@@ -96,6 +102,10 @@ const Material: React.FC<{
 
                         if(displacement_scale != material.displacementScale) setDisplacementScale(material.displacementScale)
                         if(displacement_bias != material.displacementBias) setDisplacementBias(material.displacementBias)
+
+                        if(environment_map_intensity != material.envMapIntensity) setEnvironmentMapIntensity(material.envMapIntensity)
+
+                        if(light_map_intensity != material.lightMapIntensity) setLightMapIntensity(material.lightMapIntensity)
 
                         if(clearcoat != material.clearcoat) setClearcoat(material.clearcoat)
                         if(clearcoat_roughness != material.clearcoatRoughness) setClearcoatRoughness(material.clearcoatRoughness)
@@ -437,7 +447,21 @@ const Material: React.FC<{
                                     px="2px"
                                     focusBorderColor="gray.400"
                                     textAlign="center"
-                                    defaultValue={ (1).toFixed(2) }
+                                    defaultValue={ (environment_map_intensity).toFixed(2) }
+                                    type="number"
+                                    ref={ environment_map_intensity_input }
+                                    onBlur={ () => {
+                                            setEnvironmentMapIntensity(parseFloat(environment_map_intensity_input.current.value))
+                                            picRender()
+                                        }
+                                    }
+                                    onKeyPress={ (e) => {
+                                            if(e.key == "Enter") {
+                                                setEnvironmentMapIntensity(parseFloat(environment_map_intensity_input.current.value))
+                                                picRender()
+                                            }
+                                        }
+                                    }
                                 />
                             </HStack>
                         </VStack>
@@ -460,7 +484,21 @@ const Material: React.FC<{
                                     px="2px"
                                     focusBorderColor="gray.400"
                                     textAlign="center"
-                                    defaultValue={ (1).toFixed(2) }
+                                    defaultValue={ (light_map_intensity).toFixed(2) }
+                                    type="number"
+                                    ref={ light_map_intensity_input }
+                                    onBlur={ () => {
+                                            setLightMapIntensity(parseFloat(environment_map_intensity_input.current.value))
+                                            picRender()
+                                        }
+                                    }
+                                    onKeyPress={ (e) => {
+                                            if(e.key == "Enter") {
+                                                setLightMapIntensity(parseFloat(environment_map_intensity_input.current.value))
+                                                picRender()
+                                            }
+                                        }
+                                    }
                                 />
                             </HStack>
                         </VStack>
