@@ -64,9 +64,12 @@ const Material: React.FC<{
     const light_map_intensity_input: MutableRefObject<HTMLInputElement> = useRef<HTMLInputElement>(null)
     const [light_map_intensity, setLightMapIntensity] = useState(0)
 
+    const clearcoat_normal_scale_x_input: MutableRefObject<HTMLInputElement> = useRef<HTMLInputElement>(null)
+    const clearcoat_normal_scale_y_input: MutableRefObject<HTMLInputElement> = useRef<HTMLInputElement>(null)
     const [clearcoat, setClearcoat] = useState(0)
-
     const [clearcoat_roughness, setClearcoatRoughness] = useState(0)
+    const [clearcoat_normal_scale_x, setClearcoatNormalScaleX] = useState(0)
+    const [clearcoat_normal_scale_y, setClearcoatNormalScaleY] = useState(0)
 
     let sheen_color: string = ""
     const [sheen_roughness, setSheenRoughness] = useState(0)
@@ -108,6 +111,8 @@ const Material: React.FC<{
                         if(light_map_intensity != material.lightMapIntensity) setLightMapIntensity(material.lightMapIntensity)
 
                         if(clearcoat != material.clearcoat) setClearcoat(material.clearcoat)
+                        if(clearcoat_normal_scale_x != material.clearcoatNormalScale.x) setClearcoatNormalScaleX(material.clearcoatNormalScale.x)
+                        if(clearcoat_normal_scale_y != material.clearcoatNormalScale.y) setClearcoatNormalScaleY(material.clearcoatNormalScale.y)
                         if(clearcoat_roughness != material.clearcoatRoughness) setClearcoatRoughness(material.clearcoatRoughness)
 
                         sheen_color = "#"+combindHex(material.sheenColor.getHex().toString(16))
@@ -548,7 +553,21 @@ const Material: React.FC<{
                                         px="2px"
                                         focusBorderColor="gray.400"
                                         textAlign="center"
-                                        defaultValue={ (1).toFixed(2) }
+                                        defaultValue={ (clearcoat_normal_scale_x).toFixed(2) }
+                                        type="number"
+                                        ref={ clearcoat_normal_scale_x_input }
+                                        onBlur={ () => {
+                                                setClearcoatNormalScaleX(parseFloat(clearcoat_normal_scale_x_input.current.value))
+                                                picRender()
+                                            }
+                                        }
+                                        onKeyPress={ (e) => {
+                                                if(e.key == "Enter") {
+                                                    setClearcoatNormalScaleX(parseFloat(clearcoat_normal_scale_x_input.current.value))
+                                                    picRender()
+                                                }
+                                            }
+                                        }
                                     />
                                 </HStack>
                                 <HStack>
@@ -559,7 +578,21 @@ const Material: React.FC<{
                                         px="2px"
                                         focusBorderColor="gray.400"
                                         textAlign="center"
-                                        defaultValue={ (1).toFixed(2) }
+                                        defaultValue={ (clearcoat_normal_scale_y).toFixed(2) }
+                                        type="number"
+                                        ref={ clearcoat_normal_scale_y_input }
+                                        onBlur={ () => {
+                                                setClearcoatNormalScaleY(parseFloat(clearcoat_normal_scale_y_input.current.value))
+                                                picRender()
+                                            }
+                                        }
+                                        onKeyPress={ (e) => {
+                                                if(e.key == "Enter") {
+                                                    setClearcoatNormalScaleY(parseFloat(clearcoat_normal_scale_y_input.current.value))
+                                                    picRender()
+                                                }
+                                            }
+                                        }
                                     />
                                 </HStack>
                             </HStack>
