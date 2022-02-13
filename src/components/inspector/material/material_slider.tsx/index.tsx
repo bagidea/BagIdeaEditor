@@ -29,43 +29,52 @@ const MaterialSlider: React.FC<{
 
     if(sliderValue != 100*value) setSliderValue(100*value)
 
-    const sliderChange = (e) => {
-        setSliderValue(e)
-        input.current.value = (e/100).toFixed(2)
-
+    const updateAll = (e) => {
         switch(type)
         {
             case "bump_map_scale":
-                material.bumpScale = value = e/100
+                material.bumpScale = e
                 setBack(material.bumpScale)
                 break
             case "metalness":
-                material.metalness = value = e/100
+                material.metalness = e
                 setBack(material.metalness)
                 break
             case "roughness":
-                material.roughness = value = e/100
+                material.roughness = e
                 setBack(material.roughness)
                 break
             case "clearcoat":
-                material.clearcoat = value = e/100
+                material.clearcoat = e
                 setBack(material.clearcoat)
                 break
             case "clearcoat_roughness":
-                material.clearcoatRoughness = value = e/100
+                material.clearcoatRoughness = e
                 setBack(material.clearcoatRoughness)
                 break
             case "sheen_roughness":
-                material.sheenRoughness = value = e/100
+                material.sheenRoughness = e
                 setBack(material.sheenRoughness)
                 break
             case "transmission":
-                material.transmission = value = e/100
+                material.transmission = e
                 setBack(material.transmission)
                 break
             default:
                 console.log("invalid material type")
         }
+    }
+
+    const sliderChange = (e) => {
+        setSliderValue(e)
+        input.current.value = (e / 100).toFixed(2)
+        updateAll(e / 100)
+    }
+
+    const inputChange = () => {
+        //console.log(input.current.value)
+        setSliderValue(100 * parseFloat(input.current.value))
+        updateAll(parseFloat(input.current.value))
     }
 
     return (
@@ -114,9 +123,12 @@ const MaterialSlider: React.FC<{
                     w="50px"
                     h="30px"
                     px="0px"
+                    type="number"
                     focusBorderColor="gray.400"
                     textAlign="center"
                     defaultValue={ (value).toFixed(2) } 
+                    onBlur={ inputChange }
+                    onKeyPress={ (e) => { if(e.key == "Enter") inputChange() } }
                     ref={ input }
                 />
             </HStack>
