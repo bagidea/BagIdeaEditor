@@ -11,17 +11,39 @@ import {
     VStack
 } from '@chakra-ui/react'
 
-import { MutableRefObject, useRef, useState } from 'react'
+import { Dispatch, MutableRefObject, SetStateAction, useRef, useState } from 'react'
+import { MeshPhysicalMaterial } from 'three'
 
-const MaterialSlider: React.FC<{ text: string, value: number }> = ({ text, value }) => {
+const MaterialSlider: React.FC<{
+        text: string,
+        value: number,
+        setBack?: Dispatch<SetStateAction<number>>
+        material: MeshPhysicalMaterial,
+        type: string
+    }> = ({ text, value, setBack, material, type }) =>
+{
     const input: MutableRefObject<HTMLInputElement> = useRef<HTMLInputElement>(null)
 
-    const [sliderValue, setSliderValue] = useState(value)
+    const [sliderValue, setSliderValue] = useState(100*value)
     const [showTooltip, setShowTooltip] = useState(false)
+
+    if(sliderValue != 100*value) setSliderValue(100*value)
 
     const sliderChange = (e) => {
         setSliderValue(e)
         input.current.value = (e/100).toFixed(2)
+
+        switch(type)
+        {
+            case "bump_map_scale":
+                material.bumpScale = value = e/100
+                if(!!setBack) setBack(material.bumpScale)
+                break
+            case "metalness":
+                material.metalness = value = e/100
+                if(!!setBack) setBack(material.metalness)
+                break
+        }
     }
 
     return (
@@ -37,10 +59,11 @@ const MaterialSlider: React.FC<{ text: string, value: number }> = ({ text, value
             <HStack
                 w="full"
                 pb="15px"
+                spacing="15px"
             >
                 <Slider
                     aria-label="slider-ex-1"
-                    defaultValue={ 50 }
+                    value={ sliderValue }
                     onChange={ sliderChange }
                     onMouseEnter={() => setShowTooltip(true)}
                     onMouseLeave={() => setShowTooltip(false)}
@@ -71,7 +94,7 @@ const MaterialSlider: React.FC<{ text: string, value: number }> = ({ text, value
                     px="0px"
                     focusBorderColor="gray.400"
                     textAlign="center"
-                    defaultValue={ (value/100).toFixed(2) } 
+                    defaultValue={ (value).toFixed(2) } 
                     ref={ input }
                 />
             </HStack>

@@ -8,12 +8,17 @@ import {
     VStack
 } from '@chakra-ui/react'
 
+import {
+    MeshPhysicalMaterial,
+    Vector2
+} from 'three'
+
 import { BsDot } from 'react-icons/bs'
 import { Asset } from '../../../redux/slices/context_3d'
-import { MeshPhysicalMaterial } from 'three'
 import { SceneCanvas } from '../../display/scene/canvas'
 import MaterialAndMap from './material_and_map'
 import MaterialSlider from './material_slider.tsx'
+import { useState } from 'react'
 
 const combindHex = (str: string): string => {
     while(str.length < 6) str = "0"+str
@@ -25,7 +30,20 @@ const Material: React.FC<{
         scene: SceneCanvas
     }> = ({ isSelect, scene }) =>
 {
+    let buffer_material: MeshPhysicalMaterial = null
+
     let diffuse_color: string = ""
+
+    let normal_map_scale: Vector2 = new Vector2();
+
+    const [bump_map_scale, setBumpMapScale] = useState(0)
+
+    let ao_intensity: number = 1
+
+    const [metalness, setMetalness] = useState(0)
+
+    let emissive_color: string = ""
+    let sheen_color: string = ""
 
     if(!!scene) {
         if(scene.lastSelectedAsset != -1) {
@@ -36,7 +54,20 @@ const Material: React.FC<{
                     const material: MeshPhysicalMaterial = scene.engine.materials.find((v: MeshPhysicalMaterial) => v.id == asset.index)
 
                     if(!!material) {
+                        buffer_material = material
+
                         diffuse_color = "#"+combindHex(material.color.getHex().toString(16))
+
+                        normal_map_scale = new Vector2(material.normalScale.x, material.normalScale.y)
+
+                        if(bump_map_scale != material.bumpScale) setBumpMapScale(material.bumpScale)
+
+                        ao_intensity = material.aoMapIntensity
+
+                        if(metalness != material.metalness) setMetalness(material.metalness)
+
+                        emissive_color = "#"+combindHex(material.emissive.getHex().toString(16))
+                        sheen_color = "#"+combindHex(material.sheenColor.getHex().toString(16))
                     }
                 }
             }
@@ -111,7 +142,7 @@ const Material: React.FC<{
                                         px="2px"
                                         focusBorderColor="gray.400"
                                         textAlign="center"
-                                        defaultValue={ (1).toFixed(2) }
+                                        defaultValue={ (normal_map_scale.x).toFixed(2) }
                                     />
                                 </HStack>
                                 <HStack>
@@ -122,7 +153,7 @@ const Material: React.FC<{
                                         px="2px"
                                         focusBorderColor="gray.400"
                                         textAlign="center"
-                                        defaultValue={ (1).toFixed(2) }
+                                        defaultValue={ (normal_map_scale.y).toFixed(2) }
                                     />
                                 </HStack>
                             </HStack>
@@ -133,7 +164,13 @@ const Material: React.FC<{
                             spacing="2px"
                         >
                             <MaterialAndMap text="Bump" />
-                            <MaterialSlider text="Bump Scale" value={ 50 } />
+                            <MaterialSlider
+                                text="Bump Scale"
+                                value={ bump_map_scale }
+                                setBack={ setBumpMapScale }
+                                material={ buffer_material }
+                                type="bump_map_scale"
+                            />
                         </VStack>
 
                         <MaterialAndMap text="Alpha" />
@@ -156,7 +193,7 @@ const Material: React.FC<{
                                     px="2px"
                                     focusBorderColor="gray.400"
                                     textAlign="center"
-                                    defaultValue={ (1).toFixed(2) }
+                                    defaultValue={ (ao_intensity).toFixed(2) }
                                 />
                             </HStack>
                         </VStack>
@@ -166,7 +203,13 @@ const Material: React.FC<{
                             spacing="2px"
                         >
                             <MaterialAndMap text="Metalness" />
-                            <MaterialSlider text="" value={ 50 } />
+                            <MaterialSlider
+                                text=""
+                                value={ metalness }
+                                setBack={ setMetalness }
+                                material={ buffer_material }
+                                type="metalness"
+                            />
                         </VStack>
 
                         <VStack
@@ -174,14 +217,23 @@ const Material: React.FC<{
                             spacing="2px"
                         >
                             <MaterialAndMap text="Roughness" />
-                            <MaterialSlider text="" value={ 50 } />
+                            <MaterialSlider
+                                text=""
+                                value={ 50 }
+                                material={ buffer_material }
+                                type="roughness"
+                            />
                         </VStack>
 
                         <VStack
                             w="full"
                             spacing="2px"
                         >
-                            <MaterialAndMap text="Emissive" hasColor={ true } />
+                            <MaterialAndMap
+                                text="Emissive"
+                                hasColor={ true }
+                                color_txt={ emissive_color }
+                            />
                             <HStack
                                 w="full"
                                 pl="67px"
@@ -306,7 +358,12 @@ const Material: React.FC<{
                             spacing="2px"
                         >
                             <MaterialAndMap text="Clearcoat" />
-                            <MaterialSlider text="" value={ 50 } />
+                            <MaterialSlider
+                                text=""
+                                value={ 50 }
+                                material={ buffer_material }
+                                type="clearcoat"
+                            />
                             <MaterialAndMap text="Clearcoat Normal" />
                             <HStack
                                 w="full"
@@ -339,16 +396,30 @@ const Material: React.FC<{
                                 </HStack>
                             </HStack>
                             <MaterialAndMap text="Clearcoat Roughness" />
-                            <MaterialSlider text="" value={ 50 } />
+                            <MaterialSlider
+                                text=""
+                                value={ 50 }
+                                material={ buffer_material }
+                                type="clearcoat_roughness"
+                            />
                         </VStack>
 
                         <VStack
                             w="full"
                             spacing="2px"
                         >
-                            <MaterialAndMap text="SheenColor" hasColor={ true } />
+                            <MaterialAndMap
+                                text="SheenColor"
+                                hasColor={ true }
+                                color_txt={ sheen_color }
+                            />
                             <MaterialAndMap text="SheenRoughness" />
-                            <MaterialSlider text="" value={ 50 } />
+                            <MaterialSlider
+                                text=""
+                                value={ 50 }
+                                material={ buffer_material }
+                                type="sheen_roughness"
+                            />
                         </VStack>
 
                         <VStack
@@ -356,7 +427,12 @@ const Material: React.FC<{
                             spacing="2px"
                         >
                             <MaterialAndMap text="Transmission" />
-                            <MaterialSlider text="" value={ 50 } />
+                            <MaterialSlider
+                                text=""
+                                value={ 50 }
+                                material={ buffer_material }
+                                type="transmission"
+                            />
                         </VStack>
                     </VStack>
                 </VStack>
