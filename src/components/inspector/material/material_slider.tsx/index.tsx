@@ -75,7 +75,7 @@ const MaterialSlider: React.FC<{
     }
 
     const picRender = () => {
-        //console.log(scene.engine.screenRender.render(material))
+        scene.updatePic(scene.engine.screenRender.render(material))
     }
 
     const sliderChange = (e) => {

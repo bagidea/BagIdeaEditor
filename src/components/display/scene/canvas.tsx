@@ -28,6 +28,7 @@ export class SceneCanvas {
     delObject: () => void
     objectChangeDetect: () => void
     addAsset: (asset: Asset) => void
+    updatePic: (pic: string) => void
     lastSelectedAsset: number = -1
     projectAssets: Asset[]
     setSelectAsset: (asset: Asset) => void
@@ -57,6 +58,7 @@ export class SceneCanvas {
         delObject: () => void,
         objectChangeDetect: () => void,
         addAsset: (asset: Asset) => void,
+        updatePic: (pic: string) => void,
         setSelectAsset: (asset: Asset) => void
     ) {
         this.engine = new Engine(windowContext.current, canvas.current)
@@ -66,6 +68,7 @@ export class SceneCanvas {
         this.delObject = delObject
         this.objectChangeDetect = objectChangeDetect
         this.addAsset = addAsset
+        this.updatePic = updatePic
         this.setSelectAsset = setSelectAsset
 
         this.positionXInput = document.getElementById('position_x') as HTMLInputElement

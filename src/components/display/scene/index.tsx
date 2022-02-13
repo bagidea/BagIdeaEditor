@@ -164,12 +164,6 @@ const Scene = () => {
     }
 
     const addAsset = (asset: Asset) => {
-        /*console.log("add asset.")
-        console.log("name: "+asset.name)
-        console.log("pic: "+asset.pic)
-        console.log("type: "+asset.type)
-        console.log("index: "+asset.index)*/
-
         if(!!asset) {
             dispatch({
                 type: "context_3d@addAsset",
@@ -178,10 +172,17 @@ const Scene = () => {
         }
     }
 
-    const setSelectAsset = (asset: Asset) => {
-        //console.log(asset)
-        //console.log(asset.isSelect)
+    const updatePic = (pic: string) => {
+        dispatch({
+            type: "context_3d@updatePic",
+            values: {
+                index: scene.lastSelectedAsset,
+                pic
+            }
+        })
+    }
 
+    const setSelectAsset = (asset: Asset) => {
         if(scene.lastSelected != -1) {
             onSelectChild(scene.lastSelected, false)
             scene.lastSelected = -1
@@ -189,7 +190,6 @@ const Scene = () => {
         }
 
         scene.lastSelectedAsset = scene.projectAssets.findIndex((v: any) => (v.asset as Asset).index == asset.index)
-        //console.log(scene.lastSelectedAsset)
 
         dispatch({
             type: "context_3d@setSelectAsset",
@@ -223,6 +223,7 @@ const Scene = () => {
             delObject,
             objectChangeDetect,
             addAsset,
+            updatePic,
             setSelectAsset
         )
 
