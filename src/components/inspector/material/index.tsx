@@ -9,16 +9,17 @@ import {
 } from '@chakra-ui/react'
 
 import {
-    MeshPhysicalMaterial,
-    Vector2
-} from 'three'
+    MutableRefObject,
+    useRef,
+    useState
+} from 'react'
 
 import { BsDot } from 'react-icons/bs'
 import { Asset, updatePic } from '../../../redux/slices/context_3d'
 import { SceneCanvas } from '../../display/scene/canvas'
 import MaterialAndMap from './material_and_map'
 import MaterialSlider from './material_slider.tsx'
-import { MutableRefObject, useRef, useState } from 'react'
+import { MeshPhysicalMaterial } from 'three'
 
 const combindHex = (str: string): string => {
     while(str.length < 6) str = "0"+str
@@ -41,13 +42,21 @@ const Material: React.FC<{
 
     const [bump_map_scale, setBumpMapScale] = useState(0)
 
-    let ao_intensity: number = 1
+    const ao_map_intensity_input: MutableRefObject<HTMLInputElement> = useRef<HTMLInputElement>(null)
+    const [ao_map_intensity, setAoMapIntensity] = useState(0)
 
     const [metalness, setMetalness] = useState(0)
 
     const [roughness, setRoughness] = useState(0)
 
+    const emissive_intensity_input: MutableRefObject<HTMLInputElement> = useRef<HTMLInputElement>(null)
     let emissive_color: string = ""
+    const [emissive_intensity, setEmissiveIntensity] = useState(0)
+
+    const displacement_scale_input: MutableRefObject<HTMLInputElement> = useRef<HTMLInputElement>(null)
+    const displacement_bias_input: MutableRefObject<HTMLInputElement> = useRef<HTMLInputElement>(null)
+    const [displacement_scale, setDisplacementScale] = useState(0)
+    const [displacement_bias, setDisplacementBias] = useState(0)
 
     const [clearcoat, setClearcoat] = useState(0)
 
@@ -76,13 +85,17 @@ const Material: React.FC<{
 
                         if(bump_map_scale != material.bumpScale) setBumpMapScale(material.bumpScale)
 
-                        ao_intensity = material.aoMapIntensity
+                        if(ao_map_intensity != material.aoMapIntensity) setAoMapIntensity(material.aoMapIntensity)
 
                         if(metalness != material.metalness) setMetalness(material.metalness)
 
                         if(roughness != material.roughness) setRoughness(material.roughness)
 
                         emissive_color = "#"+combindHex(material.emissive.getHex().toString(16))
+                        if(emissive_intensity != material.emissiveIntensity) setEmissiveIntensity(material.emissiveIntensity)
+
+                        if(displacement_scale != material.displacementScale) setDisplacementScale(material.displacementScale)
+                        if(displacement_bias != material.displacementBias) setDisplacementBias(material.displacementBias)
 
                         if(clearcoat != material.clearcoat) setClearcoat(material.clearcoat)
                         if(clearcoat_roughness != material.clearcoatRoughness) setClearcoatRoughness(material.clearcoatRoughness)
@@ -249,7 +262,21 @@ const Material: React.FC<{
                                     px="2px"
                                     focusBorderColor="gray.400"
                                     textAlign="center"
-                                    defaultValue={ (ao_intensity).toFixed(2) }
+                                    defaultValue={ (ao_map_intensity).toFixed(2) }
+                                    type="number"
+                                    ref={ ao_map_intensity_input }
+                                    onBlur={ () => {
+                                            setAoMapIntensity(parseFloat(ao_map_intensity_input.current.value))
+                                            picRender()
+                                        }
+                                    }
+                                    onKeyPress={ (e) => {
+                                            if(e.key == "Enter") {
+                                                setAoMapIntensity(parseFloat(ao_map_intensity_input.current.value))
+                                                picRender()
+                                            }
+                                        }
+                                    }
                                 />
                             </HStack>
                         </VStack>
@@ -307,6 +334,20 @@ const Material: React.FC<{
                                     focusBorderColor="gray.400"
                                     textAlign="center"
                                     defaultValue={ (1).toFixed(2) }
+                                    type="number"
+                                    ref={ emissive_intensity_input }
+                                    onBlur={ () => {
+                                            setEmissiveIntensity(parseFloat(emissive_intensity_input.current.value))
+                                            picRender()
+                                        }
+                                    }
+                                    onKeyPress={ (e) => {
+                                            if(e.key == "Enter") {
+                                                setEmissiveIntensity(parseFloat(emissive_intensity_input.current.value))
+                                                picRender()
+                                            }
+                                        }
+                                    }
                                 />
                             </HStack>
                         </VStack>
@@ -329,7 +370,21 @@ const Material: React.FC<{
                                     px="2px"
                                     focusBorderColor="gray.400"
                                     textAlign="center"
-                                    defaultValue={ (1).toFixed(2) }
+                                    defaultValue={ (displacement_scale).toFixed(2) }
+                                    type="number"
+                                    ref={ displacement_scale_input }
+                                    onBlur={ () => {
+                                            setDisplacementScale(parseFloat(displacement_scale_input.current.value))
+                                            picRender()
+                                        }
+                                    }
+                                    onKeyPress={ (e) => {
+                                            if(e.key == "Enter") {
+                                                setDisplacementScale(parseFloat(displacement_scale_input.current.value))
+                                                picRender()
+                                            }
+                                        }
+                                    }
                                 />
                             </HStack>
                             <HStack
@@ -345,7 +400,21 @@ const Material: React.FC<{
                                     px="2px"
                                     focusBorderColor="gray.400"
                                     textAlign="center"
-                                    defaultValue={ (0).toFixed(2) }
+                                    defaultValue={ (displacement_bias).toFixed(2) }
+                                    type="number"
+                                    ref={ displacement_bias_input }
+                                    onBlur={ () => {
+                                            setDisplacementBias(parseFloat(displacement_bias_input.current.value))
+                                            picRender()
+                                        }
+                                    }
+                                    onKeyPress={ (e) => {
+                                            if(e.key == "Enter") {
+                                                setDisplacementBias(parseFloat(displacement_bias_input.current.value))
+                                                picRender()
+                                            }
+                                        }
+                                    }
                                 />
                             </HStack>
                         </VStack>
