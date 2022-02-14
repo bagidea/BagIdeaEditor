@@ -33,7 +33,7 @@ const Material: React.FC<{
 {
     let buffer_material: MeshPhysicalMaterial = null
 
-    let diffuse_color: string = ""
+    const [diffuse_color, setDiffuseColor] = useState("#ffffff")
 
     const normal_map_scale_x_input: MutableRefObject<HTMLInputElement> = useRef<HTMLInputElement>(null)
     const normal_map_scale_y_input: MutableRefObject<HTMLInputElement> = useRef<HTMLInputElement>(null)
@@ -50,7 +50,7 @@ const Material: React.FC<{
     const [roughness, setRoughness] = useState(0)
 
     const emissive_intensity_input: MutableRefObject<HTMLInputElement> = useRef<HTMLInputElement>(null)
-    let emissive_color: string = ""
+    const [emissive_color, setEmissiveColor] = useState("#000000")
     const [emissive_intensity, setEmissiveIntensity] = useState(0)
 
     const displacement_scale_input: MutableRefObject<HTMLInputElement> = useRef<HTMLInputElement>(null)
@@ -71,7 +71,7 @@ const Material: React.FC<{
     const [clearcoat_normal_scale_x, setClearcoatNormalScaleX] = useState(0)
     const [clearcoat_normal_scale_y, setClearcoatNormalScaleY] = useState(0)
 
-    let sheen_color: string = ""
+    const [sheen_color, setSheenColor] = useState("#000000")
     const [sheen_roughness, setSheenRoughness] = useState(0)
 
     const [transmission, setTransmission] = useState(0)
@@ -87,7 +87,10 @@ const Material: React.FC<{
                     if(!!material) {
                         buffer_material = material
 
-                        diffuse_color = "#"+combindHex(material.color.getHex().toString(16))
+                        let color: string = ""
+
+                        color = "#"+combindHex(material.color.getHex().toString(16))
+                        if(diffuse_color != color) setDiffuseColor(color)
 
                         if(normal_map_scale_x != material.normalScale.x) setNormalMapScaleX(material.normalScale.x)
                         if(normal_map_scale_y != material.normalScale.y) setNormalMapScaleY(material.normalScale.y)
@@ -100,7 +103,8 @@ const Material: React.FC<{
 
                         if(roughness != material.roughness) setRoughness(material.roughness)
 
-                        emissive_color = "#"+combindHex(material.emissive.getHex().toString(16))
+                        color = "#"+combindHex(material.emissive.getHex().toString(16))
+                        if(emissive_color != color) setEmissiveColor(color)
                         if(emissive_intensity != material.emissiveIntensity) setEmissiveIntensity(material.emissiveIntensity)
 
                         if(displacement_scale != material.displacementScale) setDisplacementScale(material.displacementScale)
@@ -115,7 +119,8 @@ const Material: React.FC<{
                         if(clearcoat_normal_scale_y != material.clearcoatNormalScale.y) setClearcoatNormalScaleY(material.clearcoatNormalScale.y)
                         if(clearcoat_roughness != material.clearcoatRoughness) setClearcoatRoughness(material.clearcoatRoughness)
 
-                        sheen_color = "#"+combindHex(material.sheenColor.getHex().toString(16))
+                        color = "#"+combindHex(material.sheenColor.getHex().toString(16))
+                        if(sheen_color != color) setSheenColor(color)
                         if(sheen_roughness != material.sheenRoughness) setSheenRoughness(material.sheenRoughness)
 
                         if(transmission != material.transmission) setTransmission(material.transmission)
@@ -175,6 +180,7 @@ const Material: React.FC<{
                             text="Albedo"
                             hasColor={ true }
                             color_txt={ diffuse_color }
+                            setColor={ setDiffuseColor }
                         />
 
                         <VStack
@@ -334,6 +340,7 @@ const Material: React.FC<{
                                 text="Emissive"
                                 hasColor={ true }
                                 color_txt={ emissive_color }
+                                setColor={ setEmissiveColor }
                             />
                             <HStack
                                 w="full"
@@ -615,6 +622,7 @@ const Material: React.FC<{
                                 text="SheenColor"
                                 hasColor={ true }
                                 color_txt={ sheen_color }
+                                setColor={ setSheenColor }
                             />
                             <MaterialAndMap text="SheenRoughness" />
                             <MaterialSlider

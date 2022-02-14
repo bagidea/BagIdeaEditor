@@ -13,7 +13,7 @@ import {
     useColor
 } from 'react-color-palette'
 
-import React from 'react'
+import React, { Dispatch, SetStateAction } from 'react'
 import { BsDot } from 'react-icons/bs'
 import { MdTexture } from 'react-icons/md'
 import { CgColorBucket } from 'react-icons/cg'
@@ -22,7 +22,8 @@ const MaterialAndMap: React.FC<{
         text: string,
         hasColor?: boolean,
         color_txt?: string
-    }> = ({ text, hasColor, color_txt }) =>
+        setColor?: Dispatch<SetStateAction<string>>
+    }> = ({ text, hasColor, color_txt, setColor }) =>
 {
     const [color_palette, setColorPalette] = useColor("hex", "#ffffff")
 
