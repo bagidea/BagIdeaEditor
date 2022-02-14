@@ -42,9 +42,9 @@ const FilesMenu = () => {
                     >Save scene</MenuItem>
                 </MenuGroup>
                 <MenuGroup title="- Imports -">
-                    <MenuItem icon={ <BsDot /> }>GLTF/GLB</MenuItem>
-                    <MenuItem icon={ <BsDot /> }>FBX</MenuItem>
-                    <MenuItem icon={ <BsDot /> }>HDR</MenuItem>
+                    <MenuItem icon={ <BsDot /> }>Image JPEG/PNG</MenuItem>
+                    <MenuItem icon={ <BsDot /> }>Model GLTF/GLB</MenuItem>
+                    <MenuItem icon={ <BsDot /> }>Environment HDR</MenuItem>
                 </MenuGroup>
             </MenuList>
         </Menu>

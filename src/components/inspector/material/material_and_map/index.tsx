@@ -48,6 +48,12 @@ const MaterialAndMap: React.FC<{
             case "diffuse_color":
                 material.color = new ColorT(e)
                 break
+            case "emissive_color":
+                material.emissive = new ColorT(e)
+                break
+            case "sheen_color":
+                material.sheenColor = new ColorT(e)
+                break
             default:
                 console.log("invalid material type")
                 return
