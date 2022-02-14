@@ -180,14 +180,22 @@ const Material: React.FC<{
                             text="Albedo"
                             hasColor={ true }
                             color_txt={ diffuse_color }
-                            setColor={ setDiffuseColor }
+                            setBack={ setDiffuseColor }
+                            material={ buffer_material }
+                            type="diffuse_color"
+                            scene={ scene }
                         />
 
                         <VStack
                             w="full"
                             spacing="2px"
                         >
-                            <MaterialAndMap text="Normal" />
+                            <MaterialAndMap
+                                text="Normal"
+                                material={ buffer_material }
+                                type="normal"
+                                scene={ scene }
+                            />
                             <HStack
                                 w="full"
                                 pl="67px"
@@ -252,7 +260,12 @@ const Material: React.FC<{
                             w="full"
                             spacing="2px"
                         >
-                            <MaterialAndMap text="Bump" />
+                            <MaterialAndMap
+                                text="Bump"
+                                material={ buffer_material }
+                                type="bump"
+                                scene={ scene }
+                            />
                             <MaterialSlider
                                 text="Bump Scale"
                                 value={ bump_map_scale }
@@ -263,13 +276,23 @@ const Material: React.FC<{
                             />
                         </VStack>
 
-                        <MaterialAndMap text="Alpha" />
+                        <MaterialAndMap
+                            text="Alpha"
+                            material={ buffer_material }
+                            type="alpha"
+                            scene={ scene }
+                        />
 
                         <VStack
                             w="full"
                             spacing="2px"
                         >
-                            <MaterialAndMap text="Ambient Occusion" />
+                            <MaterialAndMap
+                                text="Ambient Occusion"
+                                material={ buffer_material }
+                                type="ao"
+                                scene={ scene }
+                            />
                             <HStack
                                 w="full"
                                 pl="67px"
@@ -306,7 +329,12 @@ const Material: React.FC<{
                             w="full"
                             spacing="2px"
                         >
-                            <MaterialAndMap text="Metalness" />
+                            <MaterialAndMap
+                                text="Metalness"
+                                material={ buffer_material }
+                                type="metalness"
+                                scene={ scene }
+                            />
                             <MaterialSlider
                                 text=""
                                 value={ metalness }
@@ -321,7 +349,12 @@ const Material: React.FC<{
                             w="full"
                             spacing="2px"
                         >
-                            <MaterialAndMap text="Roughness" />
+                            <MaterialAndMap
+                                text="Roughness"
+                                material={ buffer_material }
+                                type="roughness"
+                                scene={ scene }
+                            />
                             <MaterialSlider
                                 text=""
                                 value={ roughness }
@@ -340,7 +373,10 @@ const Material: React.FC<{
                                 text="Emissive"
                                 hasColor={ true }
                                 color_txt={ emissive_color }
-                                setColor={ setEmissiveColor }
+                                setBack={ setEmissiveColor }
+                                material={ buffer_material }
+                                type="emissive_color"
+                                scene={ scene }
                             />
                             <HStack
                                 w="full"
@@ -378,7 +414,12 @@ const Material: React.FC<{
                             w="full"
                             spacing="2px"
                         >
-                            <MaterialAndMap text="Displacement" />
+                            <MaterialAndMap
+                                text="Displacement"
+                                material={ buffer_material }
+                                type="displacement"
+                                scene={ scene }
+                            />
                             <HStack
                                 w="full"
                                 pl="67px"
@@ -445,7 +486,12 @@ const Material: React.FC<{
                             w="full"
                             spacing="2px"
                         >
-                            <MaterialAndMap text="Environment" />
+                            <MaterialAndMap
+                                text="Environment"
+                                material={ buffer_material }
+                                type="environment"
+                                scene={ scene }
+                            />
                             <HStack
                                 w="full"
                                 pl="67px"
@@ -482,7 +528,12 @@ const Material: React.FC<{
                             w="full"
                             spacing="2px"
                         >
-                            <MaterialAndMap text="Light" />
+                            <MaterialAndMap
+                                text="Light"
+                                material={ buffer_material }
+                                type="light"
+                                scene={ scene }
+                            />
                             <HStack
                                 w="full"
                                 pl="67px"
@@ -535,7 +586,12 @@ const Material: React.FC<{
                             w="full"
                             spacing="2px"
                         >
-                            <MaterialAndMap text="Clearcoat" />
+                            <MaterialAndMap
+                                text="Clearcoat"
+                                material={ buffer_material }
+                                type="clearcoat"
+                                scene={ scene }
+                            />
                             <MaterialSlider
                                 text=""
                                 value={ clearcoat }
@@ -544,7 +600,12 @@ const Material: React.FC<{
                                 type="clearcoat"
                                 scene={ scene }
                             />
-                            <MaterialAndMap text="Clearcoat Normal" />
+                            <MaterialAndMap
+                                text="Clearcoat Normal"
+                                material={ buffer_material }
+                                type="clearcoat_normal"
+                                scene={ scene }
+                            />
                             <HStack
                                 w="full"
                                 pl="67px"
@@ -603,7 +664,12 @@ const Material: React.FC<{
                                     />
                                 </HStack>
                             </HStack>
-                            <MaterialAndMap text="Clearcoat Roughness" />
+                            <MaterialAndMap
+                                text="Clearcoat Roughness"
+                                material={ buffer_material }
+                                type="clearcoat_roughness"
+                                scene={ scene }
+                            />
                             <MaterialSlider
                                 text=""
                                 value={ clearcoat_roughness }
@@ -622,9 +688,17 @@ const Material: React.FC<{
                                 text="SheenColor"
                                 hasColor={ true }
                                 color_txt={ sheen_color }
-                                setColor={ setSheenColor }
+                                setBack={ setSheenColor }
+                                material={ buffer_material }
+                                type="sheen_color"
+                                scene={ scene }
                             />
-                            <MaterialAndMap text="SheenRoughness" />
+                            <MaterialAndMap
+                                text="SheenRoughness"
+                                material={ buffer_material }
+                                type="sheen_roughness"
+                                scene={ scene }
+                            />
                             <MaterialSlider
                                 text=""
                                 value={ sheen_roughness }
@@ -639,7 +713,12 @@ const Material: React.FC<{
                             w="full"
                             spacing="2px"
                         >
-                            <MaterialAndMap text="Transmission" />
+                            <MaterialAndMap
+                                text="Transmission"
+                                material={ buffer_material }
+                                type="transmission"
+                                scene={ scene }
+                            />
                             <MaterialSlider
                                 text=""
                                 value={ transmission }

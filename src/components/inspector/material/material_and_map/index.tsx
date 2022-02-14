@@ -9,25 +9,62 @@ import {
 } from '@chakra-ui/react'
 
 import {
+    Color,
     ColorPicker,
     useColor
 } from 'react-color-palette'
 
-import React, { Dispatch, SetStateAction } from 'react'
+import {
+    Dispatch,
+    SetStateAction
+} from 'react'
+
+import {
+    Color as ColorT,
+    MeshPhysicalMaterial
+} from 'three'
+
+import React from 'react'
 import { BsDot } from 'react-icons/bs'
 import { MdTexture } from 'react-icons/md'
 import { CgColorBucket } from 'react-icons/cg'
+import { SceneCanvas } from '../../../display/scene/canvas'
 
 const MaterialAndMap: React.FC<{
         text: string,
         hasColor?: boolean,
         color_txt?: string
-        setColor?: Dispatch<SetStateAction<string>>
-    }> = ({ text, hasColor, color_txt, setColor }) =>
+        setBack?: Dispatch<SetStateAction<string>>
+        material: MeshPhysicalMaterial,
+        type: string,
+        scene: SceneCanvas
+    }> = ({ text, hasColor, color_txt, setBack, material, type, scene }) =>
 {
     const [color_palette, setColorPalette] = useColor("hex", "#ffffff")
 
-    const onChangeColorComplete = () => {
+    const updateAll = (e) => {
+        switch(type)
+        {
+            case "diffuse_color":
+                material.color = new ColorT(e)
+                break
+            default:
+                console.log("invalid material type")
+                return
+        }
+
+        setBack(e)
+    }
+
+    const picRender = () => {
+        scene.updatePic(scene.engine.screenRender.render(material))
+    }
+
+    const onChangeColor = (e: Color) => {
+        if(!!setBack) {
+            updateAll(e.hex)
+            picRender()
+        }
     }
 
     return (
@@ -82,6 +119,8 @@ const MaterialAndMap: React.FC<{
                         borderColor="gray.700"
                         rounded="20px"
                         _focus={ { outline: "0px" } }
+                        onBlur={ () => onChangeColor(color_palette) }
+                        onKeyPress={ (e) => { if(e.key == "Enter") onChangeColor(color_palette) } }
                     >
                         <PopoverBody>
                             <ColorPicker
@@ -89,7 +128,7 @@ const MaterialAndMap: React.FC<{
                                 height={ 200 }
                                 color={ color_palette }
                                 onChange={ setColorPalette }
-                                onChangeComplete={ () => onChangeColorComplete() }
+                                onChangeComplete={ (e: Color) => onChangeColor(e) }
                                 hideHSV
                                 hideRGB
                                 dark

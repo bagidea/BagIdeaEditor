@@ -43,35 +43,31 @@ const MaterialSlider: React.FC<{
         {
             case "bump_map_scale":
                 material.bumpScale = e
-                setBack(material.bumpScale)
                 break
             case "metalness":
                 material.metalness = e
-                setBack(material.metalness)
                 break
             case "roughness":
                 material.roughness = e
-                setBack(material.roughness)
                 break
             case "clearcoat":
                 material.clearcoat = e
-                setBack(material.clearcoat)
                 break
             case "clearcoat_roughness":
                 material.clearcoatRoughness = e
-                setBack(material.clearcoatRoughness)
                 break
             case "sheen_roughness":
                 material.sheenRoughness = e
-                setBack(material.sheenRoughness)
                 break
             case "transmission":
                 material.transmission = e
-                setBack(material.transmission)
                 break
             default:
                 console.log("invalid material type")
+                return
         }
+
+        setBack(e)
     }
 
     const picRender = () => {
