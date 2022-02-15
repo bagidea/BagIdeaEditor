@@ -6,6 +6,7 @@ import {
     MenuItem,
     MenuList
 } from '@chakra-ui/react'
+import { MutableRefObject } from 'react'
 
 import {
     AiFillFileAdd,
@@ -16,7 +17,7 @@ import {
 
 import { BsDot } from 'react-icons/bs'
 
-const FilesMenu = () => {
+const FilesMenu: React.FC<{ file_loader: MutableRefObject<HTMLInputElement> }> = ({ file_loader }) => {
     return (
         <Menu>
             <MenuButton
@@ -42,7 +43,11 @@ const FilesMenu = () => {
                     >Save scene</MenuItem>
                 </MenuGroup>
                 <MenuGroup title="- Imports -">
-                    <MenuItem icon={ <BsDot /> }>Image JPEG/PNG</MenuItem>
+                    <MenuItem
+                        icon={ <BsDot /> }
+                        onClick={ () => file_loader.current.click() }
+                    >Image JPEG/PNG</MenuItem>
+
                     <MenuItem icon={ <BsDot /> }>Model GLTF/GLB</MenuItem>
                     <MenuItem icon={ <BsDot /> }>Environment HDR</MenuItem>
                 </MenuGroup>
