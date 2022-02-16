@@ -1,7 +1,6 @@
-# 3D-Editor
+![alt text](https://github.com/bagidea/BagIdeaEditor/blob/master/public/logo.png?raw=true)
 
-
-Simple 3D Editor on web, This project created for learning to made 3D on web with Next and Three.js
+BagIdea Editor is a simple 3D Editor on web, This project created for learning to made 3D on web with Next and Three.js
 
 ## Getting Started
 
