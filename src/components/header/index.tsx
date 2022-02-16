@@ -1,6 +1,7 @@
 import {
     Flex,
     HStack,
+    Image,
     Input,
     Text
 } from '@chakra-ui/react'
@@ -47,21 +48,11 @@ const Header = () => {
                 ref={ file_image_loader }
             />
             <HStack spacing="5px">
-                <HStack
-                    mr="10px"
-                    spacing="5px"
-                >
-                    <GiAbstract027
-                        size="35px"
-                        color="#bbbbff"
-                    />
-                    <Text
-                        fontSize="2xl"
-                        px="5px"
-                        bgGradient="linear(to-l, #aaaaff, #aaaaaa)"
-                        bgClip="text"
-                    >3D EDITOR</Text>
-                </HStack>
+                <Image
+                    src="/logo.png"
+                    h="45px"
+                    mx="10px"
+                />
 
                 <FilesMenu file_loader={ file_image_loader } />
                 <EditMenu />
