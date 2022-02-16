@@ -2,8 +2,7 @@ import {
     Flex,
     HStack,
     Image,
-    Input,
-    Text
+    Input
 } from '@chakra-ui/react'
 
 import {
@@ -11,24 +10,43 @@ import {
     useRef
 } from 'react'
 
-import { GiAbstract027 } from 'react-icons/gi'
+import { useSelector } from 'react-redux'
+import { RootState } from '../../redux/reducers'
+import { Asset } from '../../redux/slices/context_3d'
+import { SceneCanvas } from '../display/scene/canvas'
 import AddMenu from './add'
 import EditMenu from './edit'
 import EffectMenu from './effect'
 import FilesMenu from './files'
 
 const Header = () => {
+    const { sceneContext } = useSelector((state: RootState) => state.context3DSlice)
+    const scene: SceneCanvas = sceneContext?.context
+
     const file_image_loader: MutableRefObject<HTMLInputElement> = useRef<HTMLInputElement>(null)
 
     const fileChange = () => {
         //console.log(file_loader.current.files[0])
         //console.log(file_loader.current.files[0].name)
         //console.log(file_loader.current.files[0].type)
+
         const reader: FileReader = new FileReader()
         reader.readAsDataURL(file_image_loader.current.files[0])
 
         reader.onloadend = () => {
             //console.log(reader.result)
+            const img: string = reader.result.toString()
+
+            const asset: Asset = {
+                name: file_image_loader.current.files[0].name,
+                pic: img, 
+                type: "texture",
+                index: scene.engine.addTexture(img),
+                isSelect: false
+            }
+
+            scene.engine.addAsset(asset)
+            console.log(asset.index)
         }
     }
 
@@ -52,6 +70,7 @@ const Header = () => {
                     src="/logo.png"
                     h="45px"
                     mx="10px"
+                    draggable={ false }
                 />
 
                 <FilesMenu file_loader={ file_image_loader } />

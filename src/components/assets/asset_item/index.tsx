@@ -43,6 +43,7 @@ const AssetItem: React.FC<{
                     src={ asset.pic }
                     w="100px"
                     h="100px"
+                    draggable={ false }
                 />
             </Flex>
 

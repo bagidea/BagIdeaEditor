@@ -7,6 +7,8 @@ import {
     PMREMGenerator,
     Raycaster,
     Scene,
+    Texture,
+    TextureLoader,
     Vector2,
     WebGLRenderer,
     WebGLRenderTarget
@@ -43,8 +45,10 @@ export class Engine {
 
     objects: Mesh[] = []
     materials: Material[] = []
+    textures: Texture[] = []
 
     rgbeLoader: RGBELoader
+    textureLoader: TextureLoader
 
     screenRender: ScreenRender
 
@@ -90,6 +94,8 @@ export class Engine {
         this.screenRender = new ScreenRender(100, 100)
 
         this.rgbeLoader = new RGBELoader()
+        this.textureLoader = new TextureLoader()
+
         let pmrem: PMREMGenerator = new PMREMGenerator(this.renderer)
         pmrem.compileEquirectangularShader()
         //this.rgbeLoader.load("/assets/environments/env_night.hdr", i => {
@@ -145,6 +151,12 @@ export class Engine {
         this.scene.add(mesh)
         this.objects.push(mesh)
         return mesh
+    }
+
+    addTexture(img: string): number {
+        const tex: Texture = this.textureLoader.load(img)
+        this.textures.push(tex)
+        return tex.id
     }
 
     intersectObjects(mX: number, mY: number): any {
