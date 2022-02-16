@@ -10,8 +10,12 @@ import {
     useState
 } from 'react'
 
+import {
+    useDispatch,
+    useSelector
+} from 'react-redux'
+
 import { ImEqualizer } from 'react-icons/im'
-import { useDispatch, useSelector } from 'react-redux'
 import { SceneChild } from '../../engine'
 import { RootState } from '../../redux/reducers'
 import { Asset } from '../../redux/slices/context_3d'

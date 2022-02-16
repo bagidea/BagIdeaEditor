@@ -15,7 +15,7 @@ import {
 } from 'react'
 
 import { BsDot } from 'react-icons/bs'
-import { Asset, updatePic } from '../../../redux/slices/context_3d'
+import { Asset } from '../../../redux/slices/context_3d'
 import { SceneCanvas } from '../../display/scene/canvas'
 import MaterialAndMap from './material_and_map'
 import MaterialSlider from './material_slider.tsx'
@@ -136,7 +136,7 @@ const Material: React.FC<{
 
     return (
         <Flex
-            display={ isSelect ? "flex" : "none" }
+            hidden={ !isSelect }
             w="full"
             padding="3px"
         >

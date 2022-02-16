@@ -44,7 +44,7 @@ const NameInput: React.FC<{
 
     return (
         <Flex
-            display={ isSelect ? "flex" : "none" }
+            hidden={ !isSelect }
             w="full"
             padding="3px"
         >
