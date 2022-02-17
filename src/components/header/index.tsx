@@ -2,7 +2,8 @@ import {
     Flex,
     HStack,
     Image,
-    Input
+    Input,
+    useDisclosure
 } from '@chakra-ui/react'
 
 import {
@@ -14,6 +15,7 @@ import { useSelector } from 'react-redux'
 import { RootState } from '../../redux/reducers'
 import { Asset } from '../../redux/slices/context_3d'
 import { SceneCanvas } from '../display/scene/canvas'
+import PleaseWaiting from '../please_waiting'
 import AddMenu from './add'
 import EditMenu from './edit'
 import EffectMenu from './effect'
@@ -22,6 +24,8 @@ import FilesMenu from './files'
 const Header = () => {
     const { sceneContext } = useSelector((state: RootState) => state.context3DSlice)
     const scene: SceneCanvas = sceneContext?.context
+
+    const { isOpen, onOpen, onClose } = useDisclosure()
 
     const file_image_loader: MutableRefObject<HTMLInputElement> = useRef<HTMLInputElement>(null)
 
@@ -32,6 +36,8 @@ const Header = () => {
 
         const reader: FileReader = new FileReader()
         reader.readAsDataURL(file_image_loader.current.files[0])
+
+        onOpen()
 
         reader.onloadend = () => {
             //console.log(reader.result)
@@ -46,7 +52,9 @@ const Header = () => {
             }
 
             scene.engine.addAsset(asset)
-            console.log(asset.index)
+            //console.log(asset.index)
+
+            onClose()
         }
     }
 
@@ -65,6 +73,7 @@ const Header = () => {
                 onChange={ fileChange }
                 ref={ file_image_loader }
             />
+
             <HStack spacing="5px">
                 <Image
                     src="/logo.png"
@@ -78,6 +87,8 @@ const Header = () => {
                 <AddMenu />
                 <EffectMenu />
             </HStack>
+
+            <PleaseWaiting isOpen={ isOpen } />
         </Flex>
     )
 }
