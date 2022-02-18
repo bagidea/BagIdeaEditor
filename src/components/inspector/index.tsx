@@ -33,6 +33,7 @@ const Inspector = () => {
 
     const [isSelect, setSelect] = useState(false)
     const [isMaterial, setMaterial] = useState(false)
+    const [isTexture, setTexture] = useState(false)
     const [isName, setName] = useState("")
 
     useEffect(() => {
@@ -48,7 +49,15 @@ const Inspector = () => {
         if(!!scene) is_asset = scene.lastSelectedAsset != -1 ? true : false
         else is_asset = false
 
-        setMaterial(is_asset)
+        setMaterial(false)
+        setTexture(false)
+
+        if(is_asset) {
+            //console.log(assets[scene.lastSelectedAsset])
+            const asset: Asset = (assets[scene.lastSelectedAsset] as any).asset as Asset
+            if(asset.type == "material") setMaterial(true)
+            else if(asset.type == "texture") setTexture(true)
+        }
 
         //if(!!scene && scene.lastSelected != -1) console.log(scene.sceneChildren[scene.lastSelected].object.name)
         //console.log(scene)
@@ -129,7 +138,7 @@ const Inspector = () => {
                         spacing="3px"
                     >
                         <NameInput
-                            isSelect={ isSelect || isMaterial }
+                            isSelect={ isSelect || isMaterial || isTexture }
                             text={ isName }
                             scene={ scene }
                             updateNameToStore={ updateName }
