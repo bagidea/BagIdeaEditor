@@ -74,6 +74,8 @@ const Header = () => {
                 ref={ file_image_loader }
             />
 
+            <PleaseWaiting isOpen={ isOpen } />
+
             <HStack spacing="5px">
                 <Image
                     src="/logo.png"
@@ -87,8 +89,6 @@ const Header = () => {
                 <AddMenu />
                 <EffectMenu />
             </HStack>
-
-            <PleaseWaiting isOpen={ isOpen } />
         </Flex>
     )
 }

@@ -93,6 +93,7 @@ const Assets = () => {
                             key={ i }
                             asset={ v }
                             scene={ scene }
+                            checkSelect={ checkSelect }
                         />
                     )
                 )

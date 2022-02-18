@@ -16,13 +16,15 @@ import { SceneCanvas } from "../../display/scene/canvas"
 const AssetItem: React.FC<{
         asset: Asset,
         scene: SceneCanvas,
+        checkSelect: () => void,
         //lastSelected: number,
         //setSelected: Dispatch<SetStateAction<number>>
-    }> = ({ asset, scene, /*lastSelected, setSelected*/ }) =>
+    }> = ({ asset, scene, checkSelect, /*lastSelected, setSelected*/ }) =>
 {
     const selectAsset = (e: MouseEvent) => {
         e.stopPropagation()
         //setSelected(asset.index)
+        checkSelect()
         scene.selectAsset(asset)
     }
 
@@ -37,6 +39,7 @@ const AssetItem: React.FC<{
                 w="100px"
                 h="100px"
                 bgColor={ asset.isSelect ? "blue.800" : "gray.800" }
+                boxShadow={ asset.isSelect ? "dark-lg" : "base" }
                 _hover={ { bgColor: asset.isSelect ? "blue.700" : "gray.700" } }
             >
                 <Image
@@ -52,6 +55,7 @@ const AssetItem: React.FC<{
                 justifyContent="center"
             >
                 <Text
+                    color={ asset.isSelect ? "blue.400" : "white" }
                     whiteSpace="nowrap"
                     overflow="hidden"
                     textOverflow="ellipsis"
