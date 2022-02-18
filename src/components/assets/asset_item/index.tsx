@@ -26,6 +26,7 @@ const AssetItem: React.FC<{
     }> = ({ asset, scene, checkSelect, /*lastSelected, setSelected*/ }) =>
 {
     const [is_drag, setDrag] = useBoolean(false)
+    const [is_out, setOut] = useBoolean(false)
     const [top_value, setTopValue] = useState("0px")
     const [left_value, setLeftValue] = useState("0px")
 
@@ -36,10 +37,17 @@ const AssetItem: React.FC<{
         scene.selectAsset(asset)
     }
 
-    const onDragAsset = () => {
+    const onDragAsset = (e: MouseEvent) => {
+        setDrag.on()
+    }
+
+    const onDraggable = (e: MouseEvent) => {
+        setLeftValue((e.clientX - 40)+"px")
+        setTopValue((e.clientY + 5)+"px")
     }
 
     const offDragAsset = () => {
+        setDrag.off()
     }
 
     return (
@@ -48,8 +56,6 @@ const AssetItem: React.FC<{
             spacing="5px"
             cursor="pointer"
             onClick={ (e) => selectAsset(e as any) }
-            onMouseDown={ () => onDragAsset() }
-            onMouseUp={ () => offDragAsset() }
         >
             <Flex
                 position={ is_drag ? "static" : "relative" }
@@ -64,25 +70,15 @@ const AssetItem: React.FC<{
                     w="100px"
                     h="100px"
                     draggable={ false }
+                    onMouseEnter={ setOut.off }
+                    onMouseLeave={ setOut.on }
                 />
 
                 <Draggable
                     position={ { x: 0, y: 0 } }
-                    onStart={ (e: MouseEvent) => {
-                            setDrag.on()
-                            setLeftValue((e.clientX - 40)+"px")
-                            setTopValue((e.clientY + 5)+"px")
-                        }
-                    }
-                    onDrag={ (e: MouseEvent) => {
-                            setLeftValue((e.clientX - 40)+"px")
-                            setTopValue((e.clientY + 5)+"px")
-                        }
-                    }
-                    onStop={ () => {
-                            setDrag.off()
-                        }
-                    }
+                    onStart={ onDragAsset }
+                    onDrag={ onDraggable }
+                    onStop={ offDragAsset }
                 >
                     <Box
                         position="absolute"
@@ -95,7 +91,7 @@ const AssetItem: React.FC<{
                 </Draggable>
 
                 <Box
-                    hidden={ !is_drag }
+                    hidden={ !is_out }
                     userSelect="none"
                     position="absolute"
                     w="40px"
