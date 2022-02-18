@@ -88,6 +88,7 @@ const MaterialAndMap: React.FC<{
                     border="1px solid"
                     borderColor="gray.700"
                     cursor="pointer"
+                    onMouseUp={ () => console.log(true) }
                 />
                 <BsDot />
                 <Text

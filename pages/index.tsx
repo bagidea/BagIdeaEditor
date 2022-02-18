@@ -14,6 +14,9 @@ import Scene from '../src/components/scene'
 const Index = () => {
     useEffect(() => {
         document.title = "BagIdea Editor"
+        document.addEventListener('contextmenu', (e: MouseEvent) => {
+            e.preventDefault()
+        })
     }, [])
 
     return (
@@ -21,6 +24,7 @@ const Index = () => {
             w="100vw"
             h="100vh"
             overflow="hidden"
+            userSelect="none"
         >
             <VStack spacing="5px">
                 <Header />
