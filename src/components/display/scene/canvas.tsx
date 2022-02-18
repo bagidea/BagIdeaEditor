@@ -17,10 +17,11 @@ import {
 import { Asset } from '../../../redux/slices/context_3d'
 
 export class SceneCanvas {
-    [x: string]: any
+    //[x: string]: any
     engine: Engine
     clickTmr: number
     lastSelected: number = -1
+    drag_asset: number = -1
     sceneChildren: SceneChild[] = []
     setMode: Dispatch<SetStateAction<string>>
     setSpace: Dispatch<SetStateAction<string>>
@@ -48,6 +49,7 @@ export class SceneCanvas {
     scaleXInput: HTMLInputElement
     scaleYInput: HTMLInputElement
     scaleZInput: HTMLInputElement
+
 
     constructor(
         windowContext: MutableRefObject<HTMLDivElement>,

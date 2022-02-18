@@ -40,7 +40,8 @@ let scene: SceneCanvas
 const Scene = () => {
     const windowContext: MutableRefObject<HTMLDivElement> = useRef<HTMLDivElement>(null)
     const canvas: MutableRefObject<HTMLCanvasElement> = useRef<HTMLCanvasElement>(null)
-    const _scene: SceneCanvas = useSelector((state: RootState) => state.context3DSlice.sceneContext)
+    const load_scene: any = (useSelector((state: RootState) => state.context3DSlice.sceneContext) as any)
+    const _scene: SceneCanvas = (!!load_scene)? load_scene.context as SceneCanvas : null
     const children: SceneChild[] = useSelector((state: RootState) => state.context3DSlice.sceneChildren)
     const assets: Asset[] = useSelector((state: RootState) => state.context3DSlice.assets)
     const dispatch = useDispatch()
@@ -260,7 +261,7 @@ const Scene = () => {
                                 _hover={ { bgColor: "gray.700" } }
                                 border="2px"
                                 borderColor={ (isMode == "translate") ? "white" : "gray.800" }
-                                onClick={ () => { _scene.context.setTransformMode("translate") } }
+                                onClick={ () => { _scene.setTransformMode("translate") } }
                                 cursor="pointer"
                             >
                                 <BsArrowsMove size="25px" />
@@ -275,7 +276,7 @@ const Scene = () => {
                                 _hover={ { bgColor: "gray.700" } }
                                 border="2px"
                                 borderColor={ (isMode == "rotate") ? "white" : "gray.800" }
-                                onClick={ () => { _scene.context.setTransformMode("rotate") } }
+                                onClick={ () => { _scene.setTransformMode("rotate") } }
                                 cursor="pointer"
                             >
                                 <MdCropRotate size="25px" />
@@ -290,7 +291,7 @@ const Scene = () => {
                                 _hover={ { bgColor: "gray.700" } }
                                 border="2px"
                                 borderColor={ (isMode == "scale") ? "white" : "gray.800" }
-                                onClick={ () => { _scene.context.setTransformMode("scale") } }
+                                onClick={ () => { _scene.setTransformMode("scale") } }
                                 cursor="pointer"
                             >
                                 <RiDragMoveFill size="25px" />
@@ -314,7 +315,7 @@ const Scene = () => {
                                     _hover={ { bgColor: "blue.700" } }
                                     border="2px"
                                     borderColor={ (isSpace == "world") ? "white" : "blue.800" }
-                                    onClick={ () => { _scene.context.setTransformSpace("world") } }
+                                    onClick={ () => { _scene.setTransformSpace("world") } }
                                     cursor="pointer"
                                 >
                                     <BiWorld size="25px" />
@@ -329,7 +330,7 @@ const Scene = () => {
                                     _hover={ { bgColor: "blue.700" } }
                                     border="2px"
                                     borderColor={ (isSpace == "local") ? "white" : "blue.800" }
-                                    onClick={ () => { _scene.context.setTransformSpace("local") } }
+                                    onClick={ () => { _scene.setTransformSpace("local") } }
                                     cursor="pointer"
                                 >
                                     <MdPivotTableChart size="25px" />

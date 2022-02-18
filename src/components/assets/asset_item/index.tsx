@@ -91,8 +91,7 @@ const AssetItem: React.FC<{
                 </Draggable>
 
                 <Box
-                    hidden={ !is_out }
-                    userSelect="none"
+                    hidden={ !is_drag || !is_out }
                     position="absolute"
                     w="40px"
                     h="40px"
@@ -100,6 +99,7 @@ const AssetItem: React.FC<{
                     left={ left_value }
                     bgImage={ asset.pic }
                     backgroundSize="contain"
+                    userSelect="none"
                     pointerEvents="none"
                 />
             </Flex>

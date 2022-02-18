@@ -26,7 +26,9 @@ const Index = () => {
             overflow="hidden"
             userSelect="none"
         >
-            <VStack spacing="5px">
+            <VStack
+                spacing="5px"
+            >
                 <Header />
 
                 <HStack

@@ -3,6 +3,7 @@ import type { AppProps } from 'next/app'
 import { Provider } from 'react-redux'
 import { theme } from '../src/chakra-theme'
 import store from '../src/redux/store'
+import '../src/styles/global.css'
 import '../src/styles/color_palette_styles.css'
 
 const App = ({ Component, pageProps }: AppProps): JSX.Element => (

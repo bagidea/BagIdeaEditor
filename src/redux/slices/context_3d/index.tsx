@@ -22,7 +22,7 @@ interface IContext3D {
     sceneChildren: SceneChild[],
     selectObject: any,
     selectTransforms: SelectTransform,
-    assets: Asset[]
+    assets: Asset[],
     selectAsset: any
 }
 
