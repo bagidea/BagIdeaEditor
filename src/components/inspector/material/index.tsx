@@ -499,14 +499,16 @@ const Material: React.FC<{
                                     ref={ displacement_scale_input }
                                     onBlur={ () => {
                                             displacement_scale_input.current.value = displacement_scale_input.current.value != "" ? displacement_scale_input.current.value : "0"
-                                            setDisplacementScale(parseFloat(displacement_scale_input.current.value))
+                                            buffer_material.displacementScale = parseFloat(displacement_scale_input.current.value)
+                                            setDisplacementScale(buffer_material.displacementScale)
                                             picRender()
                                         }
                                     }
                                     onKeyPress={ (e) => {
                                             if(e.key == "Enter") {
                                                 displacement_scale_input.current.value = displacement_scale_input.current.value != "" ? displacement_scale_input.current.value : "0"
-                                                setDisplacementScale(parseFloat(displacement_scale_input.current.value))
+                                                buffer_material.displacementScale = parseFloat(displacement_scale_input.current.value)
+                                                setDisplacementScale(buffer_material.displacementScale)
                                                 picRender()
                                             }
                                         }
@@ -531,14 +533,16 @@ const Material: React.FC<{
                                     ref={ displacement_bias_input }
                                     onBlur={ () => {
                                             displacement_bias_input.current.value = displacement_bias_input.current.value != "" ? displacement_bias_input.current.value : "0"
-                                            setDisplacementBias(parseFloat(displacement_bias_input.current.value))
+                                            buffer_material.displacementBias = parseFloat(displacement_bias_input.current.value)
+                                            setDisplacementBias(buffer_material.displacementBias)
                                             picRender()
                                         }
                                     }
                                     onKeyPress={ (e) => {
                                             if(e.key == "Enter") {
                                                 displacement_bias_input.current.value = displacement_bias_input.current.value != "" ? displacement_bias_input.current.value : "0"
-                                                setDisplacementBias(parseFloat(displacement_bias_input.current.value))
+                                                buffer_material.displacementBias = parseFloat(displacement_bias_input.current.value)
+                                                setDisplacementBias(buffer_material.displacementBias)
                                                 picRender()
                                             }
                                         }
