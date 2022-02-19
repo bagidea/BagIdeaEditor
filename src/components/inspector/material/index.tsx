@@ -707,14 +707,16 @@ const Material: React.FC<{
                                         ref={ clearcoat_normal_scale_x_input }
                                         onBlur={ () => {
                                                 clearcoat_normal_scale_x_input.current.value = clearcoat_normal_scale_x_input.current.value != "" ? clearcoat_normal_scale_x_input.current.value : "0"
-                                                setClearcoatNormalScaleX(parseFloat(clearcoat_normal_scale_x_input.current.value))
+                                                buffer_material.clearcoatNormalScale.setX(parseFloat(clearcoat_normal_scale_x_input.current.value))
+                                                setClearcoatNormalScaleX(buffer_material.clearcoatNormalScale.x)
                                                 picRender()
                                             }
                                         }
                                         onKeyPress={ (e) => {
                                                 if(e.key == "Enter") {
                                                     clearcoat_normal_scale_x_input.current.value = clearcoat_normal_scale_x_input.current.value != "" ? clearcoat_normal_scale_x_input.current.value : "0"
-                                                    setClearcoatNormalScaleX(parseFloat(clearcoat_normal_scale_x_input.current.value))
+                                                    buffer_material.clearcoatNormalScale.setX(parseFloat(clearcoat_normal_scale_x_input.current.value))
+                                                    setClearcoatNormalScaleX(buffer_material.clearcoatNormalScale.x)
                                                     picRender()
                                                 }
                                             }
@@ -734,14 +736,16 @@ const Material: React.FC<{
                                         ref={ clearcoat_normal_scale_y_input }
                                         onBlur={ () => {
                                                 clearcoat_normal_scale_y_input.current.value = clearcoat_normal_scale_y_input.current.value != "" ? clearcoat_normal_scale_y_input.current.value : "0"
-                                                setClearcoatNormalScaleY(parseFloat(clearcoat_normal_scale_y_input.current.value))
+                                                buffer_material.clearcoatNormalScale.setY(parseFloat(clearcoat_normal_scale_y_input.current.value))
+                                                setClearcoatNormalScaleX(buffer_material.clearcoatNormalScale.y)
                                                 picRender()
                                             }
                                         }
                                         onKeyPress={ (e) => {
                                                 if(e.key == "Enter") {
                                                     clearcoat_normal_scale_y_input.current.value = clearcoat_normal_scale_y_input.current.value != "" ? clearcoat_normal_scale_y_input.current.value : "0"
-                                                    setClearcoatNormalScaleY(parseFloat(clearcoat_normal_scale_y_input.current.value))
+                                                    buffer_material.clearcoatNormalScale.setY(parseFloat(clearcoat_normal_scale_y_input.current.value))
+                                                    setClearcoatNormalScaleX(buffer_material.clearcoatNormalScale.y)
                                                     picRender()
                                                 }
                                             }
