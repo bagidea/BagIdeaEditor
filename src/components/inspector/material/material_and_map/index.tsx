@@ -165,16 +165,21 @@ const MaterialAndMap: React.FC<{
 
     const onDrop = () => {
         //console.log(scene.drag_asset)
-        const asset: Asset = ((assets.find((v: any) => (v.asset as Asset).index == scene.drag_asset)) as any).asset as Asset
-        //console.log(asset)
-        if(!!asset) {
-            if(asset.type == "texture") {
-                if(!!setBackTexture) {
-                    updateAllTexture(scene.engine.textures.find((v: Texture) => v.id == asset.index))
-                    picRender()
+        const item_drop: any = (assets.find((v: any) => (v.asset as Asset).index == scene.drag_asset)) as any
+
+        if(!!item_drop) {
+            const asset: Asset = item_drop.asset as Asset
+            //console.log(asset)
+            if(!!asset) {
+                if(asset.type == "texture") {
+                    if(!!setBackTexture) {
+                        updateAllTexture(scene.engine.textures.find((v: Texture) => v.id == asset.index))
+                        picRender()
+                    }
                 }
             }
         }
+
         scene.drag_asset = -1
     }
 
