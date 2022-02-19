@@ -28,10 +28,11 @@ import { RootState } from '../../redux/reducers'
 import { GeometryTypes } from '../../engine/geometry/geometryTypes'
 import { SelectTransform } from '../../redux/slices/context_3d'
 import { Mesh } from 'three'
+import { SceneCanvas } from '../display/scene/canvas'
 
 const AddMenu = () => {
-    const { sceneContext } = useSelector((state: RootState) => state.context3DSlice)
-    const engine: Engine = sceneContext?.context.engine
+    const load_scene: any = (useSelector((state: RootState) => state.context3DSlice.sceneContext) as any)
+    const scene: SceneCanvas = (!!load_scene) ? (load_scene as any).context as SceneCanvas : null
     const dispatch = useDispatch()
 
     const sendToStore = (obj: any) => {
@@ -72,7 +73,7 @@ const AddMenu = () => {
     }
 
     const addChild = (type: GeometryTypes) => {
-        const mesh: Mesh = engine.addObject(type)
+        const mesh: Mesh = scene.engine.addObject(type)
 
         const object: SceneChild = {
             name: mesh.name,
@@ -80,29 +81,29 @@ const AddMenu = () => {
             object: mesh
         }
 
-        if(sceneContext.context.lastSelectedAsset != -1) {
+        if(scene.lastSelectedAsset != -1) {
             dispatch({
                 type: "context_3d@setSelectAsset",
                 values: {
-                    index: sceneContext.context.lastSelectedAsset,
+                    index: scene.lastSelectedAsset,
                     isSelect: false
                 }
             })
-            sceneContext.context.lastSelectedAsset = -1
+            scene.lastSelectedAsset = -1
         }
 
-        if(sceneContext.context.lastSelected != -1) {
-            engine.transformControl.detach()
+        if(scene.lastSelected != -1) {
+            scene.engine.transformControl.detach()
 
-            onSelectChild(sceneContext.context.lastSelected, false)
+            onSelectChild(scene.lastSelected, false)
 
             dispatch({
                 type: "context_3d@setSelectObject",
                 object: null
             })
         }
-        engine.transformControl.attach(mesh)
-        sceneContext.context.lastSelected = sceneContext.context.sceneChildren.length
+        scene.engine.transformControl.attach(mesh)
+        scene.lastSelected = scene.sceneChildren.length
         sendToStore(mesh)
 
         dispatch({
@@ -110,7 +111,7 @@ const AddMenu = () => {
             object: object
         })
 
-        onSelectChild(sceneContext.context.sceneChildren.length, true)
+        onSelectChild(scene.sceneChildren.length, true)
 
         dispatch({
             type: "context_3d@setSelectObject",

@@ -209,6 +209,7 @@ const MaterialAndMap: React.FC<{
                     border="1px solid"
                     borderColor="gray.700"
                     bgImage={ pic_show }
+                    bgSize="contain"
                     cursor="pointer"
                     onMouseUp={ onDrop }
                     onClick={ onClearTexure }
