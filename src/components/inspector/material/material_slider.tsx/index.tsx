@@ -81,7 +81,9 @@ const MaterialSlider: React.FC<{
     }
 
     const inputChange = () => {
-        if(parseFloat(input.current.value) > 1) input.current.value = "1.0"
+        const value: number = parseFloat(input.current.value)
+        if(value > 1) input.current.value = "1.0"
+        else if(value < 0) input.current.value = "0.0"
         setSliderValue(100 * parseFloat(input.current.value))
         updateAll(parseFloat(input.current.value))
         picRender()

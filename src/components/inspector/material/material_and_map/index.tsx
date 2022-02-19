@@ -40,26 +40,28 @@ const MaterialAndMap: React.FC<{
         scene: SceneCanvas
     }> = ({ text, hasColor, color_txt, setBack, material, type, scene }) =>
 {
-    const [color_palette, setColorPalette] = useColor("hex", "#ffffff")
+    const [color_palette, setColorPalette] = useColor("hex", !!color_txt ? color_txt : "#000000")
 
     const updateAll = (e) => {
-        switch(type)
-        {
-            case "diffuse_color":
-                material.color = new ColorT(e)
-                break
-            case "emissive_color":
-                material.emissive = new ColorT(e)
-                break
-            case "sheen_color":
-                material.sheenColor = new ColorT(e)
-                break
-            default:
-                console.log("invalid material type")
-                return
-        }
+        if(!!material) {
+            switch(type)
+            {
+                case "diffuse_color":
+                    material.color = new ColorT(e)
+                    break
+                case "emissive_color":
+                    material.emissive = new ColorT(e)
+                    break
+                case "sheen_color":
+                    material.sheenColor = new ColorT(e)
+                    break
+                default:
+                    console.log("invalid material type")
+                    return
+            }
 
-        setBack(e)
+            setBack(e)
+        }
     }
 
     const picRender = () => {
@@ -71,6 +73,11 @@ const MaterialAndMap: React.FC<{
             updateAll(e.hex)
             picRender()
         }
+    }
+
+    const onDrop = () => {
+        console.log(scene.drag_asset)
+        scene.drag_asset = -1
     }
 
     return (
@@ -88,7 +95,7 @@ const MaterialAndMap: React.FC<{
                     border="1px solid"
                     borderColor="gray.700"
                     cursor="pointer"
-                    onMouseUp={ () => console.log(true) }
+                    onMouseUp={ onDrop }
                 />
                 <BsDot />
                 <Text

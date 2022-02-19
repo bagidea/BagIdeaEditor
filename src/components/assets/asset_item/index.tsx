@@ -39,6 +39,7 @@ const AssetItem: React.FC<{
 
     const onDragAsset = (e: MouseEvent) => {
         setDrag.on()
+        scene.drag_asset = asset.index
     }
 
     const onDraggable = (e: MouseEvent) => {
