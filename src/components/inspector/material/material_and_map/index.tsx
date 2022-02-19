@@ -39,10 +39,11 @@ const MaterialAndMap: React.FC<{
         hasColor?: boolean,
         color_txt?: string
         setBack?: Dispatch<SetStateAction<string>>
+        setBackTexture?: Dispatch<SetStateAction<any>>
         material: MeshPhysicalMaterial,
         type: string,
         scene: SceneCanvas
-    }> = ({ text, hasColor, color_txt, setBack, material, type, scene }) =>
+    }> = ({ text, hasColor, color_txt, setBack, setBackTexture, material, type, scene }) =>
 {
     const assets: Asset[] = useSelector((state: RootState) => state.context3DSlice.assets)
     const [color_palette, setColorPalette] = useColor("hex", !!color_txt ? color_txt : "#000000")
@@ -87,7 +88,13 @@ const MaterialAndMap: React.FC<{
         if(!!asset) {
             if(asset.type == "texture") {
                 material.map = scene.engine.textures.find((v: Texture) => v.id == asset.index)
-                console.log(material.map)
+                material.needsUpdate = true
+                //material.map.needsUpdate = true
+                //console.log(material.map)
+                if(!!setBackTexture) {
+                    setBackTexture(material.map)
+                    picRender()
+                }
             }
         }
         scene.drag_asset = -1

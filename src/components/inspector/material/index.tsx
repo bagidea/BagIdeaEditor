@@ -34,6 +34,7 @@ const Material: React.FC<{
     let buffer_material: MeshPhysicalMaterial = null
 
     const [diffuse_color, setDiffuseColor] = useState("#ffffff")
+    const [diffuse_map, setDiffuseMap] = useState<any>(null)
 
     const normal_map_scale_x_input: MutableRefObject<HTMLInputElement> = useRef<HTMLInputElement>(null)
     const normal_map_scale_y_input: MutableRefObject<HTMLInputElement> = useRef<HTMLInputElement>(null)
@@ -91,6 +92,7 @@ const Material: React.FC<{
 
                         color = "#"+combindHex(material.color.getHex().toString(16))
                         if(diffuse_color != color) setDiffuseColor(color)
+                        if(diffuse_map != material.map) setDiffuseMap(material.map)
 
                         if(normal_map_scale_x != material.normalScale.x) setNormalMapScaleX(material.normalScale.x)
                         if(normal_map_scale_y != material.normalScale.y) setNormalMapScaleY(material.normalScale.y)
@@ -181,6 +183,7 @@ const Material: React.FC<{
                             hasColor={ true }
                             color_txt={ diffuse_color }
                             setBack={ setDiffuseColor }
+                            setBackTexture={ setDiffuseMap }
                             material={ buffer_material }
                             type="diffuse_color"
                             scene={ scene }

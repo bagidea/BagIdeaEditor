@@ -111,16 +111,16 @@ const Scene = () => {
 
     const delObject = () => {
         if(scene.lastSelected != -1) {
-            dispatch({
-                type: "context_3d@removeSceneChild",
-                index: scene.lastSelected
-            })
-
             scene.engine.transformControl.detach()
 
             const index: number = scene.engine.objects.findIndex((v: any) =>
                     v.id == scene.sceneChildren[scene.lastSelected].object.object.id
                 )
+
+            dispatch({
+                type: "context_3d@removeSceneChild",
+                index: scene.lastSelected
+            })
 
             scene.engine.scene.remove(scene.engine.objects[index])
             scene.engine.objects.splice(index, 1)

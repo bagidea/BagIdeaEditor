@@ -89,7 +89,9 @@ export class Engine {
             color: 0xffffff,
             roughness: 0.25
         })
-        
+
+        basicMaterial.needsUpdate = true
+
         this.materials.push(basicMaterial)
         this.screenRender = new ScreenRender(100, 100)
 
@@ -155,6 +157,7 @@ export class Engine {
 
     addTexture(img: string): number {
         const tex: Texture = this.textureLoader.load(img)
+        //tex.needsUpdate = true
         this.textures.push(tex)
         return tex.id
     }
