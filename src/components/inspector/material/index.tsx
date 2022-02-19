@@ -45,6 +45,8 @@ const Material: React.FC<{
     const [bump_map_scale, setBumpMapScale] = useState(0)
     const [bump_map, setBumpMap] = useState<any>(null)
 
+    const [alpha_map, setAlphaMap] = useState<any>(null)
+
     const ao_map_intensity_input: MutableRefObject<HTMLInputElement> = useRef<HTMLInputElement>(null)
     const [ao_map_intensity, setAoMapIntensity] = useState(0)
     const [ao_map, setAoMap] = useState<any>(null)
@@ -105,6 +107,8 @@ const Material: React.FC<{
 
                         if(bump_map_scale != material.bumpScale) setBumpMapScale(material.bumpScale)
                         if(bump_map != material.bumpMap) setBumpMap(material.bumpMap)
+
+                        if(alpha_map != material.alphaMap) setAlphaMap(material.alphaMap)
 
                         if(ao_map_intensity != material.aoMapIntensity) setAoMapIntensity(material.aoMapIntensity)
                         if(ao_map != material.aoMap) setAoMap(material.aoMap)
@@ -293,8 +297,9 @@ const Material: React.FC<{
 
                         <MaterialAndMap
                             text="Alpha"
+                            setBack={ setAlphaMap }
                             material={ buffer_material }
-                            type="alpha"
+                            type="alpha_map"
                             scene={ scene }
                         />
 

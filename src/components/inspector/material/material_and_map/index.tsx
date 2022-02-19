@@ -86,6 +86,10 @@ const MaterialAndMap: React.FC<{
                     material.bumpMap = e
                     setBackTexture(material.bumpMap)
                     break
+                case "alpha_map":
+                    material.alphaMap = e
+                    setBackTexture(material.alphaMap)
+                    break
                 case "ao_map":
                     material.aoMap = e
                     setBackTexture(material.aoMap)
