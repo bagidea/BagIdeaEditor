@@ -183,6 +183,13 @@ const MaterialAndMap: React.FC<{
         scene.drag_asset = -1
     }
 
+    const onClearTexure = () => {
+        if(!!setBackTexture) {
+            updateAllTexture(null)
+            picRender()
+        }
+    }
+
     return (
         <HStack
             w="full"
@@ -199,6 +206,7 @@ const MaterialAndMap: React.FC<{
                     borderColor="gray.700"
                     cursor="pointer"
                     onMouseUp={ onDrop }
+                    onClick={ onClearTexure }
                 />
                 <BsDot />
                 <Text
