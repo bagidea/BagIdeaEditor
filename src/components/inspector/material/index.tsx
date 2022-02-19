@@ -40,11 +40,14 @@ const Material: React.FC<{
     const normal_map_scale_y_input: MutableRefObject<HTMLInputElement> = useRef<HTMLInputElement>(null)
     const [normal_map_scale_x, setNormalMapScaleX] = useState(0)
     const [normal_map_scale_y, setNormalMapScaleY] = useState(0)
+    const [normal_map, setNormalMap] = useState<any>(null)
 
     const [bump_map_scale, setBumpMapScale] = useState(0)
+    const [bump_map, setBumpMap] = useState<any>(null)
 
     const ao_map_intensity_input: MutableRefObject<HTMLInputElement> = useRef<HTMLInputElement>(null)
     const [ao_map_intensity, setAoMapIntensity] = useState(0)
+    const [ao_map, setAoMap] = useState<any>(null)
 
     const [metalness, setMetalness] = useState(0)
 
@@ -53,6 +56,7 @@ const Material: React.FC<{
     const emissive_intensity_input: MutableRefObject<HTMLInputElement> = useRef<HTMLInputElement>(null)
     const [emissive_color, setEmissiveColor] = useState("#000000")
     const [emissive_intensity, setEmissiveIntensity] = useState(0)
+    const [emissive_map, setEmissiveMap] = useState<any>(null)
 
     const displacement_scale_input: MutableRefObject<HTMLInputElement> = useRef<HTMLInputElement>(null)
     const displacement_bias_input: MutableRefObject<HTMLInputElement> = useRef<HTMLInputElement>(null)
@@ -74,6 +78,7 @@ const Material: React.FC<{
 
     const [sheen_color, setSheenColor] = useState("#000000")
     const [sheen_roughness, setSheenRoughness] = useState(0)
+    const [sheen_color_map, setSheenColorMap] = useState<any>(null)
 
     const [transmission, setTransmission] = useState(0)
 
@@ -96,10 +101,13 @@ const Material: React.FC<{
 
                         if(normal_map_scale_x != material.normalScale.x) setNormalMapScaleX(material.normalScale.x)
                         if(normal_map_scale_y != material.normalScale.y) setNormalMapScaleY(material.normalScale.y)
+                        if(normal_map != material.normalMap) setNormalMap(material.normalMap)
 
                         if(bump_map_scale != material.bumpScale) setBumpMapScale(material.bumpScale)
+                        if(bump_map != material.bumpMap) setBumpMap(material.bumpMap)
 
                         if(ao_map_intensity != material.aoMapIntensity) setAoMapIntensity(material.aoMapIntensity)
+                        if(ao_map != material.aoMap) setAoMap(material.aoMap)
 
                         if(metalness != material.metalness) setMetalness(material.metalness)
 
@@ -108,6 +116,7 @@ const Material: React.FC<{
                         color = "#"+combindHex(material.emissive.getHex().toString(16))
                         if(emissive_color != color) setEmissiveColor(color)
                         if(emissive_intensity != material.emissiveIntensity) setEmissiveIntensity(material.emissiveIntensity)
+                        if(emissive_map != material.emissiveMap) setEmissiveMap(material.emissiveMap)
 
                         if(displacement_scale != material.displacementScale) setDisplacementScale(material.displacementScale)
                         if(displacement_bias != material.displacementBias) setDisplacementBias(material.displacementBias)
@@ -124,6 +133,7 @@ const Material: React.FC<{
                         color = "#"+combindHex(material.sheenColor.getHex().toString(16))
                         if(sheen_color != color) setSheenColor(color)
                         if(sheen_roughness != material.sheenRoughness) setSheenRoughness(material.sheenRoughness)
+                        if(sheen_color_map != material.sheenColorMap) setSheenColorMap(material.sheenColorMap)
 
                         if(transmission != material.transmission) setTransmission(material.transmission)
                     }
@@ -195,8 +205,9 @@ const Material: React.FC<{
                         >
                             <MaterialAndMap
                                 text="Normal"
+                                setBackTexture={ setNormalMap }
                                 material={ buffer_material }
-                                type="normal"
+                                type="normal_map"
                                 scene={ scene }
                             />
                             <HStack
@@ -265,8 +276,9 @@ const Material: React.FC<{
                         >
                             <MaterialAndMap
                                 text="Bump"
+                                setBackTexture={ setBumpMap }
                                 material={ buffer_material }
-                                type="bump"
+                                type="bump_map"
                                 scene={ scene }
                             />
                             <MaterialSlider
@@ -292,8 +304,9 @@ const Material: React.FC<{
                         >
                             <MaterialAndMap
                                 text="Ambient Occusion"
+                                setBackTexture={ setAoMap }
                                 material={ buffer_material }
-                                type="ao"
+                                type="ao_map"
                                 scene={ scene }
                             />
                             <HStack
@@ -377,6 +390,7 @@ const Material: React.FC<{
                                 hasColor={ true }
                                 color_txt={ emissive_color }
                                 setBack={ setEmissiveColor }
+                                setBackTexture={ setEmissiveMap }
                                 material={ buffer_material }
                                 type="emissive_color"
                                 scene={ scene }
@@ -692,6 +706,7 @@ const Material: React.FC<{
                                 hasColor={ true }
                                 color_txt={ sheen_color }
                                 setBack={ setSheenColor }
+                                setBackTexture={ setSheenColorMap }
                                 material={ buffer_material }
                                 type="sheen_color"
                                 scene={ scene }

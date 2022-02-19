@@ -48,7 +48,7 @@ const MaterialAndMap: React.FC<{
     const assets: Asset[] = useSelector((state: RootState) => state.context3DSlice.assets)
     const [color_palette, setColorPalette] = useColor("hex", !!color_txt ? color_txt : "#000000")
 
-    const updateAll = (e) => {
+    const updateAllColor = (e) => {
         if(!!material) {
             switch(type)
             {
@@ -70,13 +70,51 @@ const MaterialAndMap: React.FC<{
         }
     }
 
+    const updateAllTexture = (e) => {
+        if(!!material) {
+            switch(type)
+            {
+                case "diffuse_color":
+                    material.map = e
+                    setBackTexture(material.map)
+                    break
+                case "normal_map":
+                    material.normalMap = e
+                    setBackTexture(material.normalMap)
+                    break
+                case "bump_map":
+                    material.bumpMap = e
+                    setBackTexture(material.bumpMap)
+                    break
+                case "ao_map":
+                    material.aoMap = e
+                    setBackTexture(material.aoMap)
+                    break
+                case "emissive_color":
+                    material.emissiveMap = e
+                    setBackTexture(material.emissiveMap)
+                    break
+                case "sheen_color":
+                    material.sheenColorMap = e
+                    setBackTexture(material.sheenColorMap)
+                    break
+                default:
+                    console.log("invalid material type")
+                    return
+            }
+
+            material.needsUpdate = true
+            //material.map.needsUpdate = true
+        }
+    }
+
     const picRender = () => {
         scene.updatePic(scene.engine.screenRender.render(material))
     }
 
     const onChangeColor = (e: Color) => {
         if(!!setBack) {
-            updateAll(e.hex)
+            updateAllColor(e.hex)
             picRender()
         }
     }
@@ -87,12 +125,8 @@ const MaterialAndMap: React.FC<{
         //console.log(asset)
         if(!!asset) {
             if(asset.type == "texture") {
-                material.map = scene.engine.textures.find((v: Texture) => v.id == asset.index)
-                material.needsUpdate = true
-                //material.map.needsUpdate = true
-                //console.log(material.map)
                 if(!!setBackTexture) {
-                    setBackTexture(material.map)
+                    updateAllTexture(scene.engine.textures.find((v: Texture) => v.id == asset.index))
                     picRender()
                 }
             }
