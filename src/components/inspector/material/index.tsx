@@ -360,14 +360,16 @@ const Material: React.FC<{
                                     ref={ ao_map_intensity_input }
                                     onBlur={ () => {
                                             ao_map_intensity_input.current.value = ao_map_intensity_input.current.value != "" ? ao_map_intensity_input.current.value : "0"
-                                            setAoMapIntensity(parseFloat(ao_map_intensity_input.current.value))
+                                            buffer_material.aoMapIntensity = parseFloat(ao_map_intensity_input.current.value)
+                                            setAoMapIntensity(buffer_material.aoMapIntensity)
                                             picRender()
                                         }
                                     }
                                     onKeyPress={ (e) => {
                                             if(e.key == "Enter") {
                                                 ao_map_intensity_input.current.value = ao_map_intensity_input.current.value != "" ? ao_map_intensity_input.current.value : "0"
-                                                setAoMapIntensity(parseFloat(ao_map_intensity_input.current.value))
+                                                buffer_material.aoMapIntensity = parseFloat(ao_map_intensity_input.current.value)
+                                                setAoMapIntensity(buffer_material.aoMapIntensity)
                                                 picRender()
                                             }
                                         }
