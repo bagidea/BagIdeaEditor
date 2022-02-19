@@ -16,7 +16,8 @@ import {
 
 import {
     Dispatch,
-    SetStateAction
+    SetStateAction,
+    useState
 } from 'react'
 
 import {
@@ -47,6 +48,7 @@ const MaterialAndMap: React.FC<{
 {
     const assets: Asset[] = useSelector((state: RootState) => state.context3DSlice.assets)
     const [color_palette, setColorPalette] = useColor("hex", !!color_txt ? color_txt : "#000000")
+    const [pic_show, setPicShow] = useState("")
 
     const updateAllColor = (e) => {
         if(!!material) {
@@ -175,6 +177,7 @@ const MaterialAndMap: React.FC<{
                     if(!!setBackTexture) {
                         updateAllTexture(scene.engine.textures.find((v: Texture) => v.id == asset.index))
                         picRender()
+                        setPicShow(asset.pic)
                     }
                 }
             }
@@ -187,6 +190,7 @@ const MaterialAndMap: React.FC<{
         if(!!setBackTexture) {
             updateAllTexture(null)
             picRender()
+            setPicShow("")
         }
     }
 
@@ -204,6 +208,7 @@ const MaterialAndMap: React.FC<{
                     boxSize="15px"
                     border="1px solid"
                     borderColor="gray.700"
+                    bgImage={ pic_show }
                     cursor="pointer"
                     onMouseUp={ onDrop }
                     onClick={ onClearTexure }

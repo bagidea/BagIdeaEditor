@@ -254,14 +254,16 @@ const Material: React.FC<{
                                         ref={ normal_map_scale_x_input }
                                         onBlur={ () => {
                                                 normal_map_scale_x_input.current.value = normal_map_scale_x_input.current.value != "" ? normal_map_scale_x_input.current.value : "0"
-                                                setNormalMapScaleX(parseFloat(normal_map_scale_x_input.current.value))
+                                                buffer_material.normalScale.setX(parseFloat(normal_map_scale_x_input.current.value))
+                                                setNormalMapScaleY(buffer_material.normalScale.x)
                                                 picRender()
                                             }
                                         }
                                         onKeyPress={ (e) => {
                                                 if(e.key == "Enter") {
                                                     normal_map_scale_x_input.current.value = normal_map_scale_x_input.current.value != "" ? normal_map_scale_x_input.current.value : "0"
-                                                    setNormalMapScaleX(parseFloat(normal_map_scale_x_input.current.value))
+                                                    buffer_material.normalScale.setX(parseFloat(normal_map_scale_x_input.current.value))
+                                                    setNormalMapScaleY(buffer_material.normalScale.x)
                                                     picRender()
                                                 }
                                             }
@@ -281,14 +283,16 @@ const Material: React.FC<{
                                         ref={ normal_map_scale_y_input }
                                         onBlur={ () => {
                                                 normal_map_scale_y_input.current.value = normal_map_scale_y_input.current.value != "" ? normal_map_scale_y_input.current.value : "0"
-                                                setNormalMapScaleY(parseFloat(normal_map_scale_y_input.current.value))
+                                                buffer_material.normalScale.setY(parseFloat(normal_map_scale_y_input.current.value))
+                                                setNormalMapScaleY(buffer_material.normalScale.y)
                                                 picRender()
                                             }
                                         }
                                         onKeyPress={ (e) => {
                                                 if(e.key == "Enter") {
                                                     normal_map_scale_y_input.current.value = normal_map_scale_y_input.current.value != "" ? normal_map_scale_y_input.current.value : "0"
-                                                    setNormalMapScaleY(parseFloat(normal_map_scale_y_input.current.value))
+                                                    buffer_material.normalScale.setY(parseFloat(normal_map_scale_y_input.current.value))
+                                                    setNormalMapScaleY(buffer_material.normalScale.y)
                                                     picRender()
                                                 }
                                             }
