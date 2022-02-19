@@ -452,14 +452,16 @@ const Material: React.FC<{
                                     ref={ emissive_intensity_input }
                                     onBlur={ () => {
                                             emissive_intensity_input.current.value = emissive_intensity_input.current.value != "" ? emissive_intensity_input.current.value : "0"
-                                            setEmissiveIntensity(parseFloat(emissive_intensity_input.current.value))
+                                            buffer_material.emissiveIntensity = parseFloat(emissive_intensity_input.current.value)
+                                            setEmissiveIntensity(buffer_material.emissiveIntensity)
                                             picRender()
                                         }
                                     }
                                     onKeyPress={ (e) => {
                                             if(e.key == "Enter") {
                                                 emissive_intensity_input.current.value = emissive_intensity_input.current.value != "" ? emissive_intensity_input.current.value : "0"
-                                                setEmissiveIntensity(parseFloat(emissive_intensity_input.current.value))
+                                                buffer_material.emissiveIntensity = parseFloat(emissive_intensity_input.current.value)
+                                                setEmissiveIntensity(buffer_material.emissiveIntensity)
                                                 picRender()
                                             }
                                         }
