@@ -253,12 +253,14 @@ const Material: React.FC<{
                                         type="number"
                                         ref={ normal_map_scale_x_input }
                                         onBlur={ () => {
+                                                normal_map_scale_x_input.current.value = normal_map_scale_x_input.current.value != "" ? normal_map_scale_x_input.current.value : "0"
                                                 setNormalMapScaleX(parseFloat(normal_map_scale_x_input.current.value))
                                                 picRender()
                                             }
                                         }
                                         onKeyPress={ (e) => {
                                                 if(e.key == "Enter") {
+                                                    normal_map_scale_x_input.current.value = normal_map_scale_x_input.current.value != "" ? normal_map_scale_x_input.current.value : "0"
                                                     setNormalMapScaleX(parseFloat(normal_map_scale_x_input.current.value))
                                                     picRender()
                                                 }
@@ -278,12 +280,14 @@ const Material: React.FC<{
                                         type="number"
                                         ref={ normal_map_scale_y_input }
                                         onBlur={ () => {
+                                                normal_map_scale_y_input.current.value = normal_map_scale_y_input.current.value != "" ? normal_map_scale_y_input.current.value : "0"
                                                 setNormalMapScaleY(parseFloat(normal_map_scale_y_input.current.value))
                                                 picRender()
                                             }
                                         }
                                         onKeyPress={ (e) => {
                                                 if(e.key == "Enter") {
+                                                    normal_map_scale_y_input.current.value = normal_map_scale_y_input.current.value != "" ? normal_map_scale_y_input.current.value : "0"
                                                     setNormalMapScaleY(parseFloat(normal_map_scale_y_input.current.value))
                                                     picRender()
                                                 }
@@ -351,12 +355,14 @@ const Material: React.FC<{
                                     type="number"
                                     ref={ ao_map_intensity_input }
                                     onBlur={ () => {
+                                            ao_map_intensity_input.current.value = ao_map_intensity_input.current.value != "" ? ao_map_intensity_input.current.value : "0"
                                             setAoMapIntensity(parseFloat(ao_map_intensity_input.current.value))
                                             picRender()
                                         }
                                     }
                                     onKeyPress={ (e) => {
                                             if(e.key == "Enter") {
+                                                ao_map_intensity_input.current.value = ao_map_intensity_input.current.value != "" ? ao_map_intensity_input.current.value : "0"
                                                 setAoMapIntensity(parseFloat(ao_map_intensity_input.current.value))
                                                 picRender()
                                             }
@@ -439,12 +445,14 @@ const Material: React.FC<{
                                     type="number"
                                     ref={ emissive_intensity_input }
                                     onBlur={ () => {
+                                            emissive_intensity_input.current.value = emissive_intensity_input.current.value != "" ? emissive_intensity_input.current.value : "0"
                                             setEmissiveIntensity(parseFloat(emissive_intensity_input.current.value))
                                             picRender()
                                         }
                                     }
                                     onKeyPress={ (e) => {
                                             if(e.key == "Enter") {
+                                                emissive_intensity_input.current.value = emissive_intensity_input.current.value != "" ? emissive_intensity_input.current.value : "0"
                                                 setEmissiveIntensity(parseFloat(emissive_intensity_input.current.value))
                                                 picRender()
                                             }
@@ -482,12 +490,14 @@ const Material: React.FC<{
                                     type="number"
                                     ref={ displacement_scale_input }
                                     onBlur={ () => {
+                                            displacement_scale_input.current.value = displacement_scale_input.current.value != "" ? displacement_scale_input.current.value : "0"
                                             setDisplacementScale(parseFloat(displacement_scale_input.current.value))
                                             picRender()
                                         }
                                     }
                                     onKeyPress={ (e) => {
                                             if(e.key == "Enter") {
+                                                displacement_scale_input.current.value = displacement_scale_input.current.value != "" ? displacement_scale_input.current.value : "0"
                                                 setDisplacementScale(parseFloat(displacement_scale_input.current.value))
                                                 picRender()
                                             }
@@ -512,12 +522,14 @@ const Material: React.FC<{
                                     type="number"
                                     ref={ displacement_bias_input }
                                     onBlur={ () => {
+                                            displacement_bias_input.current.value = displacement_bias_input.current.value != "" ? displacement_bias_input.current.value : "0"
                                             setDisplacementBias(parseFloat(displacement_bias_input.current.value))
                                             picRender()
                                         }
                                     }
                                     onKeyPress={ (e) => {
                                             if(e.key == "Enter") {
+                                                displacement_bias_input.current.value = displacement_bias_input.current.value != "" ? displacement_bias_input.current.value : "0"
                                                 setDisplacementBias(parseFloat(displacement_bias_input.current.value))
                                                 picRender()
                                             }
@@ -555,12 +567,14 @@ const Material: React.FC<{
                                     type="number"
                                     ref={ environment_map_intensity_input }
                                     onBlur={ () => {
+                                            environment_map_intensity_input.current.value = environment_map_intensity_input.current.value != "" ? environment_map_intensity_input.current.value : "0"
                                             setEnvironmentMapIntensity(parseFloat(environment_map_intensity_input.current.value))
                                             picRender()
                                         }
                                     }
                                     onKeyPress={ (e) => {
                                             if(e.key == "Enter") {
+                                                environment_map_intensity_input.current.value = environment_map_intensity_input.current.value != "" ? environment_map_intensity_input.current.value : "0"
                                                 setEnvironmentMapIntensity(parseFloat(environment_map_intensity_input.current.value))
                                                 picRender()
                                             }
@@ -598,12 +612,14 @@ const Material: React.FC<{
                                     type="number"
                                     ref={ light_map_intensity_input }
                                     onBlur={ () => {
+                                            light_map_intensity_input.current.value = light_map_intensity_input.current.value != "" ? light_map_intensity_input.current.value : "0"
                                             setLightMapIntensity(parseFloat(environment_map_intensity_input.current.value))
                                             picRender()
                                         }
                                     }
                                     onKeyPress={ (e) => {
                                             if(e.key == "Enter") {
+                                                light_map_intensity_input.current.value = light_map_intensity_input.current.value != "" ? light_map_intensity_input.current.value : "0"
                                                 setLightMapIntensity(parseFloat(environment_map_intensity_input.current.value))
                                                 picRender()
                                             }
@@ -674,12 +690,14 @@ const Material: React.FC<{
                                         type="number"
                                         ref={ clearcoat_normal_scale_x_input }
                                         onBlur={ () => {
+                                                clearcoat_normal_scale_x_input.current.value = clearcoat_normal_scale_x_input.current.value != "" ? clearcoat_normal_scale_x_input.current.value : "0"
                                                 setClearcoatNormalScaleX(parseFloat(clearcoat_normal_scale_x_input.current.value))
                                                 picRender()
                                             }
                                         }
                                         onKeyPress={ (e) => {
                                                 if(e.key == "Enter") {
+                                                    clearcoat_normal_scale_x_input.current.value = clearcoat_normal_scale_x_input.current.value != "" ? clearcoat_normal_scale_x_input.current.value : "0"
                                                     setClearcoatNormalScaleX(parseFloat(clearcoat_normal_scale_x_input.current.value))
                                                     picRender()
                                                 }
@@ -699,12 +717,14 @@ const Material: React.FC<{
                                         type="number"
                                         ref={ clearcoat_normal_scale_y_input }
                                         onBlur={ () => {
+                                                clearcoat_normal_scale_y_input.current.value = clearcoat_normal_scale_y_input.current.value != "" ? clearcoat_normal_scale_y_input.current.value : "0"
                                                 setClearcoatNormalScaleY(parseFloat(clearcoat_normal_scale_y_input.current.value))
                                                 picRender()
                                             }
                                         }
                                         onKeyPress={ (e) => {
                                                 if(e.key == "Enter") {
+                                                    clearcoat_normal_scale_y_input.current.value = clearcoat_normal_scale_y_input.current.value != "" ? clearcoat_normal_scale_y_input.current.value : "0"
                                                     setClearcoatNormalScaleY(parseFloat(clearcoat_normal_scale_y_input.current.value))
                                                     picRender()
                                                 }

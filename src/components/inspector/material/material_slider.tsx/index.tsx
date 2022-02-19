@@ -81,6 +81,7 @@ const MaterialSlider: React.FC<{
     }
 
     const inputChange = () => {
+        input.current.value = input.current.value != "" ? input.current.value : "0"
         const value: number = parseFloat(input.current.value)
         if(value > 1) input.current.value = "1.0"
         else if(value < 0) input.current.value = "0.0"
