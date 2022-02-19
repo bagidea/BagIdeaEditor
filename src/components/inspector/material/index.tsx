@@ -70,9 +70,11 @@ const Material: React.FC<{
 
     const environment_map_intensity_input: MutableRefObject<HTMLInputElement> = useRef<HTMLInputElement>(null)
     const [environment_map_intensity, setEnvironmentMapIntensity] = useState(0)
+    const [environment_map, setEnvironmentMap] = useState<any>(null)
 
     const light_map_intensity_input: MutableRefObject<HTMLInputElement> = useRef<HTMLInputElement>(null)
     const [light_map_intensity, setLightMapIntensity] = useState(0)
+    const [light_map, setLightMap] = useState<any>(null)
 
     const clearcoat_normal_scale_x_input: MutableRefObject<HTMLInputElement> = useRef<HTMLInputElement>(null)
     const clearcoat_normal_scale_y_input: MutableRefObject<HTMLInputElement> = useRef<HTMLInputElement>(null)
@@ -80,6 +82,9 @@ const Material: React.FC<{
     const [clearcoat_roughness, setClearcoatRoughness] = useState(0)
     const [clearcoat_normal_scale_x, setClearcoatNormalScaleX] = useState(0)
     const [clearcoat_normal_scale_y, setClearcoatNormalScaleY] = useState(0)
+    const [clearcoat_map, setClearcoatMap] = useState<any>(null)
+    const [clearcoat_normal_map, setClearcoatNormalMap] = useState<any>(null)
+    const [clearcoat_roughness_map, setClearcoatRoughnessMap] = useState<any>(null)
 
     const [sheen_color, setSheenColor] = useState("#000000")
     const [sheen_roughness, setSheenRoughness] = useState(0)
@@ -132,13 +137,18 @@ const Material: React.FC<{
                         if(displacement_map != material.displacementMap) setDisplacementMap(material.displacementMap)
 
                         if(environment_map_intensity != material.envMapIntensity) setEnvironmentMapIntensity(material.envMapIntensity)
+                        if(environment_map != material.envMap) setEnvironmentMap(material.envMap)
 
                         if(light_map_intensity != material.lightMapIntensity) setLightMapIntensity(material.lightMapIntensity)
+                        if(light_map != material.lightMap) setLightMap(material.lightMap)
 
                         if(clearcoat != material.clearcoat) setClearcoat(material.clearcoat)
                         if(clearcoat_normal_scale_x != material.clearcoatNormalScale.x) setClearcoatNormalScaleX(material.clearcoatNormalScale.x)
                         if(clearcoat_normal_scale_y != material.clearcoatNormalScale.y) setClearcoatNormalScaleY(material.clearcoatNormalScale.y)
                         if(clearcoat_roughness != material.clearcoatRoughness) setClearcoatRoughness(material.clearcoatRoughness)
+                        if(clearcoat_map != material.clearcoatMap) setClearcoatMap(material.clearcoatMap)
+                        if(clearcoat_normal_map != material.clearcoatNormalMap) setClearcoatNormalMap(material.clearcoatNormalMap)
+                        if(clearcoat_roughness_map != material.clearcoatRoughnessMap) setClearcoatRoughnessMap(material.clearcoatRoughnessMap)
 
                         color = "#"+combindHex(material.sheenColor.getHex().toString(16))
                         if(sheen_color != color) setSheenColor(color)
@@ -519,8 +529,9 @@ const Material: React.FC<{
                         >
                             <MaterialAndMap
                                 text="Environment"
+                                setBackTexture={ setEnvironmentMap }
                                 material={ buffer_material }
-                                type="environment"
+                                type="environment_map"
                                 scene={ scene }
                             />
                             <HStack
@@ -561,8 +572,9 @@ const Material: React.FC<{
                         >
                             <MaterialAndMap
                                 text="Light"
+                                setBackTexture={ setLightMap }
                                 material={ buffer_material }
-                                type="light"
+                                type="light_map"
                                 scene={ scene }
                             />
                             <HStack
@@ -619,8 +631,9 @@ const Material: React.FC<{
                         >
                             <MaterialAndMap
                                 text="Clearcoat"
+                                setBackTexture={ setClearcoatMap }
                                 material={ buffer_material }
-                                type="clearcoat"
+                                type="clearcoat_map"
                                 scene={ scene }
                             />
                             <MaterialSlider
@@ -633,8 +646,9 @@ const Material: React.FC<{
                             />
                             <MaterialAndMap
                                 text="Clearcoat Normal"
+                                setBackTexture={ setClearcoatNormalMap }
                                 material={ buffer_material }
-                                type="clearcoat_normal"
+                                type="clearcoat_normal_map"
                                 scene={ scene }
                             />
                             <HStack
@@ -697,8 +711,9 @@ const Material: React.FC<{
                             </HStack>
                             <MaterialAndMap
                                 text="Clearcoat Roughness"
+                                setBackTexture={ setClearcoatRoughnessMap }
                                 material={ buffer_material }
-                                type="clearcoat_roughness"
+                                type="clearcoat_roughness_map"
                                 scene={ scene }
                             />
                             <MaterialSlider

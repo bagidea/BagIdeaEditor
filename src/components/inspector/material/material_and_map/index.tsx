@@ -110,6 +110,26 @@ const MaterialAndMap: React.FC<{
                     material.displacementMap = e
                     setBackTexture(material.displacementMap)
                     break
+                case "environment_map":
+                    material.envMap = e
+                    setBackTexture(material.envMap)
+                    break
+                case "light_map":
+                    material.lightMap = e
+                    setBackTexture(material.lightMap)
+                    break
+                case "clearcoat_map":
+                    material.clearcoatMap = e
+                    setBackTexture(material.clearcoatMap)
+                    break
+                case "clearcoat_normal_map":
+                    material.clearcoatNormalMap = e
+                    setBackTexture(material.clearcoatNormalMap)
+                    break
+                case "clearcoat_roughness_map":
+                    material.clearcoatRoughness = e
+                    setBackTexture(material.clearcoatRoughnessMap)
+                    break
                 case "sheen_color":
                     material.sheenColorMap = e
                     setBackTexture(material.sheenColorMap)
