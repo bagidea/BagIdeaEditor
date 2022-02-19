@@ -89,8 +89,10 @@ const Material: React.FC<{
     const [sheen_color, setSheenColor] = useState("#000000")
     const [sheen_roughness, setSheenRoughness] = useState(0)
     const [sheen_color_map, setSheenColorMap] = useState<any>(null)
+    const [sheen_roughness_map, setSheenRoughnessMap] = useState<any>(null)
 
     const [transmission, setTransmission] = useState(0)
+    const [transmission_map, setTransmissionMap] = useState<any>(null)
 
     if(!!scene) {
         if(scene.lastSelectedAsset != -1) {
@@ -154,8 +156,10 @@ const Material: React.FC<{
                         if(sheen_color != color) setSheenColor(color)
                         if(sheen_roughness != material.sheenRoughness) setSheenRoughness(material.sheenRoughness)
                         if(sheen_color_map != material.sheenColorMap) setSheenColorMap(material.sheenColorMap)
+                        if(sheen_roughness_map != material.sheenRoughnessMap) setSheenRoughnessMap(material.sheenRoughnessMap)
 
                         if(transmission != material.transmission) setTransmission(material.transmission)
+                        if(transmission_map != material.transmissionMap) setTransmissionMap(material.transmissionMap)
                     }
                 }
             }
@@ -742,8 +746,9 @@ const Material: React.FC<{
                             />
                             <MaterialAndMap
                                 text="SheenRoughness"
+                                setBackTexture={ setSheenRoughnessMap }
                                 material={ buffer_material }
-                                type="sheen_roughness"
+                                type="sheen_roughness_map"
                                 scene={ scene }
                             />
                             <MaterialSlider
@@ -762,8 +767,9 @@ const Material: React.FC<{
                         >
                             <MaterialAndMap
                                 text="Transmission"
+                                setBackTexture={ setTransmissionMap }
                                 material={ buffer_material }
-                                type="transmission"
+                                type="transmission_map"
                                 scene={ scene }
                             />
                             <MaterialSlider

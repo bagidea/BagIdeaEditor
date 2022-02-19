@@ -134,6 +134,14 @@ const MaterialAndMap: React.FC<{
                     material.sheenColorMap = e
                     setBackTexture(material.sheenColorMap)
                     break
+                case "sheen_roughness_map":
+                    material.sheenRoughnessMap = e
+                    setBackTexture(material.sheenRoughnessMap)
+                    break
+                case "transmission_map":
+                    material.transmissionMap = e
+                    setBackTexture(material.transmissionMap)
+                    break
                 default:
                     console.log("invalid material type")
                     return
