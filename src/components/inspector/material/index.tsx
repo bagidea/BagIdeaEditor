@@ -580,14 +580,16 @@ const Material: React.FC<{
                                     ref={ environment_map_intensity_input }
                                     onBlur={ () => {
                                             environment_map_intensity_input.current.value = environment_map_intensity_input.current.value != "" ? environment_map_intensity_input.current.value : "0"
-                                            setEnvironmentMapIntensity(parseFloat(environment_map_intensity_input.current.value))
+                                            buffer_material.envMapIntensity = parseFloat(environment_map_intensity_input.current.value)
+                                            setEnvironmentMapIntensity(buffer_material.envMapIntensity)
                                             picRender()
                                         }
                                     }
                                     onKeyPress={ (e) => {
                                             if(e.key == "Enter") {
                                                 environment_map_intensity_input.current.value = environment_map_intensity_input.current.value != "" ? environment_map_intensity_input.current.value : "0"
-                                                setEnvironmentMapIntensity(parseFloat(environment_map_intensity_input.current.value))
+                                                buffer_material.envMapIntensity = parseFloat(environment_map_intensity_input.current.value)
+                                                setEnvironmentMapIntensity(buffer_material.envMapIntensity)
                                                 picRender()
                                             }
                                         }
@@ -625,14 +627,16 @@ const Material: React.FC<{
                                     ref={ light_map_intensity_input }
                                     onBlur={ () => {
                                             light_map_intensity_input.current.value = light_map_intensity_input.current.value != "" ? light_map_intensity_input.current.value : "0"
-                                            setLightMapIntensity(parseFloat(environment_map_intensity_input.current.value))
+                                            buffer_material.lightMapIntensity = parseFloat(environment_map_intensity_input.current.value)
+                                            setLightMapIntensity(buffer_material.lightMapIntensity)
                                             picRender()
                                         }
                                     }
                                     onKeyPress={ (e) => {
                                             if(e.key == "Enter") {
                                                 light_map_intensity_input.current.value = light_map_intensity_input.current.value != "" ? light_map_intensity_input.current.value : "0"
-                                                setLightMapIntensity(parseFloat(environment_map_intensity_input.current.value))
+                                                buffer_material.lightMapIntensity = parseFloat(environment_map_intensity_input.current.value)
+                                                setLightMapIntensity(buffer_material.lightMapIntensity)
                                                 picRender()
                                             }
                                         }
