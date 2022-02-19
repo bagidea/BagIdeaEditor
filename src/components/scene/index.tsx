@@ -27,8 +27,8 @@ const Scene = () => {
     const scene_panel: MutableRefObject<HTMLDivElement> = useRef<HTMLDivElement>(null)
     const children: SceneChild[] = useSelector((state: RootState) => state.context3DSlice.sceneChildren)
 
-    const { sceneContext } = useSelector((state: RootState) => state.context3DSlice)
-    const scene: SceneCanvas = sceneContext?.context
+    const load_scene: any = (useSelector((state: RootState) => state.context3DSlice.sceneContext) as any)
+    const scene: SceneCanvas = (!!load_scene) ? (load_scene as any).context as SceneCanvas : null
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -74,6 +74,7 @@ const Scene = () => {
             h="100%"
             bgColor="gray.900"
             padding="3px"
+            onMouseDown={ () => scene.drag_asset = -1 }
         >
             <Flex
                 w="100%"

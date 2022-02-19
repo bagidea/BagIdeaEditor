@@ -25,8 +25,8 @@ import NameInput from './name_input'
 import Transform from './transform'
 
 const Inspector = () => {
-    const { sceneContext } = useSelector((state: RootState) => state.context3DSlice)
-    const scene: SceneCanvas = sceneContext?.context
+    const load_scene: any = (useSelector((state: RootState) => state.context3DSlice.sceneContext) as any)
+    const scene: SceneCanvas = (!!load_scene) ? (load_scene as any).context as SceneCanvas : null
     const children: SceneChild[] = useSelector((state: RootState) => state.context3DSlice.sceneChildren)
     const assets: Asset[] = useSelector((state: RootState) => state.context3DSlice.assets)
     const dispatch = useDispatch()
@@ -97,6 +97,7 @@ const Inspector = () => {
             minW="350px"
             h="full"
             bgColor="gray.900"
+            onMouseDown={ () => scene.drag_asset = -1 }
         >
             <VStack
                 w="full"

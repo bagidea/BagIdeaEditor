@@ -16,8 +16,9 @@ import { SceneCanvas } from '../display/scene/canvas'
 import AssetItem from './asset_item'
 
 const Assets = () => {
-    const { sceneContext, assets } = useSelector((state: RootState) => state.context3DSlice)
-    const scene: SceneCanvas = sceneContext?.context
+    const load_scene: any = (useSelector((state: RootState) => state.context3DSlice.sceneContext) as any)
+    const scene: SceneCanvas = (!!load_scene) ? (load_scene as any).context as SceneCanvas : null
+    const assets: Asset[] = useSelector((state: RootState) => state.context3DSlice.assets)
     const [asset_objects, set_asset_objects] = useState([])
     const dispatch = useDispatch()
 
@@ -64,6 +65,11 @@ const Assets = () => {
             padding="10px"
             bgColor="gray.900"
             onClick={ checkSelect }
+            onMouseDown={ () => {
+                    console.log(true)
+                    scene.drag_asset = -1
+                }
+            }
         >
             <Flex
                 margin="5px"

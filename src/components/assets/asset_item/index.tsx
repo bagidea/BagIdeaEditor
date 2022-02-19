@@ -38,6 +38,7 @@ const AssetItem: React.FC<{
     }
 
     const onDragAsset = (e: MouseEvent) => {
+        e.stopPropagation()
         setDrag.on()
         scene.drag_asset = asset.index
     }
@@ -49,6 +50,7 @@ const AssetItem: React.FC<{
 
     const offDragAsset = () => {
         setDrag.off()
+        //scene.drag_asset = -1
     }
 
     return (
@@ -57,6 +59,7 @@ const AssetItem: React.FC<{
             spacing="5px"
             cursor="pointer"
             onClick={ (e) => selectAsset(e as any) }
+            onMouseDown={ () => scene.drag_asset = -1 }
         >
             <Flex
                 position={ is_drag ? "static" : "relative" }

@@ -21,6 +21,7 @@ export class SceneCanvas {
     engine: Engine
     clickTmr: number
     lastSelected: number = -1
+    lastSelectedAsset: number = -1
     drag_asset: number = -1
     sceneChildren: SceneChild[] = []
     setMode: Dispatch<SetStateAction<string>>
@@ -30,7 +31,6 @@ export class SceneCanvas {
     objectChangeDetect: () => void
     addAsset: (asset: Asset) => void
     updatePic: (pic: string) => void
-    lastSelectedAsset: number = -1
     projectAssets: Asset[]
     setSelectAsset: (asset: Asset) => void
     input_focus: boolean = false
