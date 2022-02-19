@@ -52,8 +52,10 @@ const Material: React.FC<{
     const [ao_map, setAoMap] = useState<any>(null)
 
     const [metalness, setMetalness] = useState(0)
+    const [metalness_map, setMetalnessMap] = useState<any>(null)
 
     const [roughness, setRoughness] = useState(0)
+    const [roughness_map, setRoughnessMap] = useState<any>(null)
 
     const emissive_intensity_input: MutableRefObject<HTMLInputElement> = useRef<HTMLInputElement>(null)
     const [emissive_color, setEmissiveColor] = useState("#000000")
@@ -64,6 +66,7 @@ const Material: React.FC<{
     const displacement_bias_input: MutableRefObject<HTMLInputElement> = useRef<HTMLInputElement>(null)
     const [displacement_scale, setDisplacementScale] = useState(0)
     const [displacement_bias, setDisplacementBias] = useState(0)
+    const [displacement_map, setDisplacementMap] = useState<any>(null)
 
     const environment_map_intensity_input: MutableRefObject<HTMLInputElement> = useRef<HTMLInputElement>(null)
     const [environment_map_intensity, setEnvironmentMapIntensity] = useState(0)
@@ -114,8 +117,10 @@ const Material: React.FC<{
                         if(ao_map != material.aoMap) setAoMap(material.aoMap)
 
                         if(metalness != material.metalness) setMetalness(material.metalness)
+                        if(metalness_map != material.metalnessMap) setMetalnessMap(material.metalnessMap)
 
                         if(roughness != material.roughness) setRoughness(material.roughness)
+                        if(roughness_map != material.roughnessMap) setRoughnessMap(material.roughnessMap)
 
                         color = "#"+combindHex(material.emissive.getHex().toString(16))
                         if(emissive_color != color) setEmissiveColor(color)
@@ -124,6 +129,7 @@ const Material: React.FC<{
 
                         if(displacement_scale != material.displacementScale) setDisplacementScale(material.displacementScale)
                         if(displacement_bias != material.displacementBias) setDisplacementBias(material.displacementBias)
+                        if(displacement_map != material.displacementMap) setDisplacementMap(material.displacementMap)
 
                         if(environment_map_intensity != material.envMapIntensity) setEnvironmentMapIntensity(material.envMapIntensity)
 
@@ -352,8 +358,9 @@ const Material: React.FC<{
                         >
                             <MaterialAndMap
                                 text="Metalness"
+                                setBackTexture={ setBumpMap }
                                 material={ buffer_material }
-                                type="metalness"
+                                type="metalness_map"
                                 scene={ scene }
                             />
                             <MaterialSlider
@@ -372,8 +379,9 @@ const Material: React.FC<{
                         >
                             <MaterialAndMap
                                 text="Roughness"
+                                setBackTexture={ setRoughnessMap }
                                 material={ buffer_material }
-                                type="roughness"
+                                type="roughness_map"
                                 scene={ scene }
                             />
                             <MaterialSlider
@@ -438,8 +446,9 @@ const Material: React.FC<{
                         >
                             <MaterialAndMap
                                 text="Displacement"
+                                setBackTexture={ setDisplacementMap }
                                 material={ buffer_material }
-                                type="displacement"
+                                type="displacement_map"
                                 scene={ scene }
                             />
                             <HStack

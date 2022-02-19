@@ -94,9 +94,21 @@ const MaterialAndMap: React.FC<{
                     material.aoMap = e
                     setBackTexture(material.aoMap)
                     break
+                case "metalness_map":
+                    material.metalnessMap = e
+                    setBackTexture(material.metalnessMap)
+                    break
+                case "roughness_map":
+                    material.roughnessMap = e
+                    setBackTexture(material.roughnessMap)
+                    break
                 case "emissive_color":
                     material.emissiveMap = e
                     setBackTexture(material.emissiveMap)
+                    break
+                case "displacement_map":
+                    material.displacementMap = e
+                    setBackTexture(material.displacementMap)
                     break
                 case "sheen_color":
                     material.sheenColorMap = e
