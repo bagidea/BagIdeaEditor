@@ -21,6 +21,7 @@ import {
 
 import {
     Color as ColorT,
+    Texture,
     MeshPhysicalMaterial
 } from 'three'
 
@@ -29,6 +30,9 @@ import { BsDot } from 'react-icons/bs'
 import { MdTexture } from 'react-icons/md'
 import { CgColorBucket } from 'react-icons/cg'
 import { SceneCanvas } from '../../../display/scene/canvas'
+import { Asset } from '../../../../redux/slices/context_3d'
+import { useSelector } from 'react-redux'
+import { RootState } from '../../../../redux/reducers'
 
 const MaterialAndMap: React.FC<{
         text: string,
@@ -40,6 +44,7 @@ const MaterialAndMap: React.FC<{
         scene: SceneCanvas
     }> = ({ text, hasColor, color_txt, setBack, material, type, scene }) =>
 {
+    const assets: Asset[] = useSelector((state: RootState) => state.context3DSlice.assets)
     const [color_palette, setColorPalette] = useColor("hex", !!color_txt ? color_txt : "#000000")
 
     const updateAll = (e) => {
@@ -76,7 +81,15 @@ const MaterialAndMap: React.FC<{
     }
 
     const onDrop = () => {
-        console.log(scene.drag_asset)
+        //console.log(scene.drag_asset)
+        const asset: Asset = ((assets.find((v: any) => (v.asset as Asset).index == scene.drag_asset)) as any).asset as Asset
+        //console.log(asset)
+        if(!!asset) {
+            if(asset.type == "texture") {
+                material.map = scene.engine.textures.find((v: Texture) => v.id == asset.index)
+                console.log(material.map)
+            }
+        }
         scene.drag_asset = -1
     }
 

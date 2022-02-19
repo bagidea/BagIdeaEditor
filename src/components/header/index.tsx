@@ -22,8 +22,8 @@ import EffectMenu from './effect'
 import FilesMenu from './files'
 
 const Header = () => {
-    const { sceneContext } = useSelector((state: RootState) => state.context3DSlice)
-    const scene: SceneCanvas = sceneContext?.context
+    const load_scene: any = (useSelector((state: RootState) => state.context3DSlice.sceneContext) as any)
+    const scene: SceneCanvas = (!!load_scene) ? (load_scene as any).context as SceneCanvas : null
 
     const { isOpen, onOpen, onClose } = useDisclosure()
 

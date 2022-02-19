@@ -65,11 +65,7 @@ const Assets = () => {
             padding="10px"
             bgColor="gray.900"
             onClick={ checkSelect }
-            onMouseDown={ () => {
-                    console.log(true)
-                    scene.drag_asset = -1
-                }
-            }
+            onMouseDown={ () => { scene.drag_asset = -1 } }
         >
             <Flex
                 margin="5px"
