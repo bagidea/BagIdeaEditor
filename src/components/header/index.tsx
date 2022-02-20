@@ -1,7 +1,7 @@
 import {
     Flex,
     HStack,
-    Image,
+    Image as ImageChakra,
     Input,
     useDisclosure
 } from '@chakra-ui/react'
@@ -29,6 +29,25 @@ const Header = () => {
 
     const file_image_loader: MutableRefObject<HTMLInputElement> = useRef<HTMLInputElement>(null)
 
+    const resizeImage = (file: File): Promise<Blob> => {
+        return new Promise((resolve, reject) => {
+            const image: HTMLImageElement = new Image()
+            image.src = URL.createObjectURL(file)
+
+            image.onload = () => {
+                const canvas: HTMLCanvasElement = document.createElement('canvas')
+                canvas.width = canvas.height = 100
+
+                const context: CanvasRenderingContext2D = canvas.getContext('2d')
+                context.drawImage(image, 0, 0, 100, 100)
+
+                canvas.toBlob(resolve, file.type)
+            }
+
+            image.onerror = reject
+        })
+    }
+
     const fileChange = () => {
         //console.log(file_loader.current.files[0])
         //console.log(file_loader.current.files[0].name)
@@ -43,7 +62,22 @@ const Header = () => {
             //console.log(reader.result)
             const img: string = reader.result.toString()
 
-            const asset: Asset = {
+            resizeImage(file_image_loader.current.files[0])
+            .then((v: Blob) => {
+                const asset: Asset = {
+                    name: file_image_loader.current.files[0].name,
+                    pic: URL.createObjectURL(v), 
+                    type: "texture",
+                    index: scene.engine.addTexture(img),
+                    isSelect: false
+                }
+
+                scene.engine.addAsset(asset)
+
+                onClose()
+            })
+
+            /*const asset: Asset = {
                 name: file_image_loader.current.files[0].name,
                 pic: img, 
                 type: "texture",
@@ -54,7 +88,7 @@ const Header = () => {
             scene.engine.addAsset(asset)
             //console.log(asset.index)
 
-            onClose()
+            onClose()*/
         }
     }
 
@@ -77,7 +111,7 @@ const Header = () => {
             <PleaseWaiting isOpen={ isOpen } />
 
             <HStack spacing="5px">
-                <Image
+                <ImageChakra
                     src="/logo.png"
                     h="45px"
                     mx="10px"
