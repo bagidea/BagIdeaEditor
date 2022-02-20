@@ -24,6 +24,7 @@ export class SceneCanvas {
     lastSelectedAsset: number = -1
     drag_asset: number = -1
     sceneChildren: SceneChild[] = []
+    //checkSelect: () => void
     setMode: Dispatch<SetStateAction<string>>
     setSpace: Dispatch<SetStateAction<string>>
     setSelect: (object: any) => void
@@ -54,6 +55,7 @@ export class SceneCanvas {
     constructor(
         windowContext: MutableRefObject<HTMLDivElement>,
         canvas: MutableRefObject<HTMLCanvasElement>,
+        //checkSelect: () => void,
         setMode: Dispatch<SetStateAction<string>>,
         setSpace: Dispatch<SetStateAction<string>>,
         setSelect: (object: any) => void,
@@ -64,6 +66,7 @@ export class SceneCanvas {
         setSelectAsset: (asset: Asset) => void
     ) {
         this.engine = new Engine(windowContext.current, canvas.current)
+        //this.checkSelect = checkSelect
         this.setMode = setMode
         this.setSpace = setSpace
         this.setSelect = setSelect
@@ -107,6 +110,7 @@ export class SceneCanvas {
     }
 
     pointerUp = (e: PointerEvent) => {
+        //this.checkSelect()
         const click: boolean = ((new Date()).getTime()-this.clickTmr) < 150
 
         if(click) {

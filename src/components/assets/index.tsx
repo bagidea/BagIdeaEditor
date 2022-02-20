@@ -22,17 +22,6 @@ const Assets = () => {
     const [asset_objects, set_asset_objects] = useState([])
     const dispatch = useDispatch()
 
-    useEffect(() => {
-        const packs: Asset[] = []
-
-        assets.forEach((v: any) => {
-            const asset: Asset = v.asset
-            packs.push(asset)
-        })
-
-        set_asset_objects(packs)
-    }, [assets])
-
     const checkSelect = () => {
         if(scene.lastSelectedAsset != -1) {
             dispatch({
@@ -57,6 +46,17 @@ const Assets = () => {
             scene.lastSelected = -1
         }
     }
+
+    useEffect(() => {
+        const packs: Asset[] = []
+
+        assets.forEach((v: any) => {
+            const asset: Asset = v.asset
+            packs.push(asset)
+        })
+
+        set_asset_objects(packs)
+    }, [assets])
 
     return (
         <Flex

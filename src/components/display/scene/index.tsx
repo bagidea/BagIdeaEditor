@@ -49,6 +49,31 @@ const Scene = () => {
     const [isMode, setMode] = useState("translate")
     const [isSpace, setSpace] = useState("world")
 
+    const checkSelect = () => {
+        if(scene.lastSelectedAsset != -1) {
+            dispatch({
+                type: "context_3d@setSelectAsset",
+                values: {
+                    index: scene.lastSelectedAsset,
+                    isSelect: false
+                }
+            })
+            scene.lastSelectedAsset = -1
+        }
+
+        if(scene.lastSelected != -1) {
+            scene.engine.transformControl.detach()
+            dispatch({
+                type: "context_3d@setSceneSelectChild",
+                values: {
+                    index: scene.lastSelected,
+                    isSelect: false
+                }
+            })
+            scene.lastSelected = -1
+        }
+    }
+
     const onSelectChild = (index: number, value: boolean) => {
         dispatch({
             type: "context_3d@setSceneSelectChild",
@@ -60,34 +85,13 @@ const Scene = () => {
     }
 
     const setSelect = (object: any) => {
-        if(scene.lastSelectedAsset != -1) {
-            console.log(true)
-            dispatch({
-                type: "context_3d@setSelectAsset",
-                values: {
-                    index: scene.lastSelectedAsset,
-                    isSelect: false
-                }
-            })
-            scene.lastSelectedAsset = -1
-        }
+        checkSelect()
 
         if(!!object) {
-            if(scene.lastSelectedAsset != -1) {
-                dispatch({
-                    type: "context_3d@setSelectAsset",
-                    values: {
-                        index: scene.lastSelectedAsset,
-                        isSelect: false
-                    }
-                })
-                scene.lastSelectedAsset = -1
-            }
-
-            if(scene.lastSelected != -1) {
+            /*if(scene.lastSelected != -1) {
                 onSelectChild(scene.lastSelected, false)
                 scene.lastSelected = -1
-            }
+            }*/
 
             scene.lastSelected = scene.sceneChildren.findIndex((v: SceneChild) => v.object.object.id == object.id)
             onSelectChild(scene.lastSelected, true)
@@ -97,10 +101,10 @@ const Scene = () => {
                 object: scene.sceneChildren[scene.lastSelected]
             })
         } else {
-            if(scene.lastSelected != -1) {
+            /*if(scene.lastSelected != -1) {
                 onSelectChild(scene.lastSelected, false)
                 scene.lastSelected = -1
-            }
+            }*/
 
             dispatch({
                 type: "context_3d@setSelectObject",
@@ -218,6 +222,7 @@ const Scene = () => {
         //const scene: SceneCanvas = new SceneCanvas(
             windowContext,
             canvas,
+            //checkSelect,
             setMode,
             setSpace,
             setSelect,

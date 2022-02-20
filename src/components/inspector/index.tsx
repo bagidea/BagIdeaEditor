@@ -36,41 +36,6 @@ const Inspector = () => {
     const [isTexture, setTexture] = useState(false)
     const [isName, setName] = useState("")
 
-    useEffect(() => {
-        let is_trans: boolean = false
-
-        if(!!scene) is_trans = scene.lastSelected != -1 ? true : false
-        else is_trans = false
-
-        setSelect(is_trans)
-
-        let is_asset: boolean = false
-
-        if(!!scene) is_asset = scene.lastSelectedAsset != -1 ? true : false
-        else is_asset = false
-
-        setMaterial(false)
-        setTexture(false)
-
-        if(is_asset) {
-            //console.log(assets[scene.lastSelectedAsset])
-            const asset: Asset = (assets[scene.lastSelectedAsset] as any).asset as Asset
-            if(asset.type == "material") setMaterial(true)
-            else if(asset.type == "texture") setTexture(true)
-        }
-
-        //if(!!scene && scene.lastSelected != -1) console.log(scene.sceneChildren[scene.lastSelected].object.name)
-        //console.log(scene)
-
-        setName(
-            !!scene && scene.lastSelected != -1 ?
-            !!scene.sceneChildren[scene.lastSelected] ?
-            scene.sceneChildren[scene.lastSelected].object.name : "" :
-            !!scene && scene.lastSelectedAsset != -1 ?
-            (scene.projectAssets[scene.lastSelectedAsset] as any).asset.name : ""
-        )
-    }, [children, assets])
-
     const updateName = (name: string) => {
         //console.log(name)
 
@@ -90,6 +55,42 @@ const Inspector = () => {
             })
         }
     }
+
+    useEffect(() => {
+        let is_trans: boolean = false
+
+        if(!!scene) is_trans = scene.lastSelected != -1 ? true : false
+        else is_trans = false
+
+        setSelect(is_trans)
+
+        let is_asset: boolean = false
+
+        if(!!scene) is_asset = scene.lastSelectedAsset != -1 ? true : false
+        else is_asset = false
+
+        setMaterial(false)
+        setTexture(false)
+
+        if(is_asset) {
+            console.log(scene.lastSelectedAsset)
+            //console.log(assets[scene.lastSelectedAsset])
+            const asset: Asset = (assets[scene.lastSelectedAsset] as any).asset as Asset
+            if(asset.type == "material") setMaterial(true)
+            else if(asset.type == "texture") setTexture(true)
+        }
+
+        //if(!!scene && scene.lastSelected != -1) console.log(scene.sceneChildren[scene.lastSelected].object.name)
+        //console.log(scene)
+
+        setName(
+            !!scene && scene.lastSelected != -1 ?
+            !!scene.sceneChildren[scene.lastSelected] ?
+            scene.sceneChildren[scene.lastSelected].object.name : "" :
+            !!scene && scene.lastSelectedAsset != -1 ?
+            (scene.projectAssets[scene.lastSelectedAsset] as any).asset.name : ""
+        )
+    }, [children, assets])
 
     return (
         <Flex
