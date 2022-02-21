@@ -73,7 +73,7 @@ const Inspector = () => {
         setTexture(false)
 
         if(is_asset) {
-            console.log(scene.lastSelectedAsset)
+            //console.log(scene.lastSelectedAsset)
             //console.log(assets[scene.lastSelectedAsset])
             const asset: Asset = (assets[scene.lastSelectedAsset] as any).asset as Asset
             if(asset.type == "material") setMaterial(true)

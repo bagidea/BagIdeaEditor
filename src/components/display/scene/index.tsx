@@ -51,26 +51,33 @@ const Scene = () => {
 
     const checkSelect = () => {
         if(scene.lastSelectedAsset != -1) {
+            const temp: number = scene.lastSelectedAsset
+            scene.lastSelectedAsset = -1
+
             dispatch({
                 type: "context_3d@setSelectAsset",
                 values: {
-                    index: scene.lastSelectedAsset,
+                    index: temp,
                     isSelect: false
                 }
             })
-            scene.lastSelectedAsset = -1
+            //scene.lastSelectedAsset = -1
         }
 
         if(scene.lastSelected != -1) {
             scene.engine.transformControl.detach()
+
+            const temp: number = scene.lastSelected
+            scene.lastSelected = -1
+
             dispatch({
                 type: "context_3d@setSceneSelectChild",
                 values: {
-                    index: scene.lastSelected,
+                    index: temp,
                     isSelect: false
                 }
             })
-            scene.lastSelected = -1
+            //scene.lastSelected = -1
         }
     }
 
