@@ -55,6 +55,7 @@ const Assets = () => {
             packs.push(asset)
         })
 
+        packs.sort((a: Asset, b: Asset) => a.name > b.name ? 1 : -1)
         set_asset_objects(packs)
     }, [assets])
 
