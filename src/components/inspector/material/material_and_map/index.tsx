@@ -246,9 +246,9 @@ const MaterialAndMap: React.FC<{
                         w="285px"
                         pt="10px"
                         bgColor="gray.900"
-                        border="5px solid"
+                        border="4px solid"
                         borderColor="gray.700"
-                        rounded="20px"
+                        rounded="10px"
                         _focus={ { outline: "0px" } }
                         onBlur={ () => onChangeColor(color_palette) }
                         onKeyPress={ (e) => { if(e.key == "Enter") onChangeColor(color_palette) } }
