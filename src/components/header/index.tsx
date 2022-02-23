@@ -16,6 +16,7 @@ import { RootState } from '../../redux/reducers'
 import { Asset } from '../../redux/slices/context_3d'
 import { SceneCanvas } from '../display/scene/canvas'
 import PleaseWaiting from '../please_waiting'
+import { resizeImage } from '../resize_image'
 import AddMenu from './add'
 import EditMenu from './edit'
 import EffectMenu from './effect'
@@ -28,25 +29,6 @@ const Header = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
 
     const file_image_loader: MutableRefObject<HTMLInputElement> = useRef<HTMLInputElement>(null)
-
-    const resizeImage = (file: File): Promise<Blob> => {
-        return new Promise((resolve, reject) => {
-            const image: HTMLImageElement = new Image()
-            image.src = URL.createObjectURL(file)
-
-            image.onload = () => {
-                const canvas: HTMLCanvasElement = document.createElement('canvas')
-                canvas.width = canvas.height = 100
-
-                const context: CanvasRenderingContext2D = canvas.getContext('2d')
-                context.drawImage(image, 0, 0, 100, 100)
-
-                canvas.toBlob(resolve, file.type)
-            }
-
-            image.onerror = reject
-        })
-    }
 
     const fileChange = () => {
         //console.log(file_loader.current.files[0])

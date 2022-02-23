@@ -4,11 +4,16 @@ import {
     PopoverBody,
     PopoverContent,
     PopoverTrigger,
+    Image as ImageChakra,
+    Input,
+    useDisclosure,
     VStack
 } from '@chakra-ui/react'
 
 import {
+    MutableRefObject,
     useEffect,
+    useRef,
     useState
 } from 'react'
 
@@ -23,6 +28,8 @@ import { RootState } from '../../redux/reducers'
 import { Asset } from '../../redux/slices/context_3d'
 import { SceneCanvas } from '../display/scene/canvas'
 import AssetItem from './asset_item'
+import PleaseWaiting from '../please_waiting'
+import { resizeImage } from '../resize_image'
 
 const Assets = () => {
     const load_scene: any = (useSelector((state: RootState) => state.context3DSlice.sceneContext) as any)
@@ -30,6 +37,10 @@ const Assets = () => {
     const assets: Asset[] = useSelector((state: RootState) => state.context3DSlice.assets)
     const [asset_objects, set_asset_objects] = useState([])
     const dispatch = useDispatch()
+
+    const { isOpen, onOpen, onClose } = useDisclosure()
+
+    const file_image_loader: MutableRefObject<HTMLInputElement> = useRef<HTMLInputElement>(null)
 
     const checkSelect = () => {
         if(scene.lastSelectedAsset != -1) {
@@ -56,6 +67,32 @@ const Assets = () => {
         }
     }
 
+    const fileChange = () => {
+        const reader: FileReader = new FileReader()
+        reader.readAsDataURL(file_image_loader.current.files[0])
+
+        onOpen()
+
+        reader.onloadend = () => {
+            const img: string = reader.result.toString()
+
+            resizeImage(file_image_loader.current.files[0])
+            .then((v: Blob) => {
+                const asset: Asset = {
+                    name: file_image_loader.current.files[0].name,
+                    pic: URL.createObjectURL(v), 
+                    type: "texture",
+                    index: scene.engine.addTexture(img),
+                    isSelect: false
+                }
+
+                scene.engine.addAsset(asset)
+
+                onClose()
+            })
+        }
+    }
+
     useEffect(() => {
         const packs: Asset[] = []
 
@@ -77,6 +114,16 @@ const Assets = () => {
             onClick={ checkSelect }
             onMouseDown={ () => { scene.drag_asset = -1 } }
         >
+            <Input
+                type="file"
+                hidden={ true }
+                accept="image/jpeg, image/png"
+                onChange={ fileChange }
+                ref={ file_image_loader }
+            />
+
+            <PleaseWaiting isOpen={ isOpen } />
+
             <Popover
                 placement="top-start"
             >
@@ -124,6 +171,7 @@ const Assets = () => {
                             <Button
                                 w="full"
                                 _focus={ { outline: "0px" } }
+                                onClick={ () => file_image_loader.current.click() }
                             >Import Image</Button>
 
                             <Button
