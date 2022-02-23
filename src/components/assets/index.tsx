@@ -1,4 +1,13 @@
 import {
+    Button,
+    Popover,
+    PopoverBody,
+    PopoverContent,
+    PopoverTrigger,
+    VStack
+} from '@chakra-ui/react'
+
+import {
     useEffect,
     useState
 } from 'react'
@@ -68,27 +77,68 @@ const Assets = () => {
             onClick={ checkSelect }
             onMouseDown={ () => { scene.drag_asset = -1 } }
         >
-            <Flex
-                margin="5px"
-                w="100px"
-                h="100px"
-                border="5px dashed"
-                borderColor="blue.900"
-                alignItems="center"
-                justifyContent="center"
-                cursor="pointer"
-                color="#2c5282"
-                _hover={
-                    {
-                        color: "#5f85b5",
-                        borderColor: "blue.700"
-                    }
-                }
+            <Popover
+                placement="top-start"
             >
-                <RiAddCircleLine
-                    size="50px"
-                />
-            </Flex>
+                <PopoverTrigger>
+                    <Flex
+                        margin="5px"
+                        w="100px"
+                        h="100px"
+                        border="5px dashed"
+                        borderColor="blue.900"
+                        alignItems="center"
+                        justifyContent="center"
+                        cursor="pointer"
+                        color="#2c5282"
+                        _hover={
+                            {
+                                color: "#5f85b5",
+                                borderColor: "blue.700"
+                            }
+                        }
+                    >
+                        <RiAddCircleLine
+                            size="50px"
+                        />
+                    </Flex>
+                </PopoverTrigger>
+
+                <PopoverContent
+                    w="200px"
+                    bgColor="gray.900"
+                    border="4px solid"
+                    borderColor="gray.700"
+                    rounded="10px"
+                    _focus={ { outline: "0px" } }
+                >
+                    <PopoverBody>
+                        <VStack
+                            w="full"
+                        >
+                            <Button
+                                w="full"
+                                _focus={ { outline: "0px" } }
+                            >New Material</Button>
+
+                            <Button
+                                w="full"
+                                _focus={ { outline: "0px" } }
+                            >Import Image</Button>
+
+                            <Button
+                                w="full"
+                                _focus={ { outline: "0px" } }
+                            >Import Model</Button>
+
+                            <Button
+                                w="full"
+                                _focus={ { outline: "0px" } }
+                            >Import Environment</Button>
+                        </VStack>
+                    </PopoverBody>
+                </PopoverContent>
+            </Popover>
 
             {
                 asset_objects.map((v: Asset, i: number) => (
